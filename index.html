@@ -1,0 +1,101 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: default
+# title: Home
+heading: 'Your awesome heading'
+subheading: '昨夜西风凋碧树。独上高楼，望尽天涯路。'
+banner:
+  image: "/assets/images/banners/home.jpeg"
+  height: "100vh"
+---
+
+<div class="index-main">
+  <div id="service" class="index-section">
+    <h2 class="ttl">Service</h2>
+    <div class="section-wrapper">
+      <div class="service-section">
+        <h3 class="ttl">审思</h3>
+        <p class="ttl">DIRECTION</p>
+        <p class="icon">
+          <img src="https://u-d-l.jp/wp-content/themes/underline/images/icon_service01.jpg" alt="direction">
+        </p>
+        <p>
+          お客様の要望をヒアリングし、現状の問題点を洗い出し、効果的なプランを作成いたします。制作ではデザインに入る前の事前の準備が特に重要になります。何が必要で何が必要でないのかを判断し、費用対効果の高いWebサイトを作るための土台を作ります。
+        </p>
+      </div>
+      <div class="service-section">
+        <h3 class="ttl">明辨</h3>
+        <p class="ttl">DESIGN</p>
+        <p class="icon">
+          <img src="https://u-d-l.jp/wp-content/themes/underline/images/icon_service02.jpg" alt="direction">
+        </p>
+        <p>
+          ヒアリングに基づいたプランに沿って、デザインを作成いたします。人の使うものであることを常に意識して、使う人が迷わない、目的を達成できるデザインを心がけています。インターフェースの重要性が増す中でデザインの役割を理解し、そのプランに最適な提案をさせていただきます。
+        </p>
+      </div>
+      <div class="service-section">
+        <h3 class="ttl">笃行</h3>
+        <p class="ttl">CODING</p>
+        <p class="icon">
+          <img src="https://u-d-l.jp/wp-content/themes/underline/images/icon_service03.jpg" alt="direction">
+        </p>
+        <p>
+          デザインの意図を理解し、動きや効果を適切に使用することでWebサイトの仕上がりは大きく変わります。スマートフォンサイト、ワードプレスを使用した更新性の高いサイト、Javascriptを使用した動きのあるサイトなど、様々なサイトのコーディングを行っております。
+        </p>
+      </div>
+    </div>
+  </div>
+  <div id="works" class="index-section">
+    <h2 class="ttl">Works</h2>
+    <div class="section-wrapper">
+      <canvas id="earth-view"></canvas>
+      <div class="works-desc">
+        <h3 class="ttl"> GIS </h3>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis provident culpa soluta maiores,
+          excepturi dolorum, nemo pariatur nisi recusandae iste, tempore laborum eveniet quidem ratione! Laborum eos
+          deleniti ratione tempora.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum delectus eos corporis odit, magnam rerum ex est,
+          assumenda possimus praesentium, molestiae sed. Distinctio id, provident quos maiores similique aperiam
+          inventore?</p>
+      </div>
+    </div>
+  </div>
+  <div id="blogs" class="index-section">
+    <h2 class="ttl">Blogs</h2>
+    <div class="blogs-wrapper">
+      {% for post in site.posts limit:5 %}
+        <div class="blog-item">
+          {% assign article = post.content %}
+          {%- include functions.html func='get_article_excerpt' excerpt_size=128 -%}
+          {% assign excerpt = return %}
+          <a href="{{ post.url }}" class="blog-link">
+            <div class="blog-content">
+              {%- for category in post.categories limit: 1 -%}
+                <h5 class="blog-content__tag">{{ category }}</h5>
+              {%- endfor -%}
+              <h2 class="blog-content__headline">{{ heading | default: post.title | escape }}</h2>
+
+              <p class="post-excerpt">
+                {{ excerpt }}
+              </p>
+              <h5 class="blog-content__read-more"> - Read More</h5>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    </div>
+</div>
+<div id="contact" class="index-section">
+  <h2 class="ttl">Contact</h2>
+  <div class="contact-mail">
+    <a href="mailto:hi@tangyu.me">
+      <h3 class="contact-info">hi@tangyu.me</h3>
+    </a>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/86/three.min.js"></script>
+<script src="/assets/js/earth-3d-view.js"></script>
