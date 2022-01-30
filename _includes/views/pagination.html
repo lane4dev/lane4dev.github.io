@@ -32,11 +32,11 @@
       <p class="post-excerpt">
         {{ excerpt }} <span class="read_more"> <a href="{{ post_url }}">Read More</a></span>
       </p>
-      <div class="post-tags">
+      <ul class="post-tags">
         {%- for tag in post.tags -%}
-        <a class="post-tag" href="{{ '/blogs/tags.html ' | relative_url }}#{{tag}}">#{{tag}}</a>
+        <li class="post-tag"><a href="{{ '/blogs/tags.html ' | relative_url }}#{{tag}}">#{{tag}}</a></li>
         {%- endfor -%}
-      </div>
+      </ul>
     </li>
     {%- endfor -%}
   </ul>

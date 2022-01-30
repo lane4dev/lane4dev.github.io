@@ -19,9 +19,14 @@ html {
         .site-brand-inner, .page-link {
           color: #fff;
           transition: 0.1s color;
+        }
 
-          .theme-icon {
-            filter: invert(100%) sepia(0%) saturate(7495%) hue-rotate(103deg) brightness(98%) contrast(100%);
+        .header__inner, .page-link {
+          color: #fff;
+          transition: 0.1s color;
+
+          .header-menu__button-icon {
+            color: white;
           }
         }
 
@@ -51,7 +56,8 @@ html {
 
   &[data-scroll-status='down'] {
     header.site-header {
-      top: -$header-height;
+      // top: -$header-height;
+      transform: translateY(-$header-height);
     }
 
     .framework .sidebar {
@@ -99,7 +105,7 @@ html.global-disable-scroll {
   display: none;
   position: absolute;
   right: 8px;
-  top: 16px;
+  top: 20px;
 
   @include media-query($on-laptop) {
     display: block;
@@ -110,7 +116,7 @@ html.global-disable-scroll {
   display: none;
   position: absolute;
   right: 8px;
-  top: 16px;
+  top: 20px;
 }
 
 .icon--svg {
@@ -134,7 +140,10 @@ html.global-disable-scroll {
   background-color: $header-background-color;
   height: $header-height;
   width: 100%;
-  transition: height 0.2s, text-shadow 0.2s, top 0.2s;
+  // transition: height 0.2s, text-shadow 0.2s, top 0.2s;
+  --animation-waiting-time: .5s;
+  --animation-delay-multiplier: .07s;
+  transition: background-color 0.3s linear,transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, .06);
 
   // Positioning context for the mobile navigation icon
@@ -166,6 +175,19 @@ html.global-disable-scroll {
 .site-brand {
   line-height: $header-height;
   margin-right: 50px;
+
+  .site-brand-inner {
+    color: black;
+    font-size: 15.75px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    transition: 0.1s filter color;
+
+    .site-favicon {
+      width: 24px;
+      height: auto;
+    }
+  }
 }
 
 .site-nav {
@@ -180,9 +202,9 @@ html.global-disable-scroll {
     color: $header-text-color;
     transition: 0.1s ease-in-out;
 
-    .theme-icon {
+    .header-menu__button-icon {
       vertical-align: sub;
-      filter: invert(0%) sepia(0%) saturate(12%) hue-rotate(257deg) brightness(104%) contrast(104%);
+      color: $header-text-color;
     }
 
     svg {
@@ -221,12 +243,13 @@ html.global-disable-scroll {
 
   & > .header__drawer-container {
     @include media-query(1024px) {
-      margin: 0 20px;
+      margin: 0 48px;
     }
   }
 
   .header-menu__primary {
     padding: 80px 0 104px;
+    border-bottom: 1px solid #c6c6c6;
 
     .page-link {
       color: $header-text-color;
@@ -259,6 +282,7 @@ html.global-disable-scroll {
 
   ul {
     list-style: none;
+    margin-left: 0px;
   }
 
   @include media-query($on-laptop) {
@@ -332,6 +356,10 @@ html.global-disable-scroll {
   -ms-flex: none; /* <-- Fix IE footer issue */
   padding: $spacing-unit * 2 0;
   padding-top: 72px;
+
+  li, p {
+    line-height: 2;
+  }
 }
 
 .page-heading {
@@ -352,6 +380,7 @@ html.global-disable-scroll {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    gap: 20px;
 
     @include media-query($on-laptop) {
       flex-flow: column;
@@ -373,7 +402,7 @@ html.global-disable-scroll {
     text-align: center;
     line-height: 1.0;
     font-size: 22px;
-    color: #505050;
+    // color: $text-color;
   }
 
   p.ttl {
@@ -384,21 +413,14 @@ html.global-disable-scroll {
     font-weight: 400;
     font-size: 15px;
     letter-spacing: 0.1em;
-    color: #a5a5a5;
+    // color: $text-color;
   }
 }
 
 #service {
   .service-section {
+    flex: 1 1 100%;
     margin-bottom: 40px;
-
-    &:not(:last-child) {
-      margin-right: 40px;
-
-      @include media-query($on-laptop) {
-        margin-right: 0px;
-      }
-    }
   }
 
   .icon {
@@ -416,7 +438,7 @@ html.global-disable-scroll {
   .works-desc {
     position: relative;
     left: -64px;
-    margin-top: 32px;
+    margin-top: 64px;
 
     @include media-query($on-laptop) {
       position: inherit;
@@ -604,17 +626,25 @@ html.global-disable-scroll {
     }
   }
 
+  .post-tags {
+    margin: 0px;
+  }
+
   .post-tags .post-tag {
     display: inline-block;
     text-decoration: none;
-    border: 1px solid;
+    // border: 1px solid;
     padding: 2px 4px;
     border-radius: 2px;
     transition: color 0.2s;
     margin-bottom: 8px;
 
     &:not(:last-child) {
-      margin-right: 8px;
+      // margin-right: 4px;
+      &:after {
+        content: "/";
+        padding-left: 8px;
+      }
     }
 
     &:hover {
@@ -713,8 +743,7 @@ html.global-disable-scroll {
     }
 
     img, svg, iframe {
-      margin-left: auto;
-      margin-right: auto;
+      margin: 24px auto;
       display: block;
     }
 
@@ -731,6 +760,12 @@ html.global-disable-scroll {
       background-color: #ebebeb;
       border: none;
     }
+
+    aside {
+      border-radius: 3px;
+      background: rgb(241, 241, 239);
+      padding: 16px 16px 16px 12px;
+    }
   }
 
   .post-related {
@@ -744,6 +779,11 @@ html.global-disable-scroll {
       margin-left: 15px;
       .post-link {
         @include relative-font-size(1.075);
+      }
+
+      li {
+        line-height: 1.6;
+        margin-top: 16px;
       }
 
       a {
@@ -890,14 +930,14 @@ html.global-disable-scroll {
       margin: 0;
 
       > :nth-child(1) {
-        @include relative-font-size(3.9);
+        @include relative-font-size(3.2);
         letter-spacing: -1px;
         margin-bottom: 0.1em;
         font-weight: normal;
         transition: 0.2s all;
 
         @include media-query($on-palm) {
-          @include relative-font-size(1.975);
+          @include relative-font-size(1.675);
         }
       }
 

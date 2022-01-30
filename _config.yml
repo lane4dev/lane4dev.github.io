@@ -73,7 +73,7 @@ content_width: "1200px"
 # sitemap: false
 
 # If you want to change site language, you can set lang option
-# lang: "en"  # default lang is en
+lang: "zh"  # default lang is en
 
 # Translate languges
 # langs refer to https://cloud.google.com/translate/docs/languages
@@ -149,9 +149,9 @@ translate_langs: []
 # If you want to link only specific pages in your header, uncomment
 # this and add the path to the pages in order as they should show up
 header_pages:
-  - about.html
   - blogs/index.html
   - blogs/archives.html
+  - about.html
 
 
 # Page default value
@@ -179,6 +179,8 @@ header_pages:
 
 # Excerpt size setting
 # excerpt_size: 350
+excerpt_separator: "<!-- more -->"
+
 
 # Pagination setting
 paginate: 12
