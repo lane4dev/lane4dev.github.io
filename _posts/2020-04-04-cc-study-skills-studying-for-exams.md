@@ -4,6 +4,12 @@ title: 第七节：备考
 subtitle: Crash Course 学习技巧系列课程笔记
 categories: Notes
 tags: [crash course, study skills]
+related: [
+  "_posts/2020-03-21-cc-study-skills-memory.md",
+  "_posts/2020-03-22-cc-study-skills-planning-&-organization.md",
+  "_posts/2020-03-28-cc-study-skills-focus-&-concentration.md",
+  "_posts/2020-03-29-cc-study-skills-procrastination.md"
+]
 ---
 
 ![](https://www.youtube.com/watch?v=mLhwdITTrfE)

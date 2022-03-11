@@ -4,6 +4,11 @@ title: 第四节：计划与整理
 subtitle: Crash Course 学习技巧系列课程笔记
 categories: Notes
 tags: [crash course, study skills]
+related: [
+  "_posts/2020-03-14-cc-study-skills-taking-notes.md",
+  "_posts/2020-03-15-cc-study-skills-reading-assignments.md",
+  "_posts/2020-03-21-cc-study-skills-memory.md",
+]
 ---
 
 ![](https://www.youtube.com/watch?v=0AKAuRby7n8)

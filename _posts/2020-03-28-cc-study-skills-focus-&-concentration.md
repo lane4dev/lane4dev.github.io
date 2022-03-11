@@ -4,6 +4,12 @@ title: 第五节：注意力与集中
 subtitle: Crash Course 学习技巧系列课程笔记
 categories: Notes
 tags: [crash course, study skills]
+related: [
+  "_posts/2020-03-14-cc-study-skills-taking-notes.md",
+  "_posts/2020-03-15-cc-study-skills-reading-assignments.md",
+  "_posts/2020-03-21-cc-study-skills-memory.md",
+  "_posts/2020-03-22-cc-study-skills-planning-&-organization.md"
+]
 ---
 
 ![](https://www.youtube.com/watch?v=L_2JaFnkZ4o)

@@ -4,6 +4,12 @@ title: 第十节：锻炼身体与学习
 subtitle: Crash Course 学习技巧系列课程笔记
 categories: Notes
 tags: [crash course, study skills]
+related: [
+  "_posts/2020-03-29-cc-study-skills-procrastination.md",
+  "_posts/2020-04-04-cc-study-skills-studying-for-exams.md",
+  "_posts/2020-04-05-cc-study-skills-test-anxiety.md",
+  "_posts/2020-04-11-cc-study-skills-papers-&-essays.md"
+]
 ---
 
 ![](https://www.youtube.com/watch?v=SQONLdb1gow)

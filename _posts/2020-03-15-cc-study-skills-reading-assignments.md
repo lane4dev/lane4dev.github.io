@@ -4,6 +4,9 @@ title: 第二节：阅读
 subtitle: Crash Course 学习技巧系列课程笔记
 categories: Notes
 tags: [crash course, study skills]
+related: [
+  "_posts/2020-03-14-cc-study-skills-taking-notes.md"
+]
 ---
 
 ![](https://www.youtube.com/watch?v=WAIUkjsZ5xQ)

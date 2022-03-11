@@ -4,6 +4,10 @@ title: 第三节：布尔逻辑 和 逻辑门
 subtitle: Crash Course 计算机科学系列课程笔记
 categories: Notes
 tags: [crash course, EECS]
+related: [
+  "_posts/2020-07-18-cc-computer-science-early-computing.md",
+  "_posts/2020-07-25-cc-computer-science-electronic-computing.md"
+]
 ---
 
 ![](https://www.youtube.com/watch?v=gI-qXk7XojA)

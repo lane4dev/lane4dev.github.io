@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-  {%- include head.html -%}
+{%- include head.html -%}
 
-  <body>
+<body>
 
+  <div id="main_wrapper" style="width: 100%;">
     {%- include views/header.html -%}
 
     {%- include views/banner.html -%}
@@ -20,6 +21,8 @@
     </main>
 
     {%- include views/footer.html -%}
+  </div>
 
-  </body>
+</body>
+
 </html>

@@ -4,6 +4,9 @@ title: 第二节：电子计算机
 subtitle: Crash Course 计算机科学系列课程笔记
 categories: Notes
 tags: [crash course, EECS]
+related: [
+  "_posts/2020-07-18-cc-computer-science-early-computing.md"
+]
 ---
 
 ![](https://www.youtube.com/watch?v=LN0ucKNX0hc)

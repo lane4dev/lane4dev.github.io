@@ -356,10 +356,6 @@ html.global-disable-scroll {
   -ms-flex: none; /* <-- Fix IE footer issue */
   padding: $spacing-unit * 2 0;
   padding-top: 72px;
-
-  li, p {
-    line-height: 2;
-  }
 }
 
 .page-heading {
