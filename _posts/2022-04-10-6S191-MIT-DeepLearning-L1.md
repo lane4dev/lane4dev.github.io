@@ -3,6 +3,7 @@ layout: post
 title: 深度学习基础
 subtitle: 6S191 MIT DeepLearning 课程笔记
 categories: Notes
+use_math: true
 banner:
   image: /assets/images/2022/04/10/banner.png
   opacity: 0.618
@@ -335,7 +336,7 @@ for _ in range(10000):
 
 ## Mini-batches
 
-正如同前面提到的，现实中使用的神经网络结构一般都十分复杂。要在百万次级别的迭代中计算全部数据的 Loss Function J(W) 对权重 W 的偏微分是一件极其困难的事。换个角度讲，也可以说是一件极其低效率的事，毕竟在每一次的迭代中我们期望的实际上是权重 W 向理想中的值靠近一点点。那么，更 "经济" 的做法是使用 **Stochastic Gradient Descent**，也就是说，每次从训练的样本中随机挑选 n 个，计算这些样本 Gradient 的平均值，将得到的平均值带入后续的计算中，指导权重 W 的更新。 
+正如同前面提到的，现实中使用的神经网络结构一般都十分复杂。要在百万次级别的迭代中计算全部数据的 Loss Function J(W) 对权重 W 的偏微分是一件极其困难的事。换个角度讲，也可以说是一件极其低效率的事，毕竟在每一次的迭代中我们期望的实际上是权重 W 向理想中的值靠近一点点。那么，更 "经济" 的做法是使用 **[Stochastic Gradient Descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent)**，也就是说，每次从训练的样本中随机挑选 n 个，计算这些样本 Gradient 的平均值，将得到的平均值带入后续的计算中，指导权重 W 的更新。 
 ![Stochastic Gradient Descent](/assets/images/2022/04/10/Kl6rWhbj-v__EVhdM2ELeld1HDxE-oSXEz-e88fqX46Ks40WBGHxub5XRsaHaqyEnNbdBk4VKYBsAhBE7Dl4bGkdbG8x8rNcbQnCVFDUbDNkh5elbxvnXtaRzdv-ZmgO.png)
 
 
