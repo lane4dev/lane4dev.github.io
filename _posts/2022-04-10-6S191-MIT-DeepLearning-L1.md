@@ -3,7 +3,6 @@ layout: post
 title: 深度学习基础
 subtitle: 6S191 MIT DeepLearning 课程笔记
 categories: Notes
-use_math: true
 banner:
   image: /assets/images/2022/04/10/banner.png
   opacity: 0.618
@@ -66,10 +65,10 @@ tags: [Deep Learning, MIT OpenCourseWare]
 
 $$
 \begin{align}
-& \text Z^{[1]} = W^{[1]}x + b^{[1]}  \\
-& \text a^{[1]} = g^{[1]}(Z^{[1]})  \\
-& \text Z^{[2]} = W^{[2]}x + b^{[2]}  \\
-& \text a^{[2]} = g^{[2]}(Z^{[2]})  \\
+& \text Z^{[1]} = W^{[1]}x + b^{[1]}  \\\\\\
+& \text a^{[1]} = g^{[1]}(Z^{[1]})  \\\\\\
+& \text Z^{[2]} = W^{[2]}x + b^{[2]}  \\\\\\
+& \text a^{[2]} = g^{[2]}(Z^{[2]})  \\\\\\
 \end{align}
 $$
 
@@ -79,10 +78,10 @@ $$
 
 $$
 \begin{align}
-& \text a^{[1]} = Z^{[1]} = W^{[1]}x + b^{[1]}  \\
-& \text a^{[2]} = Z^{[2]} = W^{[2]}x + b^{[2]}  \\
-& \text a^{[2]} = W^{[2]}(W^{[1]}x + b^{[1]}) + b^{[2]}  \\
-& \text a^{[2]} = W^{[2]}W^{[1]}x + W^{[2]}b^{[1]} + b^{[2]}  \\
+& \text a^{[1]} = Z^{[1]} = W^{[1]}x + b^{[1]}  \\\\\\
+& \text a^{[2]} = Z^{[2]} = W^{[2]}x + b^{[2]}  \\\\\\
+& \text a^{[2]} = W^{[2]}(W^{[1]}x + b^{[1]}) + b^{[2]}  \\\\\\
+& \text a^{[2]} = W^{[2]}W^{[1]}x + W^{[2]}b^{[1]} + b^{[2]}  \\\\\\
 \end{align}
 $$
 
@@ -188,11 +187,11 @@ Gradient Descent 的算法描述为
 
 $$
 \begin{align}
-& \text y_1 = g( z_{2,1} ) = g( g( z_{1,1} ) \times w_5 + g( z_{1,2} ) \times w_6 ) \\
-& \text y_1 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_5 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_6 )  \\
-& \text {} \\
-& \text y_2 = g( z_{2,2} ) = g( g( z_{1,1} ) \times w_7 + g( z_{1,2} ) \times w_8 ) \\
-& \text y_2 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_7 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_8 )  \\
+& \text y_1 = g( z_{2,1} ) = g( g( z_{1,1} ) \times w_5 + g( z_{1,2} ) \times w_6 ) \\\\\\
+& \text y_1 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_5 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_6 )  \\\\\\
+& \text {} \\\\\\
+& \text y_2 = g( z_{2,2} ) = g( g( z_{1,1} ) \times w_7 + g( z_{1,2} ) \times w_8 ) \\\\\\
+& \text y_2 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_7 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_8 )  \\\\\\
 \end{align}
 $$
 
@@ -208,8 +207,8 @@ $$
 
 $$
 \begin{align}
-& \text {} \frac{\partial J(W)}{\partial w_5} = \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_(2,1)} \times \frac{\partial Z_(2,1)}{\partial w_5}  \\
-& \text {} \frac{\partial J(W)}{\partial w_5} = ( y_1 - T_1 ) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times g(Z_{1,1}) \\
+& \text {} \frac{\partial J(W)}{\partial w_5} = \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_(2,1)} \times \frac{\partial Z_(2,1)}{\partial w_5}  \\\\\\
+& \text {} \frac{\partial J(W)}{\partial w_5} = ( y_1 - T_1 ) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times g(Z_{1,1}) \\\\\\
 \end{align}
 $$
 
@@ -219,8 +218,8 @@ $$
 
 $$
 \begin{align}
-& \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1}  \\
-& \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial g(Z_{1,1})} \times \frac{\partial g(Z_{1,1})}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1} \\
+& \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1}  \\\\\\
+& \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial g(Z_{1,1})} \times \frac{\partial g(Z_{1,1})}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1} \\\\\\
 \end{align}
 $$
 
@@ -228,14 +227,14 @@ $$
 
 $$
 \begin{align}
-\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial g(Z_{1,1})} \\
-&+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial g(Z_{1,1})} \\
-{} \\
-\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_{2,1}} \times \frac{\partial Z_{2,1}}{\partial g(Z_{1,1})} \\
-&+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial Z_{2,2}} \times \frac{\partial Z_{2,2}}{\partial g(Z_{1,1})} \\
-{} \\
-\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &= (y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\
-&+ (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7 \\
+\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial g(Z_{1,1})} \\\\\\
+&+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial g(Z_{1,1})} \\\\\\
+{} \\\\\\
+\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_{2,1}} \times \frac{\partial Z_{2,1}}{\partial g(Z_{1,1})} \\\\\\
+&+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial Z_{2,2}} \times \frac{\partial Z_{2,2}}{\partial g(Z_{1,1})} \\\\\\
+{} \\\\\\
+\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &= (y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\\\\\
+&+ (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7 \\\\\\
 \end{align}
 $$
 
@@ -243,7 +242,7 @@ $$
 
 $$
 \begin{align}
-\text {} \frac{\partial J(W)}{\partial w_1} &= ((y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\
+\text {} \frac{\partial J(W)}{\partial w_1} &= ((y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\\\\\
 & + (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7) \times g(Z_{1,1}) \times (1 - g(Z_{1,1})) \times x_1)
 \end{align}
 $$
@@ -256,7 +255,7 @@ $$
 
 $$
 \begin{align}
-& \text {} \frac{\partial J(W)}{\partial Z_{t,i}} = g(Z_{t,i}) \times \sum_{k=i}^{j} w_{t+1, k} \frac{\partial J(W)}{\partial Z_{t+1,k}} \\
+& \text {} \frac{\partial J(W)}{\partial Z_{t,i}} = g(Z_{t,i}) \times \sum_{k=i}^{j} w_{t+1, k} \frac{\partial J(W)}{\partial Z_{t+1,k}} \\\\\\
 \end{align}
 $$
 
