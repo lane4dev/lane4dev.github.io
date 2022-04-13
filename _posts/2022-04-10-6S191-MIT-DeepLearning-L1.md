@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 深度学习基础
-subtitle: 6S191 MIT DeepLearning 课程笔记
+subtitle: 6S191 MIT DeepLearning Lecture 1 课程笔记
 categories: Notes
 banner:
   image: /assets/images/2022/04/10/banner.png
@@ -52,6 +52,8 @@ tags: [Deep Learning, MIT OpenCourseWare]
   ![考虑激活函数后完整神经元的式子](/assets/images/2022/04/10/yzznkUc9JiYAB9qAh2AneafxaYlZ6_DViSkgwWTghDVZBMMCuNtiZpMgvwqHeQL64yOG4UKZPH2IqT4w6ovK5aAvgCjVYNxsh6NtOMy6hvsatEJjCvZLQ7158zfnJ6tv.png)
 
 ### 关于激活函数
+激活函数事实上扮演了人类神经细胞之间信号传递时神经递质的作用。当电信号沿着突触从前一个神经细胞传递到下一个神经细胞时，在两者交界处，电信号转化成化学信号，前一个神经细胞释放的神经递质被下一个细胞接收，如果神经递质的量超过某个阈值就会引发下一个神经细胞的放电。使用激活函数也是类似的效果。
+
 #### 常见的激活函数有哪些？  
 ![常见的激活函数有哪些](/assets/images/2022/04/10/A6tLY1Vyx1mV1MAEWnxYp99Q9lLjCOcYrzaMqktrUJ8ytuAaPdSRkvXLWsLODHaJblL2oYx62ekAxdB881PLnoEMVxVxM2_0SJq77Gb74qQZmeUN8rGMZDHXDrA0Qclo.png)
 
