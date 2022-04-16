@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>文章 | lane4dev</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="文章">
+<meta name="author" content="Tang Yu">
+<meta property="og:locale" content="zh">
+<meta name="description" content="Just for fun.">
+<meta property="og:description" content="Just for fun.">
+<link rel="canonical" href="/blogs/">
+<meta property="og:url" content="/blogs/">
+<meta property="og:site_name" content="lane4dev">
+<meta property="og:type" content="website">
+<link rel="next" href="/blogs/2/">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="文章">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Tang Yu"},"description":"Just for fun.","headline":"文章","url":"/blogs/"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="shortcut icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&amp;display=swap">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="lane4dev">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header id="site-header" class="site-header site-header-transparent" role="banner">
+
+  <div class="header__wrapper">
+    <div class="header__inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="lane4dev" src="/assets/favicon.ico" onerror="this.style.display='none'">
+   lane4dev
+</a>
+</span><nav class="site-nav"><a class="page-link" href="/blogs/">文章</a><a class="page-link" href="/blogs/archives.html">归档</a><a class="page-link" href="/about.html">关于</a>
+
+
+
+
+</nav><!-- drawer menu icon  -->
+      <button onclick="onOpenDrawer(this)" class="header-menu__button header-menu__hamburger">
+        <svg class="icon--svg header-menu__button-icon">
+          <g fill="none" fill-rule="evenodd">
+            <path d="M0 0h24v24H0z"></path>
+            <path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z" fill="currentColor"></path>
+          </g>
+        </svg>
+      </button>
+      <button onclick="onCloseDrawer(this)" class="header-menu__button header-menu__drawer-close">
+        <svg class="icon--svg header-menu__button-icon">
+          <g fill="none" fill-rule="evenodd">
+            <path d="M0 0h24v24H0z"></path>
+            <path d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59 7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12 5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z" fill="currentColor"></path>
+          </g>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="header__drawer">
+    <div class="header__drawer-container">
+      <ul class="header-menu__primary">
+<li class="header-menu__primary-item">
+          <a class="page-link" href="/blogs/">
+            文章
+            <svg class="icon--svg page-link__icon" aria-hidden="true">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 0 0 0-1.41l-6.58-6.6a.996.996 0 1 0-1.41 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z" fill="currentColor"></path>
+              </g>
+            </svg>
+          </a>
+        </li>
+<li class="header-menu__primary-item">
+          <a class="page-link" href="/blogs/archives.html">
+            归档
+            <svg class="icon--svg page-link__icon" aria-hidden="true">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 0 0 0-1.41l-6.58-6.6a.996.996 0 1 0-1.41 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z" fill="currentColor"></path>
+              </g>
+            </svg>
+          </a>
+        </li>
+<li class="header-menu__primary-item">
+          <a class="page-link" href="/about.html">
+            关于
+            <svg class="icon--svg page-link__icon" aria-hidden="true">
+              <g fill="none" fill-rule="evenodd">
+                <path d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 0 0 0-1.41l-6.58-6.6a.996.996 0 1 0-1.41 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z" fill="currentColor"></path>
+              </g>
+            </svg>
+          </a>
+        </li>
+</ul>
+
+      <ul class="header-menu__language">
+
+
+
+
+</ul>
+    </div>
+    <div class="wrapper">
+      <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2022 Tang Yu</div>
+        <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+        generator." href="http://jekyllrb.com/">Jekyll</a> &amp; Based on <a title="Yat, yet
+        another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+        <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;documentElement.setAttribute("data-header-transparent", "");var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function (e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+
+  function onOpenDrawer() {
+    var documentElement = document.documentElement;
+    var siteHeaderElement = document.getElementById('site-header');if (documentElement.getAttribute("data-scroll-status") == "top") {
+      siteHeaderElement.classList.remove('site-header-transparent')
+    }siteHeaderElement.classList.add('header--nav-open');
+    documentElement.classList.add('global-disable-scroll');
+  }
+
+  function onCloseDrawer() {
+    var documentElement = document.documentElement;
+    var siteHeaderElement = document.getElementById('site-header');if (documentElement.getAttribute("data-scroll-status") == "top") {
+      siteHeaderElement.classList.add('site-header-transparent')
+    }siteHeaderElement.classList.remove('header--nav-open');
+    documentElement.classList.remove('global-disable-scroll');
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="page-banner">
+    <div class="page-banner-img">
+<div style="background-image: url(/assets/images/banners/blogs.jpeg)"></div>
+        <img class="img-placeholder" src="/assets/images/banners/blogs.jpeg">
+</div>
+    <div class="wrapper">
+      <div class="page-banner-inner"><div class="page-banner-default">
+            <h1 class="page-banner-heading">
+              路漫漫其修远兮，吾将上下而求索
+            </h1>
+            <h2 class="page-banner-subheading">
+              敢问路在何方，路在脚下。
+            </h2>
+          </div></div>
+    </div>
+  </section><script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+  <input type="checkbox" id="theme-switch">
+  <label for="theme-switch">
+    <div class="toggle"></div>
+    <div class="names">
+      <p class="light">Light</p>
+      <p class="dark">Dark</p>
+    </div>
+  </label>
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('auto' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+    <div class="articles">
+  
+
+  
+
+
+  <div class="pagination">
+  <!-- Post list links -->
+  <ul class="post-list">
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2022/04/10/6S191-MIT-DeepLearning-L1.html">
+          深度学习基础
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 10, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 30 mins</span>
+      </div>
+      <p class="post-excerpt">
+        这篇文章是 6S191 MIT DeepLearning 系列课程第一课的笔记总结，我以原有课程内容为脉络，参考了李宏毅老师的课程和其他一些资料，在 Activation Function 的数学意义、 Backpropagation 过程的推导等这些自己感兴趣的话题作出了横向扩展，希望更进一步加深对深度学习的理解。深度学习在近些年发展... <span class="read_more"> <a href="/blogs/notes/2022/04/10/6S191-MIT-DeepLearning-L1.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#Deep%20Learning">#Deep Learning</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#MIT%20OpenCourseWare">#MIT OpenCourseWare</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/thoughts/2022/03/24/about-how-to-read-papers.html">
+          关于如何高效阅读机器学习专业论文
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 24, 2022</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+      </div>
+      <p class="post-excerpt">
+        需要在文章开始说明一点，我本人并非机器学习专业，而是凭借着一直以来对机器学习领域怀抱着极大的兴趣，借助各种途径对机器学习领域有过一些粗浅的了解。因为工作的关系在短时间内阅读到机器学习在时间序列分析领域大量的论文。在如何有效阅读专业论文这一点上，我参考了别人的经验，结合自己实践，分享一些心得... <span class="read_more"> <a href="/blogs/thoughts/2022/03/24/about-how-to-read-papers.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#how%20to">#how to</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/08/01/cc-computer-science-boolean-logic-&amp;-logic-gates.html">
+          第三节：布尔逻辑 和 逻辑门
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Aug 01, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 2 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+Recall
+
+什么是二进制，为什么用二进制，布尔逻辑？
+NOT、AND、OR 的逻辑是什么样的？电路是什么样的？
+
+Notes
+
+二进制
+
+
+  In Computers, an “on” state, when electricity is flowing, represents true. the “off” ... <span class="read_more"> <a href="/blogs/notes/2020/08/01/cc-computer-science-boolean-logic-&amp;-logic-gates.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#EECS">#EECS</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/07/25/cc-computer-science-electronic-computing.html">
+          第二节：电子计算机
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jul 25, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 8 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+
+Recall
+
+Notes
+
+早期计算设备都只是针对特定用途（制表机）。二战后人类社会大规模增长，全球贸易和运输变得愈发紧密，工程和科学的复杂度达到新高（登月），数据量暴增。对计算力要求迅速提升，柜子大小的计算机发展到房间大小（维护费用高，容易出错）。
+
+哈佛 Mark 1 号
+
+IBM ... <span class="read_more"> <a href="/blogs/notes/2020/07/25/cc-computer-science-electronic-computing.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#EECS">#EECS</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/07/18/cc-computer-science-early-computing.html">
+          第一节：计算机早期历史
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Jul 18, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 4 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+
+Recall
+
+信息时代怎样影响生活？
+最早的计算设备是什么？怎么用？
+Computer 一词的起源？
+什么是 步进计算器，有什么特点？
+什么是差分机，为了解决什么问题，有怎样的特点？
+分析机的特点？
+打孔卡片制表机 的出现是为了解决什么问题？大致的工作原理是怎样的？
+IBM... <span class="read_more"> <a href="/blogs/notes/2020/07/18/cc-computer-science-early-computing.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#EECS">#EECS</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/04/18/cc-study-skills-exercies.html">
+          第十节：锻炼身体与学习
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 18, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+锻炼身体 对保持你的身体健康和大脑健康，都非常关键。大脑是为运动的生物诞生的，要用好它，才不是浪费资源。锻炼身体的过程，会 优化神经递质的水平、刺激神经发生 和 让新的神经通路形成，记忆巩固。有规律的锻炼身体，可以促进你专心和屏蔽分心干扰的，减轻压力，使你控制自己的情绪。在锻... <span class="read_more"> <a href="/blogs/notes/2020/04/18/cc-study-skills-exercies.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/04/11/cc-study-skills-papers-&amp;-essays.html">
+          第九节：文章与写作
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 11, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+文章写作从 前写作阶段 开始，这样可以挖掘更多灵感，避免后面浪费过多时间查找资料。查找资料的时候，建议从维基百科入手，把查找的资料保存下来，并对材料注解。不要一开始就期望创造出完美的文章，一步一步的来。编辑的阶段分成 内容编辑 和 技术编辑 两个部分，一个是从思想观点... <span class="read_more"> <a href="/blogs/notes/2020/04/11/cc-study-skills-papers-&amp;-essays.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/04/05/cc-study-skills-test-anxiety.html">
+          第八节：应对考试焦虑
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 05, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 6 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+焦虑的感觉很正常，这意味着你做的事情很重要。但是学会控制考试的焦虑很重要，要确保它不会吞噬你的思维。焦虑的来源主要有三个方面：重复过往失败的恐惧、对未知的恐惧、对风险的恐惧。克服焦虑有效的方法是花几分钟把导致你焦虑的东西写下来。失败是不可避免的，你也不是由过去的成功或失败而定义的... <span class="read_more"> <a href="/blogs/notes/2020/04/05/cc-study-skills-test-anxiety.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/04/04/cc-study-skills-studying-for-exams.html">
+          第七节：备考
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Apr 04, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+
+Recall
+
+花多长时间准备？
+在真正坐下来之前还有什么需要注意的？
+需要了解那些考试的信息？
+选择什么地点？有什么限制？
+怎么做自我测试？题目的来源有哪些？有哪些形式？
+遇到问题的时候，怎么向老师求助？在此之前，自己需要做些什么？
+怎么用好“小抄”？
+怎么保持高强度的专... <span class="read_more"> <a href="/blogs/notes/2020/04/04/cc-study-skills-studying-for-exams.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/03/29/cc-study-skills-procrastination.html">
+          第六节：拖延症
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 29, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 7 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+时间动机理论指出，动机 = （期望 x 价值）/ （冲动 x 延迟）。因此我们可以通过提高期望、提高任务价值 和 降低被其他事物干扰的冲动 这些方式来减少拖延。要避免 低密度娱乐 ，学会享受 高密度娱乐。同时，方程中没有涉及到的 意志力 也对拖延症有重要影响。而战胜拖延症最好的... <span class="read_more"> <a href="/blogs/notes/2020/03/29/cc-study-skills-procrastination.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/03/28/cc-study-skills-focus-&amp;-concentration.html">
+          第五节：注意力与集中
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 28, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 9 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+XX
+
+Recall
+
+注意力是什么？分成哪两种形式？
+为什么大脑难以长时间保持专注？
+高度专注取决于哪些因素？
+为什么同时进行多项任务是非常没有效率的？
+怎样提高专注力？在开始工作之前要注意什么？开始工作之后呢？
+专注力是可以锻炼的吗？如果是，要怎么锻炼呢？
+除了提到的技巧性的措... <span class="read_more"> <a href="/blogs/notes/2020/03/28/cc-study-skills-focus-&amp;-concentration.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+<li>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 class="post-title">
+        <a class="post-link" href="/blogs/notes/2020/03/22/cc-study-skills-planning-&amp;-organization.html">
+          第四节：计划与整理
+        </a>
+      </h2>
+      <div class="post-meta">
+        <span class="post-date"><i class="fa fa-calendar"></i> Mar 22, 2020</span>
+        <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 5 mins</span>
+      </div>
+      <p class="post-excerpt">
+        
+
+📌 SUMMARY:
+介绍了一套如何整理日常事物的方法，以及如何做计划。在 整理系统 中，分别提到了 任务管理器，日历，记笔记体系 和 纸质文件 ，并且详细描述了怎么用好这些手段的一些方案。强调了使用 周计划 和 日计划 来有效安排时间，让学习更高效。
+
+Recall
+
+为什么做计划很重要？
+什么是 整理... <span class="read_more"> <a href="/blogs/notes/2020/03/22/cc-study-skills-planning-&amp;-organization.html">Read More</a></span>
+      </p>
+      <ul class="post-tags">
+<li class="post-tag"><a href="/blogs/tags.html#crash%20course">#crash course</a></li>
+<li class="post-tag"><a href="/blogs/tags.html#study%20skills">#study skills</a></li>
+</ul>
+    </li>
+</ul>
+
+  <!-- Pagination links -->
+
+
+  <div class="paginator">
+    <span class="previous">
+    
+      <span>Prev</span>
+    
+    </span>
+
+    <span class="indicator"> 1/2</span>
+
+    <span class="next">
+    
+      <a href="/blogs/2/">Next</a>
+    
+    </span>
+  </div>
+
+</div>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="common-list">
+  <ul>
+    <li>
+      <a href="/blogs/index.html">
+        All<span>15</span>
+      </a>
+    </li>
+
+    
+      <li>
+        <a href="/blogs/categories.html#h-Notes">
+          Notes <span>14</span>
+        </a>
+      </li>
+    
+      <li>
+        <a href="/blogs/categories.html#h-Thoughts">
+          Thoughts <span>1</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2022 Tang Yu</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="http://jekyllrb.com/">Jekyll</a> &amp; Based on <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+
+</html>
