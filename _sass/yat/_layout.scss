@@ -105,7 +105,7 @@ html.global-disable-scroll {
   display: none;
   position: absolute;
   right: 8px;
-  top: 20px;
+  top: 28px;
 
   @include media-query($on-laptop) {
     display: block;
@@ -116,7 +116,7 @@ html.global-disable-scroll {
   display: none;
   position: absolute;
   right: 8px;
-  top: 20px;
+  top: 28px;
 }
 
 .icon--svg {
@@ -213,7 +213,7 @@ html.global-disable-scroll {
 
     // Gaps between nav items, but not on the last one
     &:not(:last-child) {
-      margin-right: 24px;
+      margin-right: 64px;
       &:hover {
         text-decoration: underline;
       }
@@ -243,12 +243,12 @@ html.global-disable-scroll {
 
   & > .header__drawer-container {
     @include media-query(1024px) {
-      margin: 0 48px;
+      margin: 0 20px;
     }
   }
 
   .header-menu__primary {
-    padding: 80px 0 104px;
+    padding: 80px 0 120px;
     border-bottom: 1px solid #c6c6c6;
 
     .page-link {
@@ -301,8 +301,31 @@ html.global-disable-scroll {
   transition: background-color 0.2s;
 
   .site-footer-inner {
+    display: flex;
+    justify-content: space-between;
+
     transition: border-top 0.2s;
     padding: $spacing-unit * 1.8 0;
+
+    .site-footer-text {
+      order: 2;
+    }
+
+    .theme-toggle-wrapper {
+      order: 4;
+    }
+
+    @include media-query($on-palm) {
+      flex-direction: column;
+
+      .site-footer-text {
+        order: 4;
+      }
+
+      .theme-toggle-wrapper {
+        order: 2;
+      }
+    }
   }
 
   a {
@@ -331,7 +354,7 @@ html.global-disable-scroll {
   .post-title {
     @include relative-font-size(2.625);
     letter-spacing: -1px;
-    line-height: 1;
+    line-height: 1.6;
 
     @include media-query($on-laptop) {
       @include relative-font-size(2.25);
@@ -378,7 +401,7 @@ html.global-disable-scroll {
     justify-content: space-between;
     gap: 20px;
 
-    @include media-query($on-laptop) {
+    @include media-query($on-palm) {
       flex-flow: column;
     }
   }
@@ -431,25 +454,26 @@ html.global-disable-scroll {
 }
 
 #works {
-  .works-desc {
+  .work-wrapper {
     position: relative;
-    left: -64px;
-    margin-top: 64px;
+  }
 
-    @include media-query($on-laptop) {
-      position: inherit;
+  .works-desc {
+    position: absolute;
+    width: 480px;
+    right: 32px;
+    top: 64px;
+
+    @include media-query($on-palm) {
+      position: static;
+      width: 100%;
     }
   }
 
   #earth-view {
     align-self: center;
-    height: 480px !important;
-    width: 708px !important;
-
-    @include media-query($on-palm) {
-      height: 320px !important;
-      width: 315px !important;
-    }
+    height: 100%;
+    width: 100%;
   }
 }
 
@@ -823,14 +847,14 @@ html.global-disable-scroll {
 .post-nav {
   display: flex;
   justify-content: space-between;
-  margin: 72px 0 59px;
-  padding: 31px 0 0;
+  flex-direction: row;
+  margin: 32px 0;
+  padding: 32px 0 0;
 
   a {
     @include relative-font-size(1.125);
-    line-height: 15px;
     color: #666;
-    max-width: 50%;
+    margin: 0;
   }
 
   .previous:before {
@@ -853,6 +877,15 @@ html.global-disable-scroll {
     margin-left: 8px;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
+  }
+
+  @include media-query($on-laptop) {
+    flex-direction: column;
+
+    a {
+      margin: auto;
+      padding: 16px 0;
+    }
   }
 }
 

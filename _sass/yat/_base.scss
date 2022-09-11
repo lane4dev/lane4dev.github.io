@@ -185,8 +185,13 @@ pre {
 .wrapper {
   max-width: $content-width;
   margin: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
+  padding: 0 $spacing-unit;
+
+  @include media-query($on-laptop) {
+    padding-right: calc($spacing-unit * 2);
+    padding-left: calc($spacing-unit * 2);
+  }
+
   @extend %clearfix;
 }
 
