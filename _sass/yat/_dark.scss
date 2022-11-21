@@ -2,6 +2,8 @@ $dark-background-color:       #2d2e2f !default;
 $dark-text-color: #bbb !default;
 
 html[data-theme="dark"]  {
+  color-scheme: dark;
+
   &[data-scroll-status='top'] {
     header.site-header-transparent {
       &.site-header {
@@ -254,4 +256,3 @@ html[data-theme="dark"]  {
     }
   }
 }
-
