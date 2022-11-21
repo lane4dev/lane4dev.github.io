@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh"><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" hreflang="zh" /><updated>2022-11-21T01:16:38+00:00</updated><id>/feed.xml</id><title type="html">lane4dev</title><subtitle>Just for fun.</subtitle><author><name>Tang Yu</name></author><entry><title type="html">深度学习基础</title><link href="/blogs/notes/2022/04/10/6S191-MIT-DeepLearning-L1.html" rel="alternate" type="text/html" title="深度学习基础" /><published>2022-04-10T00:00:00+00:00</published><updated>2022-04-10T00:00:00+00:00</updated><id>/blogs/notes/2022/04/10/6S191-MIT-DeepLearning-L1</id><content type="html" xml:base="/blogs/notes/2022/04/10/6S191-MIT-DeepLearning-L1.html"><![CDATA[<p>这篇文章是 6S191 MIT DeepLearning 系列课程第一课的笔记总结，我以原有课程内容为脉络，参考了李宏毅老师的课程和其他一些资料，在 Activation Function 的数学意义、 Backpropagation 过程的推导等这些自己感兴趣的话题作出了横向扩展，希望更进一步加深对深度学习的理解。深度学习在近些年发展迅速，而 MIT 6S191 DeepLearning 作为一门每年都会更新的介绍深度学习的入门类课程，在保持着极高的时效性同时，还拥有极高的课程质量，是不可多得的学习资料。</p>
+
+<h2 id="什么是-深度学习-">什么是 “深度学习” ？</h2>
+<p>在文章的一开始需要理清楚几个基本的概念，分别是：“人工智能”、“机器学习” 和 “深度学习”。这几个概念在大众的认知中常常被有意或无意的混为一谈。<br />
+首先，<a href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD">人工智能</a> 这一概念是 1956 年由约翰·麦卡锡等计算机科学家在 <a href="https://zh.wikipedia.org/wiki/%E8%BE%BE%E7%89%B9%E7%9F%9B%E6%96%AF%E4%BC%9A%E8%AE%AE">达特矛斯会议</a> 上提出。由于意识到计算机科学巨大的发展潜力，当时的科学家提出了一种构想，即：是否有可以找到一种方法通过计算机来模拟人类的智力活动？多年后的今天，<a href="https://zh.wikipedia.org/wiki/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a> 对这个问题给出了其中一种答案。机器学习使用了统计学方法，针对特定问题，通过海量样本数据进行数学建模，发现这些数据的内在规律，并且利用发现的规律解决相似问题。而 <a href="https://zh.wikipedia.org/wiki/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a> 又是机器学习的一个分支，是以 <a href="https://zh.wikipedia.org/wiki/%E4%BA%BA%E5%B7%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">人工神经网络</a> 的架构对样本数据建模的一种方法。<br />
+从概念上来看，三者是相互包含的关系。“人工智能” 包含了 “机器学习”，“机器学习” 又包含了 “深度学习”。<br />
+<img src="/assets/images/2022/04/10/2RwctP_VTHKLPG_KVDb_dm8zmoJTuKdParnrzEa3Td3d-TVkkfXkklnIArZglrrFNZHXpablbFFjRw15FADn58z8nsUxZY5Roecnn2JLWfY3zqfhkS-BAucWWzeBkb5W.png" alt="人工智能_vs_机器学习_vs_深度学习" /></p>
+
+<h2 id="为什么需要机器学习">为什么需要机器学习</h2>
+<p>传统计算机程序只能通过 <code class="language-plaintext highlighter-rouge">if ... else</code> 这样的条件判断，或是 <code class="language-plaintext highlighter-rouge">for / while</code> 这样的循环以一种线性的方式来处理问题。但是像是人脸识别、语音识别这一类的问题，没办法用传统的线性编程手段一步一步实现，我们迫切的需要一种新的算法来解决这些更加 “抽象” 的问题。</p>
+
+<h2 id="为什么是现在">为什么是现在</h2>
+<p><img src="/assets/images/2022/04/10/gCb3x47M72emg0WR5bk9Gm146z5ih_lcS5P82WKGdbtXQlQKcbTFzHmqGtKXEfvcupPrQt-_eY0KCb7r7dnZ0Alhm08WsvK8_Sxox9mykAO0V2jFsoZ-tOkuTo9TwCwe.png" alt="为什么现在是进行机器学习的好时候" /></p>
+<ol>
+  <li>互联网的爆炸式发展已经积累起海量数据，为机器学习的算法研究提供数据支撑</li>
+  <li>硬件的快速迭代，尤其是显卡算力的高速增长为机器学习的程序运算提供硬件支撑</li>
+  <li>配套软件诸如 scikit-learn 、pytorch、tenserflow 这样的支撑机器学习的软件已经比较成熟，为机器学习的程序运算提供了软件支撑</li>
+</ol>
+
+<h2 id="神经元the-perceptron">神经元（The Perceptron）</h2>
+<h3 id="深度学习是基于对人类神经系统的模拟">深度学习是基于对人类神经系统的模拟</h3>
+<p>关于人类大脑的神经网络是如何运作的，参考以下内容：</p>
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=HA7GwKXfJB0&amp;ab_channel=TED">TED Speech Sebastian Seung: I am my connectome</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Computational_neuroscience">Wikipedia: Computational neuroscience</a></li>
+</ul>
+
+<h3 id="神经元的数学表达">神经元的数学表达</h3>
+<ul>
+  <li>单个神经元由这样几部分组成： <strong>输入</strong>、<strong>权重</strong>、<strong>求和函数</strong>、<strong>Activation Function</strong> 和 <strong>输出</strong>。<br />
+<img src="/assets/images/2022/04/10/YjtXa6x_-rzo-TRbBVJ7IAWQ0eQUz0i3eFKas7DUFtmYD7u4aVlt8LuJZH0tcc_NanI-IGAvUZmXmNL8sLe4BJFl0v8Tj0HZ-kvUKVc74Q_rSCFxlHdNn6ifTnkLWXUi.png" alt="单个神经元的数学表达" /></li>
+  <li>具体计算的过程是这样：
+    <ul>
+      <li>对 $m + 1$ 个输入 $x_0(x_0 = 1), x_1 … x_m$</li>
+      <li>分别乘以各自的权重 $w_0, w_1 … w_m$</li>
+      <li>把得到的结果通过求和函数相加</li>
+      <li>之后再传递给 Activation Function 最终得到一个输出 $\hat{y}$</li>
+    </ul>
+  </li>
+  <li>数学公式可以表达为：<br />
+<img src="/assets/images/2022/04/10/swMGz3n8zFhuAIDierQ64I7aKcq3iDzCIstdy5Xv5W5wUhHJUgsVKwEPEo4zE_t3DI8nkua4cLadChvnxQq30FwCG6JmEUfEN1Bwla3-M46W-JOA7sURlbyfJuAMXI_X.png" alt="神经元的数学公式可以表达" /></li>
+  <li>用矩阵的方式来表示数学公式： <br />
+<img src="/assets/images/2022/04/10/A1TEieRfE7jie6S96rJimW4K-wfzMD7RE95OdK0O2dY3wyOXh021SNCQnivx2A9UIcxcr_Zbfs1A8dMu5nbp7thZnoYXrgE-J75qe4_IBDZKm5uTlDbv2FO-79cPDdGi.png" alt="用矩阵的方式来表示神经元的数学公式" /></li>
+  <li>考虑激活函数后的完整式子<br />
+<img src="/assets/images/2022/04/10/yzznkUc9JiYAB9qAh2AneafxaYlZ6_DViSkgwWTghDVZBMMCuNtiZpMgvwqHeQL64yOG4UKZPH2IqT4w6ovK5aAvgCjVYNxsh6NtOMy6hvsatEJjCvZLQ7158zfnJ6tv.png" alt="考虑激活函数后完整神经元的式子" /></li>
+</ul>
+
+<h3 id="关于激活函数">关于激活函数</h3>
+<p>激活函数事实上扮演了人类神经细胞之间信号传递时神经递质的作用。当电信号沿着突触从前一个神经细胞传递到下一个神经细胞时，在两者交界处，电信号转化成化学信号，前一个神经细胞释放的神经递质被下一个细胞接收，如果神经递质的量超过某个阈值就会引发下一个神经细胞的放电。使用激活函数也是类似的效果。</p>
+
+<h4 id="常见的激活函数有哪些">常见的激活函数有哪些？</h4>
+<p><img src="/assets/images/2022/04/10/A6tLY1Vyx1mV1MAEWnxYp99Q9lLjCOcYrzaMqktrUJ8ytuAaPdSRkvXLWsLODHaJblL2oYx62ekAxdB881PLnoEMVxVxM2_0SJq77Gb74qQZmeUN8rGMZDHXDrA0Qclo.png" alt="常见的激活函数有哪些" /></p>
+
+<h4 id="为什么要有激活函数">为什么要有激活函数？</h4>
+<p>参考资料： <i class="fa fa-youtube-play" aria-hidden="true" style="color: red"></i> <a href="https://www.youtube.com/watch?v=NkOv_k7r6no&amp;ab_channel=DeepLearningAI">Why Non-linear Activation Functions (C1W3L07)</a></p>
+
+<p>要回答这个问题，不妨先换个思路。思考另一个问题：</p>
+<blockquote>
+  <p><strong>如果没有激活函数会怎么样？</strong></p>
+</blockquote>
+
+<ul>
+  <li>对一个两层的神经网络，我们能得到以下公式：</li>
+</ul>
+
+<p>$$
+\begin{align}
+&amp; \text Z^{[1]} = W^{[1]}x + b^{[1]}  \\<br />
+&amp; \text a^{[1]} = g^{[1]}(Z^{[1]})  \\<br />
+&amp; \text Z^{[2]} = W^{[2]}x + b^{[2]}  \\<br />
+&amp; \text a^{[2]} = g^{[2]}(Z^{[2]})  \\<br />
+\end{align}
+$$</p>
+
+<ul>
+  <li>
+    <p>现在假设激活函数不存在，也即是在上面的式子中 $a^{[1]} = Z^{[1]}$ 和 $a^{[2]} = Z^{[2]}$</p>
+  </li>
+  <li>
+    <p>又因为第一层是第二层的输入（ $a^{[1]}$ 等于 $a^{[2]}$ 式子中的输入 $x$ ），我们可以推导以下公式：</p>
+  </li>
+</ul>
+
+<p>$$
+\begin{align}
+&amp; \text a^{[1]} = Z^{[1]} = W^{[1]}x + b^{[1]}  \\<br />
+&amp; \text a^{[2]} = Z^{[2]} = W^{[2]}x + b^{[2]}  \\<br />
+&amp; \text a^{[2]} = W^{[2]}(W^{[1]}x + b^{[1]}) + b^{[2]}  \\<br />
+&amp; \text a^{[2]} = W^{[2]}W^{[1]}x + W^{[2]}b^{[1]} + b^{[2]}  \\<br />
+\end{align}
+$$</p>
+
+<ul>
+  <li>在上面的式子里，$W^{[2]}W^{[1]}$ 的结果可以用一个矩阵 $W^{[i]}$ 替代， $W^{[2]}b^{[1]} + b^{[2]}$ 的结果可以用另一个矩阵 $b^{[i]}$ 替代，于是就有了下面的式子：</li>
+</ul>
+
+<p>$$
+a^{[2]} = W^{[i]}x = b^{[i]}
+$$</p>
+
+<p>通过以上推理过程能发现一个怎样的结论呢？ <strong>如果没有激活函数，神经网络叠再多层都没有用，因为它始终都是线性的。</strong></p>
+
+<p>所以激活函数的作用就显而易见了： <br />
+<strong>激活函数的存在为神经网络的结构引入了非线性。让它能够通过一层一层的叠加来处理复杂问题。</strong>
+<img src="/assets/images/2022/04/10/buY7B7yj6oDjQDwc-_LSx-QXpdOD-fEW6vdX7fNPx6EyrycIcVl6JNdkn5-7o2ov26YbR9cwdpGXkUi9XsCIBhGqDRKa8phcrBnLdx4grkxBs1dR-xyCex6Ne5QGtg_Y.png" alt="激活函数为神经网络的结构引入了非线性" /></p>
+
+<h3 id="为什么需要有一个-w_0-">为什么需要有一个 $w_0$ ？</h3>
+
+<p>参考资料：<a href="https://medium.com/deeper-learning/glossary-of-deep-learning-bias-cf49d9c895e2">Glossary of Deep Learning: Bias</a></p>
+
+<h4 id="从数学的角度理解">从数学的角度理解</h4>
+<p>$w_{0}$ 被称为：bias ( 偏移 )。从数学上的解释来说，bias 的作用是激活函数能左右移动，以更好的拟合数据。
+<img src="/assets/images/2022/04/10/3LZNU4PjVhWLH3LKsFb5RmX7_4I9IaEle6F44CWqMf71HZFdrj9Hq81Q3osjFun7VFmpQxBNVH0jAo_tikL8728kXy3ST6wYf8cvCfgLiBDEy35x8fykAAzlyE9NeNA9.png" alt="bias 的作用" /></p>
+
+<h4 id="从更简单更符合直觉的角度理解"><strong>从更简单（更符合直觉）的角度理解</strong></h4>
+<p>因为 bias 的存在，事实上决定了神经元在没有没有任何输入的情况下默认保持打开还是关闭的状态。 （或者这个神经元在多大程度上容易被打开，或容易被关闭）</p>
+
+<h3 id="所以--这些-w-的权重是怎么算出来的">所以 …… 这些 W 的权重是怎么算出来的？</h3>
+<p>简单的答案是 <a href="#h-gradient-descent">Gradient Descent</a> + <a href="#h-backpropagation">Backpropagation</a>，会在后面详细展开。</p>
+
+<h2 id="神经网络">神经网络</h2>
+<h3 id="神经元组成的网络">神经元组成的网络</h3>
+<p>深度学习中的神经网络就是由这样一个一个单独神经元为基础不断叠加起来的
+  <img src="/assets/images/2022/04/10/pHwVvEygwG-68h5sOWvR-KCgtukdu2OZNp06gOvvSmz3lhxapA_ZZ3XC-IjW6ezAnapVPWqAbenSb1seZfGwJVG7mChK9P3bW2itKleOr-p1MKh-jh3cdcD0kbzl2DO6.png" alt="神经网络" /></p>
+
+<p>单层神经网络<br />
+  <img src="/assets/images/2022/04/10/h5E60NGn5X5K9JGywnXGvlE1uIgKts9NqQ5lx13lPAXgt0QyHVroDEbW2bzW9TQf6pZL_oVzoICEPzF93sy1n-RDNJoQpN6wD0YLNxKXXfrYdDHsqX4lIZgUbU9keHFC.png" alt="单层神经网络" /></p>
+
+<p>深度（多层）神经网络<br />
+  <img src="/assets/images/2022/04/10/vKo98iX56TE3uX7S1YO-LDlkKRBUhTMXfsoEeFUpi1HSH9JtEVYd1baITJ5VorDRfHJ2rn0QyxY-SI5yPfPw0_KxwcDb7b7JDa9gnbSsjL-joJWvJ4u2xq4UyWPaqQ7O.png" alt="多层神经网络" /></p>
+
+<h3 id="评估预测结果的准确性">评估预测结果的准确性</h3>
+<p>我们使用 <strong>Loss Function</strong> $J(W)$ 在给定权重值 $W$ 的情况下评估模型预测的准确性。有以下几种不同的评估方式：</p>
+
+<h4 id="quantifying-loss">Quantifying Loss</h4>
+<p>旨在预测出错时衡量预测值与实际值之间的偏差。<br />
+<img src="/assets/images/2022/04/10/pqgVQJf2DhXsGixp9eeDTYzI3f1pCTJqxLL2hPw9GZ6MwKJjPB7IziRIQeKIYlJn7Kz_Cp0tCWYtI6f56kZRw8JwX6dUGs75GuAOW44QXTtX6uXGuPxOngF2Qdg2OZm3.png" alt="Quantifying Loss" /></p>
+<h4 id="empirical-loss">Empirical Loss</h4>
+<p>衡量所有数据中预测值与实际值之间的偏差。<br />
+<img src="/assets/images/2022/04/10/2qHUVpMC2hVzLQTOGm9SFmBY7aGq3aAj7z_jk4Ky01neU1BFFVUUqs3UDDr9uA2ntVWMHpvygHoGpSo2fVz_cZ9docl34wYubxNV5GImt3_KefxuEEeCYoOs_mE2nNbV.png" alt="Empirical Los" /></p>
+<h4 id="binary-cross-entropy-loss">Binary Cross Entropy Loss</h4>
+<p>当模型预测的结果是 0 到 1 之间的概率时，用 <strong>Binary Cross Entropy Loss</strong> 衡量预测准确性 。
+<img src="/assets/images/2022/04/10/5gqcd-FZByXTI_VILd-LSFiHPDzs4pHAbsafEePnxfPliOMoolBiPQiCDVEm0a7CSKLppaCG_0IVf9XNIcjCF5A_BbNLvAvb8ipBvn-VDcHEiJXG7gX-179C1R4_jy5r.png" alt="Binary Cross Entropy Loss" /></p>
+<h4 id="mean-squared-error-loss">Mean Squared Error Loss</h4>
+<p>一般用 <strong>Mean squared error loss</strong> 评价输出是连续值的回归类模型中实际值与预测值之间的差异。
+<img src="/assets/images/2022/04/10/ygWy0zgZ1WAdOXYeNojUX7PEiFf-1f4F2b4VzbTNUFqoQFIEXFw9yn2gNaT4lTMBUKR7YxBJ8MENuKfCvNgm6M0uCc8abvS6esdHLKVxCaFwH4SH6ywWTi7fNCvuuItG.png" alt="Mean Squared Error Loss" /></p>
+
+<h2 id="训练神经网络">训练神经网络</h2>
+
+<p>在前一部分的内容里，在假定权重 $W$ 的值已经确定的条件下介绍了神经网络的结构以及如何评估预测结果的准确性。<br />
+在这一部分会重点关注神经网络中的权重 $W$ 是如何产生的。</p>
+
+<p>理论上，我们需要找到这样一个 $W$ ，使得它在所有的数据集的预测结果上损失最小
+<img src="/assets/images/2022/04/10/39j-OVLsiPsIeQu5gIfUXWCG00ug6INMorCZFk2OhPyL2TWVGWffkqEGmbX_vy-LvhfHvZ3vH3uen6U2MmVjGaXpV7dXM1_UPFiVErO4RQbKDQSsHp9U3mTz-v1q2Uol.png" alt="achieve the lowest loss" /></p>
+
+<p>如果可以把所有 $W$ 组合下对应的损失函数的值分布绘制出来，很直观的就能发现最小损失函数对应的 $w$ 值是多少（下图示范了只有两个 $w$ 的情况下情况下损失函数值域分布图 ）
+<img src="/assets/images/2022/04/10/iwy-IcfibL_58w_ZJkBCeZIvkdT5TCLCi3XsI9LL2uHKxfWKAHokq1emjXv9DIEPH8MjDNsGNQJm32bqp2DAlvGkXQ4BO9X5K8FyNyr-hdWVkK6BRaotx4y2Nh0eMWBm.png" alt="损失函数值分布图" /></p>
+
+<h3 id="gradient-descent">Gradient Descent</h3>
+<p>在实际应用场景里，一个普通的神经网路结构，轻轻松松就能包含上万个 $w$ 参数。想要穷举所有 $w$ 的组合即使对于现代计算机而言也是绝无可能的。更实际的做法是使用名为 <strong><a href="https://en.wikipedia.org/wiki/Gradient_descent">Gradient Descent</a></strong> 的方法，思路是这样的： 
+<img src="/assets/images/2022/04/10/hUxc3mQ1NSywT6giIFvSCmHhMenT9E42eDS-rHbuLUHKupjtkHV6ue0L6oE2tyAjriK-dIWJ0mYzdzrAsFQr_UeTwMa7WuPQgntDc_NEGMOp1v-jWV3chz4wxCUugQoh.png" alt="Gradient Descent" /></p>
+
+<ul>
+  <li>在一开始随机给定 $W$ 初始值</li>
+  <li>对每一个 $w_i$ 分别计算它对损失函数 $J(W)$ 的斜率，也就是计算 $\frac{\partial J(W)}{\partial w_i}$</li>
+  <li>在使 $J(W)$ 总体变小的方向上选定一个步长 $\eta$ 来更新 $w_i$ 的值，然后前进到下一个点</li>
+  <li>重复以上步骤，直到 $\frac{\partial J(W)}{\partial W}$ 收敛，此时斜率为零，达到值局部最小的位置。</li>
+</ul>
+
+<p>Gradient Descent 的算法描述为<br />
+<img src="/assets/images/2022/04/10/hyyDRw_fvLAyJTiPiYgdIkMSfH1hPqgCHE8PNCDSX8Cl2ob2cF2JifpmSISoI6njA5ERHhg6bGb1DQFBoSg5vEywO9g6SPRasJqQQBlvcx9CfLzs5_GodRW-goXvcJcb.png" alt="Gradient Descent 的算法描述" /></p>
+
+<h3 id="backpropagation">Backpropagation</h3>
+
+<p>参考资料：</p>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a></li>
+  <li><a href="https://towardsdatascience.com/understanding-backpropagation-algorithm-7bb3aa2f95fd">Understanding Backpropagation Algorithm</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PLQVvvaa0QuDcjD5BAw2DxE6OF2tius3V3">Neural Networks from Scratch</a></li>
+</ul>
+
+<p>接下来关注 $\frac{\partial J(W)}{\partial W}$ 具体的计算过程，在这个过程中使用了一种叫 <strong><a href="https://en.wikipedia.org/wiki/Backpropagation">Backpropagation</a></strong> 的方法【 Backpropagation 是机器之所以能够 “学习” 的核心，因此需要重点掌握 】。</p>
+
+<h4 id="公式推导过程">公式推导过程</h4>
+<p>考虑下面这样一个经过简化后的神经网络模型：
+<img src="/assets/images/2022/04/10/bDs8vBU-uU2FtIJuY1l3fdSmQ03FNA6PUtOTuhcVzdqdSvqk0ZqSLaREBT9Q6ys66ZKOz4mfqIVz3JXpee3K8Kb7_PWFKjZkbYywR4GclcgaobUafxeE8WfkonOcBCL2.jpeg" alt="简化神经网络" /></p>
+
+<p>在这个模型中，输入为 $x_1$ 和 $x_2$，预测结果为 $y_1$ 和 $y_2$。实际的真实值为 $T_1$ 和 $T_2$ 。Activation Function 使用 Sigmoid 函数 $g(x) = \frac{1}{1 + e^{-x}}$。  Loss Function 使用 Mean squared error loss： $J(W) = \frac{1}{n} \sum_{i=1}^{n} (y^{(i)} - f(x^{(i)}, W))^2$。</p>
+
+<p>在推导公式之前，先复习一下 <a href="https://en.wikipedia.org/wiki/Chain_rule">Chain Rule</a> ：
+<img src="/assets/images/2022/04/10/chapter14-2.png" alt="Chain Rule" /></p>
+
+<p>首先，从正向来看：</p>
+
+<p>$$
+\begin{align}
+&amp; \text y_1 = g( z_{2,1} ) = g( g( z_{1,1} ) \times w_5 + g( z_{1,2} ) \times w_6 ) \\<br />
+&amp; \text y_1 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_5 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_6 )  \\<br />
+&amp; \text {} \\<br />
+&amp; \text y_2 = g( z_{2,2} ) = g( g( z_{1,1} ) \times w_7 + g( z_{1,2} ) \times w_8 ) \\<br />
+&amp; \text y_2 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_7 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_8 )  \\<br />
+\end{align}
+$$</p>
+
+<p>因此可以很容易得到 Loss Function $J(W)$：</p>
+
+<p>$$
+\begin{align}
+&amp; \text J(W) = \frac{1}{2} (T_1 - y_1)^2 + \frac{1}{2} (T_2 - y_2)^2
+\end{align}
+$$</p>
+
+<p>接下来，先求 $\frac{\partial J(W)}{w_5}$，由 chain Rule 可得：</p>
+
+<p>$$
+\begin{align}
+&amp; \text {} \frac{\partial J(W)}{\partial w_5} = \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_(2,1)} \times \frac{\partial Z_(2,1)}{\partial w_5}  \\<br />
+&amp; \text {} \frac{\partial J(W)}{\partial w_5} = ( y_1 - T_1 ) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times g(Z_{1,1}) \\<br />
+\end{align}
+$$</p>
+
+<p>同理，可求得 $\frac{\partial J(W)}{w_6}$、 $\frac{\partial J(W)}{w_7}$、 $\frac{\partial J(W)}{w_8}$ 。</p>
+
+<p>接下来，再求 $\frac{\partial (W)}{w_1}$，由 chain Rule 可得：</p>
+
+<p>$$
+\begin{align}
+&amp; \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1}  \\<br />
+&amp; \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial g(Z_{1,1})} \times \frac{\partial g(Z_{1,1})}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1} \\<br />
+\end{align}
+$$</p>
+
+<p>其中：</p>
+
+<p>$$
+\begin{align}
+\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &amp;= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial g(Z_{1,1})} \\<br />
+&amp;+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial g(Z_{1,1})} \\<br />
+{} \\<br />
+\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &amp;= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_{2,1}} \times \frac{\partial Z_{2,1}}{\partial g(Z_{1,1})} \\<br />
+&amp;+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial Z_{2,2}} \times \frac{\partial Z_{2,2}}{\partial g(Z_{1,1})} \\<br />
+{} \\<br />
+\text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &amp;= (y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\<br />
+&amp;+ (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7 \\<br />
+\end{align}
+$$</p>
+
+<p>最终合在一起就是：</p>
+
+<p>$$
+\begin{align}
+\text {} \frac{\partial J(W)}{\partial w_1} &amp;= ((y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\<br />
+&amp; + (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7) \times g(Z_{1,1}) \times (1 - g(Z_{1,1})) \times x_1)
+\end{align}
+$$</p>
+
+<p>同理，可求得 $\frac{\partial J(W)}{w_2}$、 $\frac{\partial J(W)}{w_3}$、 $\frac{\partial J(W)}{w_4}$ 。</p>
+
+<p>事实上，对于任意一个神经元节点来说：
+<img src="/assets/images/2022/04/10/IMG_0060.jpg" alt="任意一个神经元" />
+都有：</p>
+
+<p>$$
+\begin{align}
+&amp; \text {} \frac{\partial J(W)}{\partial Z_{t,i}} = g(Z_{t,i}) \times \sum_{k=i}^{j} w_{t+1, k} \frac{\partial J(W)}{\partial Z_{t+1,k}} \\<br />
+\end{align}
+$$</p>
+
+<p>这也就是为什么这个操作叫 <strong>Backpropagation</strong> 的原因。</p>
+
+<h4 id="python-代码实现">Python 代码实现</h4>
+
+<p>以下是使用 Python 代码重现了 Backpropagation 的过程。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">a</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">diff_sigmoid</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">*</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">loss_function</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">predict</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span> <span class="p">(</span> <span class="p">(</span> <span class="n">actual</span> <span class="o">-</span> <span class="n">predict</span> <span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">p_JW_of_H</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">row_num</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">layer</span> <span class="o">==</span> <span class="n">max_layer</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">row_num</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="n">row_num</span><span class="p">])</span> <span class="o">*</span> <span class="n">diff_sigmoid</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">row_num</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+            <span class="n">out</span> <span class="o">+=</span> <span class="n">p_JW_of_H</span><span class="p">(</span><span class="n">layer</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">row_num</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">diff_sigmoid</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">row_num</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">p_JW_of_W</span><span class="p">(</span><span class="n">row_num</span><span class="p">,</span> <span class="n">col_num</span><span class="p">,</span> <span class="n">layer</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">p_JW_of_H</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">row_num</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">layer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">col_num</span><span class="p">]</span>
+
+
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.05</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.10</span><span class="p">]])</span>
+
+<span class="n">w1</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.20</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.30</span><span class="p">]])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">w1</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+
+<span class="n">x2</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span>
+
+<span class="n">w2</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.50</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">]])</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">w2</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">a2</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">])</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">]</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">]</span>
+<span class="n">W</span> <span class="o">=</span> <span class="p">[</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">]</span>
+
+<span class="n">eta</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10000</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="n">l</span><span class="p">].</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="n">l</span><span class="p">].</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">W</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">-</span> <span class="n">eta</span> <span class="o">*</span> <span class="n">p_JW_of_W</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+
+<h2 id="神经网络优化实践">神经网络优化实践</h2>
+
+<p>现实中的神经网络训练往往是一个很让人头疼的问题，抛开数据量很大，计算复杂这一点。另一方面的问题是在 Gradient Descent 算法中步长 $\eta$ 选择上。选择的步长过大，会导致结果轻易越过 W 的局部最优，离预期差十万八千里。选择的步长过小，会导致每一次的迭代中 W 的值几乎没有变化，需要浪费大量的时间和计算资源才能得到预期结果。<br />
+针对这一问题，最先想到的解决办法自然就是尝试不同的步长值，试出一种时间和计算资源成本不高且最终结果良好的步长值。采用这种方式的一个最主要的问题是缺乏通用性，每一次训练新的模型都需要经历同样的试验步长的步骤。<br />
+另一种可能的解决办法是不使用固定的步长，而是根据 Gradient 的大小、学习时间的长短、权重 W 的数量等因素设计一套算法，能够在每次迭代过程中自动选择最佳步长。实际上，类似 tensorflow 这样的框架里已经集成了一些实现上述目标的算法，像是：<code class="language-plaintext highlighter-rouge">SGD</code>、 <code class="language-plaintext highlighter-rouge">Adam</code>、 <code class="language-plaintext highlighter-rouge">Adadelta</code> 等等。<br />
+<img src="/assets/images/2022/04/10/L3gMHLgTBZnj_EmsK0IKBOeUvGoL64PDg0XjJgz2ArhWxdaalydFRA7yG1sqe8cdHjugugbJlBoDCOVWyG65557Bnty6sT7f2xXqaNib-UaL2mpfQ08_n30ATLBNE_EH.png" alt="tensorflow-eta-algo" /></p>
+
+<h2 id="mini-batches">Mini-batches</h2>
+
+<p>正如同前面提到的，现实中使用的神经网络结构一般都十分复杂。要在百万次级别的迭代中计算全部数据的 Loss Function J(W) 对权重 W 的偏微分是一件极其困难的事。换个角度讲，也可以说是一件极其低效率的事，毕竟在每一次的迭代中我们期望的实际上是权重 W 向理想中的值靠近一点点。那么，更 “经济” 的做法是使用 <strong><a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a></strong>，也就是说，每次从训练的样本中随机挑选 n 个，计算这些样本 Gradient 的平均值，将得到的平均值带入后续的计算中，指导权重 W 的更新。 
+<img src="/assets/images/2022/04/10/Kl6rWhbj-v__EVhdM2ELeld1HDxE-oSXEz-e88fqX46Ks40WBGHxub5XRsaHaqyEnNbdBk4VKYBsAhBE7Dl4bGkdbG8x8rNcbQnCVFDUbDNkh5elbxvnXtaRzdv-ZmgO.png" alt="Stochastic Gradient Descent" /></p>
+
+<h2 id="过拟合的问题">过拟合的问题</h2>
+
+<p>所谓的过拟合，是指模型结构过于复杂，在对训练样本的预测结果变现异常完美，但面对新数据时却表现的一塌糊涂。<br />
+<img src="/assets/images/2022/04/10/UTAmbHMK5_h_YINrMDTATZp2dp9L15QJGW7ai9xjEvTwmFeOvmDTMbzTWof7gYSUoZ6_HOs1Zg90HyVDpHk5kF6wodOb6XeCXB42pKqQT_DgQHuGpq8XinaPf8jm4T0C.png" alt="过拟合" />
+解决这个问题有两种思路，一种方法是 <strong>Dropout</strong>，在每次迭代的过程中随机将部分（一般是 50%） 中间隐藏层神经元的输出设置为零，以此来避免其中单独某一个节点对输出结果产生决定性影响。
+<img src="/assets/images/2022/04/10/PbjXv6iy17qJozb2RS2v8jQjEdHuQkEhXr9JSm1yX9mADql_TML43lm1yY3NTI6DARwWDYj8TQWL4cyhjnH7XpAkoD41xqreSCpZQ10ZQc7XzCH7X_L8wMQaoLBYsoc2.png" alt="Dropout" />
+另一种方法是 <strong>Early Stopping</strong>，也就是在过拟合问题出现之前提前停止训练。在每次训练过程中，把数据按比例（通常是 4:1）拆分成两部分：训练数据和测试数据，测试数据不参与训练，只用于验证模型训练结果。在每一次的迭代中观察模型对训练数据和测试数据的表现，如果在某一时刻模型对训练数据 Loss 保持降低的同时对测试数据 Loss 有上升的趋势，说明模型可能开始出现过拟合，应该在此时停止训练。
+<img src="/assets/images/2022/04/10/qmljpsfEPyMIj1vonVKaE4EXgECDjFdD17fnD-qcigTl2mOmmrWLLjTBanNvgDYAX2QWdHdfEpR8wT8o68MD5s2ukXead1blWhOetjlMxUO_m3qT-qis8sLOizGNejLb.png" alt="Early Stopping" /></p>
+
+<h2 id="总结">总结</h2>
+
+<p>这是 6S191 系列课程的第一节课，主要简单介绍了深度学习技术的一些基础知识，包括神经元及其数学表达、神经网络如何搭建如何训练，最后围绕实际生产环境中如何提升模型训练效率和准确度的问题提供了若干解决思路。</p>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="Deep Learning" /><category term="MIT OpenCourseWare" /><summary type="html"><![CDATA[这篇文章是 6S191 MIT DeepLearning 系列课程第一课的笔记总结，我以原有课程内容为脉络，参考了李宏毅老师的课程和其他一些资料，在 Activation Function 的数学意义、 Backpropagation 过程的推导等这些自己感兴趣的话题作出了横向扩展，希望更进一步加深对深度学习的理解。深度学习在近些年发展迅速，而 MIT 6S191 DeepLearning 作为一门每年都会更新的介绍深度学习的入门类课程，在保持着极高的时效性同时，还拥有极高的课程质量，是不可多得的学习资料。 什么是 “深度学习” ？ 在文章的一开始需要理清楚几个基本的概念，分别是：“人工智能”、“机器学习” 和 “深度学习”。这几个概念在大众的认知中常常被有意或无意的混为一谈。 首先，人工智能 这一概念是 1956 年由约翰·麦卡锡等计算机科学家在 达特矛斯会议 上提出。由于意识到计算机科学巨大的发展潜力，当时的科学家提出了一种构想，即：是否有可以找到一种方法通过计算机来模拟人类的智力活动？多年后的今天，机器学习 对这个问题给出了其中一种答案。机器学习使用了统计学方法，针对特定问题，通过海量样本数据进行数学建模，发现这些数据的内在规律，并且利用发现的规律解决相似问题。而 深度学习 又是机器学习的一个分支，是以 人工神经网络 的架构对样本数据建模的一种方法。 从概念上来看，三者是相互包含的关系。“人工智能” 包含了 “机器学习”，“机器学习” 又包含了 “深度学习”。 为什么需要机器学习 传统计算机程序只能通过 if ... else 这样的条件判断，或是 for / while 这样的循环以一种线性的方式来处理问题。但是像是人脸识别、语音识别这一类的问题，没办法用传统的线性编程手段一步一步实现，我们迫切的需要一种新的算法来解决这些更加 “抽象” 的问题。 为什么是现在 互联网的爆炸式发展已经积累起海量数据，为机器学习的算法研究提供数据支撑 硬件的快速迭代，尤其是显卡算力的高速增长为机器学习的程序运算提供硬件支撑 配套软件诸如 scikit-learn 、pytorch、tenserflow 这样的支撑机器学习的软件已经比较成熟，为机器学习的程序运算提供了软件支撑 神经元（The Perceptron） 深度学习是基于对人类神经系统的模拟 关于人类大脑的神经网络是如何运作的，参考以下内容： TED Speech Sebastian Seung: I am my connectome Wikipedia: Computational neuroscience 神经元的数学表达 单个神经元由这样几部分组成： 输入、权重、求和函数、Activation Function 和 输出。 具体计算的过程是这样： 对 $m + 1$ 个输入 $x_0(x_0 = 1), x_1 … x_m$ 分别乘以各自的权重 $w_0, w_1 … w_m$ 把得到的结果通过求和函数相加 之后再传递给 Activation Function 最终得到一个输出 $\hat{y}$ 数学公式可以表达为： 用矩阵的方式来表示数学公式： 考虑激活函数后的完整式子 关于激活函数 激活函数事实上扮演了人类神经细胞之间信号传递时神经递质的作用。当电信号沿着突触从前一个神经细胞传递到下一个神经细胞时，在两者交界处，电信号转化成化学信号，前一个神经细胞释放的神经递质被下一个细胞接收，如果神经递质的量超过某个阈值就会引发下一个神经细胞的放电。使用激活函数也是类似的效果。 常见的激活函数有哪些？ 为什么要有激活函数？ 参考资料： Why Non-linear Activation Functions (C1W3L07) 要回答这个问题，不妨先换个思路。思考另一个问题： 如果没有激活函数会怎么样？ 对一个两层的神经网络，我们能得到以下公式： $$ \begin{align} &amp; \text Z^{[1]} = W^{[1]}x + b^{[1]} \\ &amp; \text a^{[1]} = g^{[1]}(Z^{[1]}) \\ &amp; \text Z^{[2]} = W^{[2]}x + b^{[2]} \\ &amp; \text a^{[2]} = g^{[2]}(Z^{[2]}) \\ \end{align} $$ 现在假设激活函数不存在，也即是在上面的式子中 $a^{[1]} = Z^{[1]}$ 和 $a^{[2]} = Z^{[2]}$ 又因为第一层是第二层的输入（ $a^{[1]}$ 等于 $a^{[2]}$ 式子中的输入 $x$ ），我们可以推导以下公式： $$ \begin{align} &amp; \text a^{[1]} = Z^{[1]} = W^{[1]}x + b^{[1]} \\ &amp; \text a^{[2]} = Z^{[2]} = W^{[2]}x + b^{[2]} \\ &amp; \text a^{[2]} = W^{[2]}(W^{[1]}x + b^{[1]}) + b^{[2]} \\ &amp; \text a^{[2]} = W^{[2]}W^{[1]}x + W^{[2]}b^{[1]} + b^{[2]} \\ \end{align} $$ 在上面的式子里，$W^{[2]}W^{[1]}$ 的结果可以用一个矩阵 $W^{[i]}$ 替代， $W^{[2]}b^{[1]} + b^{[2]}$ 的结果可以用另一个矩阵 $b^{[i]}$ 替代，于是就有了下面的式子： $$ a^{[2]} = W^{[i]}x = b^{[i]} $$ 通过以上推理过程能发现一个怎样的结论呢？ 如果没有激活函数，神经网络叠再多层都没有用，因为它始终都是线性的。 所以激活函数的作用就显而易见了： 激活函数的存在为神经网络的结构引入了非线性。让它能够通过一层一层的叠加来处理复杂问题。 为什么需要有一个 $w_0$ ？ 参考资料：Glossary of Deep Learning: Bias 从数学的角度理解 $w_{0}$ 被称为：bias ( 偏移 )。从数学上的解释来说，bias 的作用是激活函数能左右移动，以更好的拟合数据。 从更简单（更符合直觉）的角度理解 因为 bias 的存在，事实上决定了神经元在没有没有任何输入的情况下默认保持打开还是关闭的状态。 （或者这个神经元在多大程度上容易被打开，或容易被关闭） 所以 …… 这些 W 的权重是怎么算出来的？ 简单的答案是 Gradient Descent + Backpropagation，会在后面详细展开。 神经网络 神经元组成的网络 深度学习中的神经网络就是由这样一个一个单独神经元为基础不断叠加起来的 单层神经网络 深度（多层）神经网络 评估预测结果的准确性 我们使用 Loss Function $J(W)$ 在给定权重值 $W$ 的情况下评估模型预测的准确性。有以下几种不同的评估方式： Quantifying Loss 旨在预测出错时衡量预测值与实际值之间的偏差。 Empirical Loss 衡量所有数据中预测值与实际值之间的偏差。 Binary Cross Entropy Loss 当模型预测的结果是 0 到 1 之间的概率时，用 Binary Cross Entropy Loss 衡量预测准确性 。 Mean Squared Error Loss 一般用 Mean squared error loss 评价输出是连续值的回归类模型中实际值与预测值之间的差异。 训练神经网络 在前一部分的内容里，在假定权重 $W$ 的值已经确定的条件下介绍了神经网络的结构以及如何评估预测结果的准确性。 在这一部分会重点关注神经网络中的权重 $W$ 是如何产生的。 理论上，我们需要找到这样一个 $W$ ，使得它在所有的数据集的预测结果上损失最小 如果可以把所有 $W$ 组合下对应的损失函数的值分布绘制出来，很直观的就能发现最小损失函数对应的 $w$ 值是多少（下图示范了只有两个 $w$ 的情况下情况下损失函数值域分布图 ） Gradient Descent 在实际应用场景里，一个普通的神经网路结构，轻轻松松就能包含上万个 $w$ 参数。想要穷举所有 $w$ 的组合即使对于现代计算机而言也是绝无可能的。更实际的做法是使用名为 Gradient Descent 的方法，思路是这样的： 在一开始随机给定 $W$ 初始值 对每一个 $w_i$ 分别计算它对损失函数 $J(W)$ 的斜率，也就是计算 $\frac{\partial J(W)}{\partial w_i}$ 在使 $J(W)$ 总体变小的方向上选定一个步长 $\eta$ 来更新 $w_i$ 的值，然后前进到下一个点 重复以上步骤，直到 $\frac{\partial J(W)}{\partial W}$ 收敛，此时斜率为零，达到值局部最小的位置。 Gradient Descent 的算法描述为 Backpropagation 参考资料： Backpropagation Understanding Backpropagation Algorithm Neural Networks from Scratch 接下来关注 $\frac{\partial J(W)}{\partial W}$ 具体的计算过程，在这个过程中使用了一种叫 Backpropagation 的方法【 Backpropagation 是机器之所以能够 “学习” 的核心，因此需要重点掌握 】。 公式推导过程 考虑下面这样一个经过简化后的神经网络模型： 在这个模型中，输入为 $x_1$ 和 $x_2$，预测结果为 $y_1$ 和 $y_2$。实际的真实值为 $T_1$ 和 $T_2$ 。Activation Function 使用 Sigmoid 函数 $g(x) = \frac{1}{1 + e^{-x}}$。 Loss Function 使用 Mean squared error loss： $J(W) = \frac{1}{n} \sum_{i=1}^{n} (y^{(i)} - f(x^{(i)}, W))^2$。 在推导公式之前，先复习一下 Chain Rule ： 首先，从正向来看： $$ \begin{align} &amp; \text y_1 = g( z_{2,1} ) = g( g( z_{1,1} ) \times w_5 + g( z_{1,2} ) \times w_6 ) \\ &amp; \text y_1 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_5 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_6 ) \\ &amp; \text {} \\ &amp; \text y_2 = g( z_{2,2} ) = g( g( z_{1,1} ) \times w_7 + g( z_{1,2} ) \times w_8 ) \\ &amp; \text y_2 = g( g( x_1 \times w_1 + x_2 \times w_2 ) \times w_7 + g( x_1 \times w_3 + x_2 \times w_4 ) \times w_8 ) \\ \end{align} $$ 因此可以很容易得到 Loss Function $J(W)$： $$ \begin{align} &amp; \text J(W) = \frac{1}{2} (T_1 - y_1)^2 + \frac{1}{2} (T_2 - y_2)^2 \end{align} $$ 接下来，先求 $\frac{\partial J(W)}{w_5}$，由 chain Rule 可得： $$ \begin{align} &amp; \text {} \frac{\partial J(W)}{\partial w_5} = \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_(2,1)} \times \frac{\partial Z_(2,1)}{\partial w_5} \\ &amp; \text {} \frac{\partial J(W)}{\partial w_5} = ( y_1 - T_1 ) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times g(Z_{1,1}) \\ \end{align} $$ 同理，可求得 $\frac{\partial J(W)}{w_6}$、 $\frac{\partial J(W)}{w_7}$、 $\frac{\partial J(W)}{w_8}$ 。 接下来，再求 $\frac{\partial (W)}{w_1}$，由 chain Rule 可得： $$ \begin{align} &amp; \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1} \\ &amp; \text {} \frac{\partial J(W)}{\partial w_1} = \frac{\partial J(W)}{\partial g(Z_{1,1})} \times \frac{\partial g(Z_{1,1})}{\partial Z_{1,1}} \times \frac{\partial Z_{1,1}}{\partial w_1} \\ \end{align} $$ 其中： $$ \begin{align} \text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &amp;= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial g(Z_{1,1})} \\ &amp;+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial g(Z_{1,1})} \\ {} \\ \text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &amp;= \frac{\partial J(W)}{\partial y_1} \times \frac{\partial y_1}{\partial Z_{2,1}} \times \frac{\partial Z_{2,1}}{\partial g(Z_{1,1})} \\ &amp;+ \frac{\partial J(W)}{\partial y_2} \times \frac{\partial y_2}{\partial Z_{2,2}} \times \frac{\partial Z_{2,2}}{\partial g(Z_{1,1})} \\ {} \\ \text {} \frac{\partial J(W)}{\partial g(Z_{1,1})} &amp;= (y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\ &amp;+ (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7 \\ \end{align} $$ 最终合在一起就是： $$ \begin{align} \text {} \frac{\partial J(W)}{\partial w_1} &amp;= ((y_1 - T_1) \times g(Z_{2,1}) \times (1 - g(Z_{2,1})) \times w_5 \\ &amp; + (y_2 - T_2) \times g(Z_{2,2}) \times (1 - g(Z_{2,2})) \times w_7) \times g(Z_{1,1}) \times (1 - g(Z_{1,1})) \times x_1) \end{align} $$ 同理，可求得 $\frac{\partial J(W)}{w_2}$、 $\frac{\partial J(W)}{w_3}$、 $\frac{\partial J(W)}{w_4}$ 。 事实上，对于任意一个神经元节点来说： 都有： $$ \begin{align} &amp; \text {} \frac{\partial J(W)}{\partial Z_{t,i}} = g(Z_{t,i}) \times \sum_{k=i}^{j} w_{t+1, k} \frac{\partial J(W)}{\partial Z_{t+1,k}} \\ \end{align} $$ 这也就是为什么这个操作叫 Backpropagation 的原因。 Python 代码实现 以下是使用 Python 代码重现了 Backpropagation 的过程。 import numpy as np def sigmoid(a): return 1 / (1 + np.exp(-a)) def diff_sigmoid(a): return ( 1 - sigmoid(a)) * sigmoid(a) def loss_function(actual, predict): return np.sum( ( ( actual - predict ) ** 2 ) / 2 ) def p_JW_of_H(layer, row_num): if layer == max_layer: return (y[row_num] - t[row_num]) * diff_sigmoid(A[layer - 1][row_num]) else: out = 0 m = A[layer - 1].shape[0] for i in range(m): out += p_JW_of_H(layer+1, row_num) * W[layer][row_num, i] * diff_sigmoid(A[layer - 1][row_num]) return out def p_JW_of_W(row_num, col_num, layer): return p_JW_of_H(layer, row_num) * X[layer - 1][col_num] x1 = np.array([[0.05], [0.10]]) w1 = np.array([[0.15, 0.20], [0.25, 0.30]]) a1 = w1.dot(x1) x2 = sigmoid(a1) w2 = np.array([[0.40, 0.45], [0.50, 0.55]]) a2 = w2.dot(x2) y = sigmoid(a2) t = np.array([0.01, 0.99]) X = [x1, x2] A = [a1, a2] W = [w1, w2] eta = 0.01 for _ in range(10000): for l in range(len(X)): for r in range(W[l].shape[0]): for c in range(W[l].shape[1]): W[l][r, c] = W[l][r, c] - eta * p_JW_of_W(r, c, l + 1) A[0] = W[0].dot(X[0]) X[1] = sigmoid(A[0]) A[1] = W[1].dot(X[1]) y = sigmoid(A[1]) 神经网络优化实践 现实中的神经网络训练往往是一个很让人头疼的问题，抛开数据量很大，计算复杂这一点。另一方面的问题是在 Gradient Descent 算法中步长 $\eta$ 选择上。选择的步长过大，会导致结果轻易越过 W 的局部最优，离预期差十万八千里。选择的步长过小，会导致每一次的迭代中 W 的值几乎没有变化，需要浪费大量的时间和计算资源才能得到预期结果。 针对这一问题，最先想到的解决办法自然就是尝试不同的步长值，试出一种时间和计算资源成本不高且最终结果良好的步长值。采用这种方式的一个最主要的问题是缺乏通用性，每一次训练新的模型都需要经历同样的试验步长的步骤。 另一种可能的解决办法是不使用固定的步长，而是根据 Gradient 的大小、学习时间的长短、权重 W 的数量等因素设计一套算法，能够在每次迭代过程中自动选择最佳步长。实际上，类似 tensorflow 这样的框架里已经集成了一些实现上述目标的算法，像是：SGD、 Adam、 Adadelta 等等。 Mini-batches 正如同前面提到的，现实中使用的神经网络结构一般都十分复杂。要在百万次级别的迭代中计算全部数据的 Loss Function J(W) 对权重 W 的偏微分是一件极其困难的事。换个角度讲，也可以说是一件极其低效率的事，毕竟在每一次的迭代中我们期望的实际上是权重 W 向理想中的值靠近一点点。那么，更 “经济” 的做法是使用 Stochastic Gradient Descent，也就是说，每次从训练的样本中随机挑选 n 个，计算这些样本 Gradient 的平均值，将得到的平均值带入后续的计算中，指导权重 W 的更新。 过拟合的问题 所谓的过拟合，是指模型结构过于复杂，在对训练样本的预测结果变现异常完美，但面对新数据时却表现的一塌糊涂。 解决这个问题有两种思路，一种方法是 Dropout，在每次迭代的过程中随机将部分（一般是 50%） 中间隐藏层神经元的输出设置为零，以此来避免其中单独某一个节点对输出结果产生决定性影响。 另一种方法是 Early Stopping，也就是在过拟合问题出现之前提前停止训练。在每次训练过程中，把数据按比例（通常是 4:1）拆分成两部分：训练数据和测试数据，测试数据不参与训练，只用于验证模型训练结果。在每一次的迭代中观察模型对训练数据和测试数据的表现，如果在某一时刻模型对训练数据 Loss 保持降低的同时对测试数据 Loss 有上升的趋势，说明模型可能开始出现过拟合，应该在此时停止训练。 总结 这是 6S191 系列课程的第一节课，主要简单介绍了深度学习技术的一些基础知识，包括神经元及其数学表达、神经网络如何搭建如何训练，最后围绕实际生产环境中如何提升模型训练效率和准确度的问题提供了若干解决思路。]]></summary></entry><entry><title type="html">关于如何高效阅读机器学习专业论文</title><link href="/blogs/thoughts/2022/03/24/about-how-to-read-papers.html" rel="alternate" type="text/html" title="关于如何高效阅读机器学习专业论文" /><published>2022-03-24T00:00:00+00:00</published><updated>2022-03-24T00:00:00+00:00</updated><id>/blogs/thoughts/2022/03/24/about-how-to-read-papers</id><content type="html" xml:base="/blogs/thoughts/2022/03/24/about-how-to-read-papers.html"><![CDATA[<p>需要在文章开始说明一点，我本人并非机器学习专业，而是凭借着一直以来对机器学习领域怀抱着极大的兴趣，借助各种途径对机器学习领域有过一些粗浅的了解。因为工作的关系在短时间内阅读到机器学习在时间序列分析领域大量的论文。在如何有效阅读专业论文这一点上，我参考了别人的经验，结合自己实践，分享一些心得体会。</p>
+
+<h2 id="前期心理建设">前期心理建设</h2>
+
+<p><img src="/assets/images/2022/03/24/dp.png" alt="dont_panic" /></p>
+
+<p>首先明确一点，写论文的人通常是行业大牛，这些人在行业通常有长达数十年的浸淫。作者本人或许为写这篇论文花费了数年的时间。在开始阅读之前首先要摆正心态，放低期望、放松心情。机器学习和深度学习是一个前沿且复杂的领域，读不懂其中的内容是完全正常的，不用对此感到焦虑。</p>
+
+<h2 id="阅读顺序很重要">阅读顺序很重要</h2>
+
+<p>我把最重要的事放在开头：</p>
+
+<p><strong>不要拿到一篇论文就从头到尾开始读！！！</strong></p>
+
+<p><strong>不要拿到一篇论文就从头到尾开始读！！！</strong></p>
+
+<p><strong>不要拿到一篇论文就从头到尾开始读！！！</strong></p>
+
+<p>一篇论文通常由 <strong>标题</strong>、<strong>关键词</strong>、<strong>摘要</strong>、<strong>正文（包含：研究背景、研究方法、实验步骤、结果分析讨论、总结）</strong>、<strong>参考文献</strong> 这些部分构成。</p>
+
+<p>面对一篇论文，首先应该判断<strong>这篇论文是否值得花时间阅读</strong>。</p>
+
+<h3 id="粗读的第一阶段">粗读的第一阶段</h3>
+
+<p>首先是粗读论文，具体的做法是先看标题和关键词，接下来看摘要，接着直接跳到最后阅读结论。这样做的好处是能够在较短时间内对论文主旨有一定了解。知道作者用了什么方法，目地是解决什么问题，达到了怎样的效果。在这个阶段，一边阅读一边思考这篇论文对自己当下正在研究的话题有多大的参考价值，任何时刻，如果感觉到论文对自己参考价值不大，大可立即停下来，寻找下一篇。</p>
+
+<h3 id="粗读的第二阶段">粗读的第二阶段</h3>
+
+<p>在初步判断论文有阅读价值之后，也不要急着去看正文。回到开头的标题部分，把上一个步骤重复一遍。这一遍的阅读不但要留意更多的细节，而且应该做好笔记。这时候可以适当关注作者和作者所在的机构，所谓术业有专攻，一个学术研究者通常会深耕某一领域，如果你当下关注的话题与论文中提到的内容重合，那么大概率这个人或者所在机构所做的相关研究同样具有较高的参考价值。</p>
+
+<p>在第二次阅读摘要的过程中，要提取摘要中的关键词，因为这些词大概率会是整篇论文讨论的核心。针对摘要提出问题，并且记录下来，这样在后续正文的阅读中就会更能够抓住重点。</p>
+
+<p>在读完摘要之后将下面三个问题的答案记录下来：</p>
+
+<ol>
+  <li>这篇论文在研究什么，具体解决了什么问题？</li>
+  <li>作者想要达到什么样的效果？</li>
+  <li>这篇论文对我有什么用处？</li>
+</ol>
+
+<p>在第二次读过结论部分后，也同样记得用自己的话写下一段简短的总结。</p>
+
+<h3 id="粗读的第三阶段">粗读的第三阶段</h3>
+
+<p>之所以反复强调需要将以上这些内容用自己的话“翻译”一遍，一方面的原因是为了促进对文章的理解，简单的阅读、勾画或是摘抄不过是在呈现别人已有的观点，用自己语言描述，有一个反复考验自己 “我真的对这些内容了解了吗”、“作者反复提到的 xx 是指 xx 的意思对吧” …… 的思考过程。因为自己脑袋生产出来的东西，每次看到更加熟悉亲切，自然而然的容易记住。另一方面的原因是为了帮助区分重点，这里的重点并不一定是作者想要在论文中表达的重点，而是为了理解这篇论文自己需要把握的重点，两者的区别在于，作者写作过程中的某一个知识点可能被他默认成读者已经掌握的先验知识，比较常见的诸如理论、公式、符号、定理。这个知识点对读者来说或许是陌生的，这其中的有些会对理解整篇论文造成障碍，有些不会。那些会造成障碍的就是应当重点关注并留待后续拓展理解的。如果只是单纯勾画，大概率最终变成满篇全是重点，“真正的重点”被淹没在“不是重点的重点”里，这种现象还是比较常见的。</p>
+
+<p>推荐使用电子笔记，这样可以方便索引，也能够作为自己论文的储备材料。<br />
+参考：<a href="https://book.douban.com/subject/35503571/">卡片笔记写作法</a></p>
+
+<p>通过之前的步骤在对论文的摘要和结论有比较深入的了解之后，接下来才进入正文部分。这个阶段对文章还只是粗读，所以同样不需要一字一句的从头到尾。在正文一开头，按照惯例，作者会花费一定的篇幅谈论研究背景和研究基础。这部分的内容也是为了帮助读者建立基础认知。读完这部分的内容之后不妨跳过具体论证部分，把后面的大小标题、图表等内容走马观花的浏览一遍，以便于之后详细阅读时对哪部分内容会花费多少时间建立感性认知。</p>
+
+<p>针对机器学习（深度学习）论文，很重要的一个部分是模型架构和数据使用。可以从以下问题为切入点来关注一篇论文：</p>
+
+<ul>
+  <li>构成模型的基本单元是什么，有几个层？</li>
+  <li>模型是否引入不寻常的新结构层？</li>
+  <li>各层之间是怎么关联的？</li>
+  <li>模型输入数据是怎样的、输出是怎样的？</li>
+  <li>是否有多个输入、多个输出？</li>
+  <li>参与训练的数据量有多少？</li>
+  <li>数据怎样在模型中流动？</li>
+  <li>理想的输出结果是什么？</li>
+  <li>算法的复杂度是多少？</li>
+  <li>Loss 是如何计算出来的？</li>
+</ul>
+
+<p>某些论文能够找到对应的源代码，会对理解这篇论文十分重要。应该尽可能的把代码在自己的环境运行一遍，关注其中的参数是如何设置的，试着改变其中的参数，看看会有怎样的效果。</p>
+
+<h2 id="善用搜索引擎">善用搜索引擎</h2>
+
+<p>在阅读论文的过程中一定会遇到各种各样的问题。</p>
+
+<p>在前互联网时代，由于获取到的信息有限，解决问题最普遍的学习方法是拿到一本相关领域的教材，然后从头到尾浏览一篇，以期望找到答案。或者是找到这个领域的专家，向他们咨询（如果能够找得到且对方有意愿为你解惑的话）。</p>
+
+<p>这套方法放在今天就显得有些过时且低效率了。后互联网时代的今天，借助搜索引擎，完全可以以一种更主动且积极的方式寻找问题的答案。</p>
+
+<p>遇到不理解的概念？问 Google ！</p>
+
+<p>遇到不会的数学公式？问 Google ！</p>
+
+<p>使用搜索引擎的优势在于，在 99.99% 的情况下你都可以得到关于这个问题不止一个答案，你有更大的机会得到对自己而言能容易理解的答案。</p>
+
+<p>通过大量阅读论文来建立对一个领域的认知是最有效率的方式。因为同一个领域的论文与论文之间通常有很强的关联，会反复提及这个领域的核心概念，因此只要从某篇论文的某一个关注点切入，顺着参考文献用搜索引擎一点一点的往上朔源，便能够扯出一整片相互关联的核心概念（一个树状或是网状结构），这是一个量身定制的反复强化的过程。阅读并理解一篇论文不仅仅收获的是作者本人的观点，还包含理解这个领域的核心概念。</p>
+
+<p>具体到机器学习这个领域，它对数学有较高的要求，通常会在论文中包含大量数学公式，因此要理解论文需要首先理解数学公式。而数学的本质其实是一层一层堆叠起来的符号系统，只要善用搜索引擎顺着从上往下一层一层找、一个概念一个概念的理解，最后合起来就能够理解完整公式。在这个过程不光帮助理解了论文，同时理解了数学概念，这些数学概念毫无疑问的会反复出现在下一篇将要阅读的论文里。</p>
+
+<p>著名机器学习领域专家，斯坦福大学 吴恩达（Andrew Ng） 教授经评估过，大概需要阅读 40 篇左右的论文，能够建立起对机器学习行业的认知。<br />
+参考：<a href="https://www.youtube.com/watch?v=733m6qBH-jI&amp;t=191s"><i class="fa fa-youtube-play" aria-hidden="true" style="color: red"></i> Stanford CS230: Deep Learning | Autumn 2018 | Lecture 8 - Career Advice / Reading Research Papers</a></p>
+
+<p>值得强调的一点是，使用上述方式，特别是刚开始阅读第一篇论文的时候必然会是非常辛苦的。一开始要做好心理建设，别慌，一步一步循序渐进。初次阅读时，选择一篇靠谱的论文十分重要，要选择受到行业内普遍认可的、引用量高的、作者在这个领域有长时间专研取得丰硕成果的、在 GitHub 上能够找到高质量代码实现的论文。要抓住重点，降低预期，把目标设定在读懂其中 70～80% 内容，避免在旁枝末节上越陷越深。</p>
+
+<h2 id="复习回顾总结">复习、回顾、总结</h2>
+
+<p>一篇论文不能指望仅仅阅读 3-5 遍就能完全理解，事实上，读十几遍完全是稀松平常的事，这个过程往往痛苦、繁琐且反复。一篇论文是否值得花费这么多的时间和精力，在一开始就要通过粗读环节建立判断。在过程中一边阅读一边记录，就像是在电子游戏的流程中使用 check points 机制，把阅读的进度存储下来，保证既能随时放下又能随时拿起。在一篇论文阅读完毕之后，并不意味着万事大吉，所有工作就全部结束了，复习、回顾、总结 同样非常重要。将阅读过程中的收获记录下来，不但减轻之后复习的压力，同时会为自己的研究提供灵感和素材。</p>
+
+<h2 id="参考资料">参考资料</h2>
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=IeaD0ZaUJ3Y&amp;t=445s"><i class="fa fa-youtube-play" aria-hidden="true" style="color: red"></i> How to Read a Paper Efficiently (By Prof. Pete Carr)</a></li>
+  <li><a href="https://www.youtube.com/watch?v=IeaD0ZaUJ3Y&amp;t=445s"><i class="fa fa-youtube-play" aria-hidden="true" style="color: red"></i> Master Machine Learning Papers without Losing Your Sh*t</a></li>
+  <li><a href="https://www.youtube.com/watch?v=2frJsC_Q3I0"><i class="fa fa-youtube-play" aria-hidden="true" style="color: red"></i> How to Read and Summarize Research Papers Machine Learning &amp; Deep Learning</a></li>
+  <li><a href="https://www.youtube.com/watch?v=2uFd7BAwTcY"><i class="fa fa-youtube-play" aria-hidden="true" style="color: red"></i> How To Read A Machine Learning Research Paper When You’re Unfamiliar With The Core Concepts</a></li>
+</ul>]]></content><author><name>Tang Yu</name></author><category term="Thoughts" /><category term="how to" /><category term="study skills" /><summary type="html"><![CDATA[需要在文章开始说明一点，我本人并非机器学习专业，而是凭借着一直以来对机器学习领域怀抱着极大的兴趣，借助各种途径对机器学习领域有过一些粗浅的了解。因为工作的关系在短时间内阅读到机器学习在时间序列分析领域大量的论文。在如何有效阅读专业论文这一点上，我参考了别人的经验，结合自己实践，分享一些心得体会。 前期心理建设 首先明确一点，写论文的人通常是行业大牛，这些人在行业通常有长达数十年的浸淫。作者本人或许为写这篇论文花费了数年的时间。在开始阅读之前首先要摆正心态，放低期望、放松心情。机器学习和深度学习是一个前沿且复杂的领域，读不懂其中的内容是完全正常的，不用对此感到焦虑。 阅读顺序很重要 我把最重要的事放在开头： 不要拿到一篇论文就从头到尾开始读！！！ 不要拿到一篇论文就从头到尾开始读！！！ 不要拿到一篇论文就从头到尾开始读！！！ 一篇论文通常由 标题、关键词、摘要、正文（包含：研究背景、研究方法、实验步骤、结果分析讨论、总结）、参考文献 这些部分构成。 面对一篇论文，首先应该判断这篇论文是否值得花时间阅读。 粗读的第一阶段 首先是粗读论文，具体的做法是先看标题和关键词，接下来看摘要，接着直接跳到最后阅读结论。这样做的好处是能够在较短时间内对论文主旨有一定了解。知道作者用了什么方法，目地是解决什么问题，达到了怎样的效果。在这个阶段，一边阅读一边思考这篇论文对自己当下正在研究的话题有多大的参考价值，任何时刻，如果感觉到论文对自己参考价值不大，大可立即停下来，寻找下一篇。 粗读的第二阶段 在初步判断论文有阅读价值之后，也不要急着去看正文。回到开头的标题部分，把上一个步骤重复一遍。这一遍的阅读不但要留意更多的细节，而且应该做好笔记。这时候可以适当关注作者和作者所在的机构，所谓术业有专攻，一个学术研究者通常会深耕某一领域，如果你当下关注的话题与论文中提到的内容重合，那么大概率这个人或者所在机构所做的相关研究同样具有较高的参考价值。 在第二次阅读摘要的过程中，要提取摘要中的关键词，因为这些词大概率会是整篇论文讨论的核心。针对摘要提出问题，并且记录下来，这样在后续正文的阅读中就会更能够抓住重点。 在读完摘要之后将下面三个问题的答案记录下来： 这篇论文在研究什么，具体解决了什么问题？ 作者想要达到什么样的效果？ 这篇论文对我有什么用处？ 在第二次读过结论部分后，也同样记得用自己的话写下一段简短的总结。 粗读的第三阶段 之所以反复强调需要将以上这些内容用自己的话“翻译”一遍，一方面的原因是为了促进对文章的理解，简单的阅读、勾画或是摘抄不过是在呈现别人已有的观点，用自己语言描述，有一个反复考验自己 “我真的对这些内容了解了吗”、“作者反复提到的 xx 是指 xx 的意思对吧” …… 的思考过程。因为自己脑袋生产出来的东西，每次看到更加熟悉亲切，自然而然的容易记住。另一方面的原因是为了帮助区分重点，这里的重点并不一定是作者想要在论文中表达的重点，而是为了理解这篇论文自己需要把握的重点，两者的区别在于，作者写作过程中的某一个知识点可能被他默认成读者已经掌握的先验知识，比较常见的诸如理论、公式、符号、定理。这个知识点对读者来说或许是陌生的，这其中的有些会对理解整篇论文造成障碍，有些不会。那些会造成障碍的就是应当重点关注并留待后续拓展理解的。如果只是单纯勾画，大概率最终变成满篇全是重点，“真正的重点”被淹没在“不是重点的重点”里，这种现象还是比较常见的。 推荐使用电子笔记，这样可以方便索引，也能够作为自己论文的储备材料。 参考：卡片笔记写作法 通过之前的步骤在对论文的摘要和结论有比较深入的了解之后，接下来才进入正文部分。这个阶段对文章还只是粗读，所以同样不需要一字一句的从头到尾。在正文一开头，按照惯例，作者会花费一定的篇幅谈论研究背景和研究基础。这部分的内容也是为了帮助读者建立基础认知。读完这部分的内容之后不妨跳过具体论证部分，把后面的大小标题、图表等内容走马观花的浏览一遍，以便于之后详细阅读时对哪部分内容会花费多少时间建立感性认知。 针对机器学习（深度学习）论文，很重要的一个部分是模型架构和数据使用。可以从以下问题为切入点来关注一篇论文： 构成模型的基本单元是什么，有几个层？ 模型是否引入不寻常的新结构层？ 各层之间是怎么关联的？ 模型输入数据是怎样的、输出是怎样的？ 是否有多个输入、多个输出？ 参与训练的数据量有多少？ 数据怎样在模型中流动？ 理想的输出结果是什么？ 算法的复杂度是多少？ Loss 是如何计算出来的？ 某些论文能够找到对应的源代码，会对理解这篇论文十分重要。应该尽可能的把代码在自己的环境运行一遍，关注其中的参数是如何设置的，试着改变其中的参数，看看会有怎样的效果。 善用搜索引擎 在阅读论文的过程中一定会遇到各种各样的问题。 在前互联网时代，由于获取到的信息有限，解决问题最普遍的学习方法是拿到一本相关领域的教材，然后从头到尾浏览一篇，以期望找到答案。或者是找到这个领域的专家，向他们咨询（如果能够找得到且对方有意愿为你解惑的话）。 这套方法放在今天就显得有些过时且低效率了。后互联网时代的今天，借助搜索引擎，完全可以以一种更主动且积极的方式寻找问题的答案。 遇到不理解的概念？问 Google ！ 遇到不会的数学公式？问 Google ！ 使用搜索引擎的优势在于，在 99.99% 的情况下你都可以得到关于这个问题不止一个答案，你有更大的机会得到对自己而言能容易理解的答案。 通过大量阅读论文来建立对一个领域的认知是最有效率的方式。因为同一个领域的论文与论文之间通常有很强的关联，会反复提及这个领域的核心概念，因此只要从某篇论文的某一个关注点切入，顺着参考文献用搜索引擎一点一点的往上朔源，便能够扯出一整片相互关联的核心概念（一个树状或是网状结构），这是一个量身定制的反复强化的过程。阅读并理解一篇论文不仅仅收获的是作者本人的观点，还包含理解这个领域的核心概念。 具体到机器学习这个领域，它对数学有较高的要求，通常会在论文中包含大量数学公式，因此要理解论文需要首先理解数学公式。而数学的本质其实是一层一层堆叠起来的符号系统，只要善用搜索引擎顺着从上往下一层一层找、一个概念一个概念的理解，最后合起来就能够理解完整公式。在这个过程不光帮助理解了论文，同时理解了数学概念，这些数学概念毫无疑问的会反复出现在下一篇将要阅读的论文里。 著名机器学习领域专家，斯坦福大学 吴恩达（Andrew Ng） 教授经评估过，大概需要阅读 40 篇左右的论文，能够建立起对机器学习行业的认知。 参考： Stanford CS230: Deep Learning | Autumn 2018 | Lecture 8 - Career Advice / Reading Research Papers 值得强调的一点是，使用上述方式，特别是刚开始阅读第一篇论文的时候必然会是非常辛苦的。一开始要做好心理建设，别慌，一步一步循序渐进。初次阅读时，选择一篇靠谱的论文十分重要，要选择受到行业内普遍认可的、引用量高的、作者在这个领域有长时间专研取得丰硕成果的、在 GitHub 上能够找到高质量代码实现的论文。要抓住重点，降低预期，把目标设定在读懂其中 70～80% 内容，避免在旁枝末节上越陷越深。 复习、回顾、总结 一篇论文不能指望仅仅阅读 3-5 遍就能完全理解，事实上，读十几遍完全是稀松平常的事，这个过程往往痛苦、繁琐且反复。一篇论文是否值得花费这么多的时间和精力，在一开始就要通过粗读环节建立判断。在过程中一边阅读一边记录，就像是在电子游戏的流程中使用 check points 机制，把阅读的进度存储下来，保证既能随时放下又能随时拿起。在一篇论文阅读完毕之后，并不意味着万事大吉，所有工作就全部结束了，复习、回顾、总结 同样非常重要。将阅读过程中的收获记录下来，不但减轻之后复习的压力，同时会为自己的研究提供灵感和素材。 参考资料 How to Read a Paper Efficiently (By Prof. Pete Carr) Master Machine Learning Papers without Losing Your Sh*t How to Read and Summarize Research Papers Machine Learning &amp; Deep Learning How To Read A Machine Learning Research Paper When You’re Unfamiliar With The Core Concepts]]></summary></entry><entry><title type="html">第三节：布尔逻辑 和 逻辑门</title><link href="/blogs/notes/2020/08/01/cc-computer-science-boolean-logic-&-logic-gates.html" rel="alternate" type="text/html" title="第三节：布尔逻辑 和 逻辑门" /><published>2020-08-01T00:00:00+00:00</published><updated>2020-08-01T00:00:00+00:00</updated><id>/blogs/notes/2020/08/01/cc-computer-science-boolean-logic-&amp;-logic-gates</id><content type="html" xml:base="/blogs/notes/2020/08/01/cc-computer-science-boolean-logic-&amp;-logic-gates.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=gI-qXk7XojA" alt="" /></p>
+
+<h2 id="recall">Recall</h2>
+
+<p>什么是二进制，为什么用二进制，布尔逻辑？<br />
+NOT、AND、OR 的逻辑是什么样的？电路是什么样的？</p>
+
+<h2 id="notes">Notes</h2>
+
+<h3 id="二进制">二进制</h3>
+
+<blockquote>
+  <p>In Computers, an “on” state, when electricity is flowing, represents true. the “off” state, on electricity flowing represents false.</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>为什么采用二进制？<br />
+状态越多，越难区分信号（早期某些电子计算机是三进制、五进制）<br />
+<img src="/assets/images/2020/08/01-01.png" alt="01-01.png" /></p>
+  </li>
+  <li>
+    <p>George Boole</p>
+    <blockquote>
+      <p>Boole’s approach allowed truth to be systematically and formally proven, through logic equations which he introduced in his first book, “The Mathematical analysis of logic” in 1847.</p>
+    </blockquote>
+
+    <p>在布尔代数，变量值为 true 和 false，并对这些变量进行逻辑处理。布尔代数中有三个操作：“非”，“与”，“或”。</p>
+  </li>
+</ul>
+
+<h3 id="三个基本操作not-and-or">三个基本操作：NOT, AND, OR</h3>
+
+<ul>
+  <li>
+    <p>NOT
+<img src="/assets/images/2020/08/01-02.png" alt="01-02.png" /></p>
+  </li>
+  <li>
+    <p>AND
+<img src="/assets/images/2020/08/01-03.png" alt="01-03.png" /></p>
+  </li>
+  <li>
+    <p>OR
+<img src="/assets/images/2020/08/01-04.png" alt="01-04.png" /></p>
+  </li>
+  <li>
+    <p>XOR
+<img src="/assets/images/2020/08/01-05.png" alt="01-05.png" /></p>
+  </li>
+</ul>
+
+<p>当计算机工程师在设计处理器时，很少会在晶体管在这个层面工作。作为代替，他们通常使用更大的区块，例如逻辑门。或者由逻辑门组成的更大的组件。</p>
+
+<p>通过掌握逻辑门，我们可以使用它构建一个鉴定复杂逻辑命题的机器。</p>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="EECS" /><summary type="html"><![CDATA[Recall 什么是二进制，为什么用二进制，布尔逻辑？ NOT、AND、OR 的逻辑是什么样的？电路是什么样的？ Notes 二进制 In Computers, an “on” state, when electricity is flowing, represents true. the “off” state, on electricity flowing represents false. 为什么采用二进制？ 状态越多，越难区分信号（早期某些电子计算机是三进制、五进制） George Boole Boole’s approach allowed truth to be systematically and formally proven, through logic equations which he introduced in his first book, “The Mathematical analysis of logic” in 1847. 在布尔代数，变量值为 true 和 false，并对这些变量进行逻辑处理。布尔代数中有三个操作：“非”，“与”，“或”。 三个基本操作：NOT, AND, OR NOT AND OR XOR 当计算机工程师在设计处理器时，很少会在晶体管在这个层面工作。作为代替，他们通常使用更大的区块，例如逻辑门。或者由逻辑门组成的更大的组件。 通过掌握逻辑门，我们可以使用它构建一个鉴定复杂逻辑命题的机器。]]></summary></entry><entry><title type="html">第二节：电子计算机</title><link href="/blogs/notes/2020/07/25/cc-computer-science-electronic-computing.html" rel="alternate" type="text/html" title="第二节：电子计算机" /><published>2020-07-25T00:00:00+00:00</published><updated>2020-07-25T00:00:00+00:00</updated><id>/blogs/notes/2020/07/25/cc-computer-science-electronic-computing</id><content type="html" xml:base="/blogs/notes/2020/07/25/cc-computer-science-electronic-computing.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=LN0ucKNX0hc" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong></p>
+
+<h2 id="recall">Recall</h2>
+
+<h2 id="notes">Notes</h2>
+
+<p>早期计算设备都只是针对特定用途（制表机）。二战后人类社会大规模增长，全球贸易和运输变得愈发紧密，工程和科学的复杂度达到新高（登月），数据量暴增。对计算力要求迅速提升，柜子大小的计算机发展到房间大小（维护费用高，容易出错）。</p>
+
+<h3 id="哈佛-mark-1-号">哈佛 Mark 1 号</h3>
+
+<p>IBM 1994 年制造（二战同盟国，“曼哈顿计划”计算模拟数据）<br />
+76 万 5 千个组件，300 万个连接点 和 500 英里长的导线。有一个 50 英尺的传动轴，由一个 5 马力的电机驱动</p>
+
+<ul>
+  <li>
+    <p>机械继电器<br />
+用电控制的机械开关。继电器里，有根“控制线路”，控制电路是开还是关。<br />
+“控制线路”连着一个线圈，当电流流过线圈，线圈产生电磁场，吸引金属臂，从而闭合电路。（水龙头）</p>
+
+    <p><img src="/assets/images/2020/07/25-01.png" alt="25-01.png" /></p>
+
+    <blockquote>
+      <p>Unfortunately, the mechanical arm inside of a relay <strong>has mass</strong>, and therefore <strong>can’t move instantly</strong> between opened and closed states.</p>
+    </blockquote>
+
+    <p>1940 年代一个好的继电器 1 秒能翻转 50 次。</p>
+  </li>
+  <li>
+    <p>缺陷</p>
+
+    <ul>
+      <li>
+        <p>速度慢<br />
+Mark 1 号，1 秒能做 3 次加法或减法运算。一次乘法要花 6 秒，除法要花 15 秒。更复杂的操作 比如三角函数，可能要花一分钟以上。</p>
+      </li>
+      <li>
+        <p>齿轮磨损 <br />
+Mark 1 号，大约 3500 个继电器（假设继电器的使用寿命是 10 年，平均每天都需要换一个继电器）</p>
+      </li>
+    </ul>
+    <aside>
+📌 任何会动的机械都会随时间磨损，有些部件完全损坏，有些则是变粘，变慢，变得不可靠。随着继电器数量增加，故障率也会增加。
+</aside>
+
+    <ul>
+      <li>吸引 Bugs<br />
+1947 年 9 月，Mark 2 型的操作员从故障继电器里，拔出一只死虫
+<img src="/assets/images/2020/07/25-02.png" alt="25-02.png" /></li>
+    </ul>
+
+    <blockquote>
+      <p>From then on ,when anything went wrong with a computer, we said it had bugs in it.  —— Grace Hopper</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="真空管">真空管</h3>
+
+<aside>
+📌 电流只能单向流动的电子部件叫“二极管(Diode)”。
+</aside>
+
+<p>1904 年，英国物理学家 “约翰·安布罗斯·弗莱明” 发明了一种新的电子组件，叫 “热电子管”（Thermionic valve）。<br />
+把两个电极装在一个气密的玻璃灯泡里，这是世界上第一个真空管。其中一个电极可以加热，从而发射电子，即：“热电子发射 ( thermionic emission )”，另一个电极会吸引电子，形成 “水龙头” 的电流。只有带正电才能通过，如果带负电荷或中性电荷，电子就没办法被吸引，越过真空区域，因此没有电流。</p>
+
+<h3 id="继电器">继电器</h3>
+
+<aside>
+📌 标志着计算机，从机电转向电子。
+</aside>
+
+<p>1906 年，美国发明家 “李·德富雷斯特”，在 弗莱明 设计的两个电极之间，加入了第三个 “控制” 电极。向控制电极施加正电荷，它会允许电子流过，如果施加负电荷，它会阻止电子流动。通过控制线路，可以断开或闭合电路。（真空管里没有会动的组件，意味着没有损耗，每秒可以开闭数千次）</p>
+
+<p><img src="/assets/images/2020/07/25-03.png" alt="25-03.png" /></p>
+
+<p>这些 “三级真空管” 成为无线电，长途电话，以及其他电子设备的基础，持续了接近半个实际。（像灯泡一样会烧坏，成本高，体积大）</p>
+
+<h3 id="巨人-1-号">巨人 1 号</h3>
+
+<aside>
+📌 被认为是第一个可编程的电子计算机
+</aside>
+
+<p>由工程师 Tommy Flowers 设计，完工于 1943 年 12 月。<br />
+在英国 布莱切利园（用于破解纳粹通信）首次大规模使用真空管（1600 个）。</p>
+
+<blockquote>
+  <p>Programming was done by plugging hundreds of wires into plugboards, sort of like old school telephone switchboards, in order to set up the  computer to perform the right operations. so while “programmable”, it still had to be configured to perform any specific computation.</p>
+</blockquote>
+
+<h3 id="电子数值积分计算机eniac">电子数值积分计算机（ENIAC）</h3>
+
+<aside>
+📌 世界上第一个真正的通用，可编程，电子计算机。
+</aside>
+
+<p><img src="/assets/images/2020/07/25-04.png" alt="25-04.png" /></p>
+
+<p>1946 年，宾西法尼亚大学的 ENIAC。设计者是 Jhon Mauchly 和 J. Presper Eckert 。</p>
+
+<p>每秒可执行 5000 次十位数加减法。<br />
+它运行了十年。据估计，它完成的计算，比全人类加起来还多。<br />
+真空管很多，所以故障很常见。ENIAC 运行半天左右就会出一次故障。<br />
+1950 年，真空管计算机达到极限。<br />
+1955 年，美国空军的 AN/FSQ-7 计算机。</p>
+
+<h3 id="晶体管--transistors-">晶体管 [ Transistors ]</h3>
+
+<p>降低成本和大小，提高可靠性和速度。<br />
+1947 年，贝尔实验室作出了晶体管，一个全新的计算机时代诞生。<br />
+晶体管有两个电极，电极之间有一种材料隔开它们，这种材料有时候导电，有时候不导电（半导体）。控制线连到一个“门”电极，通过改变“门”的电荷，来控制半导体的导电性。</p>
+
+<p><img src="/assets/images/2020/07/25-05.png" alt="25-05.png" /></p>
+
+<p>对比真空管</p>
+<ul>
+  <li>晶体管每秒可以开关 10000 次。</li>
+  <li>晶体管是固态的，比玻璃的真空管更可靠</li>
+  <li>晶体管可以远远小于继电器或晶体管</li>
+</ul>
+
+<p>使用晶体管可以制造更小更便宜的计算机。</p>
+
+<p>1957 年发布的 IBM 608（第一个完全用晶体管，面向一般消费者的计算机）。</p>
+<ul>
+  <li>包含 3000 个晶体管</li>
+  <li>每秒执行 4500 次加法</li>
+  <li>每秒能执行 80 次左右的乘除法。</li>
+</ul>
+
+<p><img src="/assets/images/2020/07/25-06.png" alt="25-06.png" /></p>
+
+<p>晶体管有诸多好处，IBM 很快全面转向晶体管</p>
+
+<blockquote>
+  <p>Today, computers use transistors that are smaller than 50 nanometers in size - for reference, a sheet of paper is roughly 10000 nanometers thick. They’re not only incredibly small, they’re super fast - they can switch states millions of times per second, and can run for decades.</p>
+</blockquote>
+
+<ul>
+  <li>
+    <p>硅谷的典故<br />
+很多晶体管和半导体的开发都是 “圣克拉拉谷” 做的（加州，位于 旧金山 和 圣荷西 之间）。而生产半导体最常见的材料是硅，这个地区被成为 “硅谷”。</p>
+  </li>
+  <li>
+    <p>英特尔<br />
+肖克利半导体（William Shockley） → 仙童半导体 → 英特尔</p>
+  </li>
+</ul>
+
+<h3 id="reference">Reference:</h3>
+
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Transistor">Transistor</a></li>
+  <li><a href="https://www.explainthatstuff.com/howtransistorswork.html">How do transistors work?</a></li>
+</ul>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="EECS" /><summary type="html"><![CDATA[📌 SUMMARY: Recall Notes 早期计算设备都只是针对特定用途（制表机）。二战后人类社会大规模增长，全球贸易和运输变得愈发紧密，工程和科学的复杂度达到新高（登月），数据量暴增。对计算力要求迅速提升，柜子大小的计算机发展到房间大小（维护费用高，容易出错）。 哈佛 Mark 1 号 IBM 1994 年制造（二战同盟国，“曼哈顿计划”计算模拟数据） 76 万 5 千个组件，300 万个连接点 和 500 英里长的导线。有一个 50 英尺的传动轴，由一个 5 马力的电机驱动 机械继电器 用电控制的机械开关。继电器里，有根“控制线路”，控制电路是开还是关。 “控制线路”连着一个线圈，当电流流过线圈，线圈产生电磁场，吸引金属臂，从而闭合电路。（水龙头） Unfortunately, the mechanical arm inside of a relay has mass, and therefore can’t move instantly between opened and closed states. 1940 年代一个好的继电器 1 秒能翻转 50 次。 缺陷 速度慢 Mark 1 号，1 秒能做 3 次加法或减法运算。一次乘法要花 6 秒，除法要花 15 秒。更复杂的操作 比如三角函数，可能要花一分钟以上。 齿轮磨损 Mark 1 号，大约 3500 个继电器（假设继电器的使用寿命是 10 年，平均每天都需要换一个继电器） 📌 任何会动的机械都会随时间磨损，有些部件完全损坏，有些则是变粘，变慢，变得不可靠。随着继电器数量增加，故障率也会增加。 吸引 Bugs 1947 年 9 月，Mark 2 型的操作员从故障继电器里，拔出一只死虫 From then on ,when anything went wrong with a computer, we said it had bugs in it. —— Grace Hopper 真空管 📌 电流只能单向流动的电子部件叫“二极管(Diode)”。 1904 年，英国物理学家 “约翰·安布罗斯·弗莱明” 发明了一种新的电子组件，叫 “热电子管”（Thermionic valve）。 把两个电极装在一个气密的玻璃灯泡里，这是世界上第一个真空管。其中一个电极可以加热，从而发射电子，即：“热电子发射 ( thermionic emission )”，另一个电极会吸引电子，形成 “水龙头” 的电流。只有带正电才能通过，如果带负电荷或中性电荷，电子就没办法被吸引，越过真空区域，因此没有电流。 继电器 📌 标志着计算机，从机电转向电子。 1906 年，美国发明家 “李·德富雷斯特”，在 弗莱明 设计的两个电极之间，加入了第三个 “控制” 电极。向控制电极施加正电荷，它会允许电子流过，如果施加负电荷，它会阻止电子流动。通过控制线路，可以断开或闭合电路。（真空管里没有会动的组件，意味着没有损耗，每秒可以开闭数千次） 这些 “三级真空管” 成为无线电，长途电话，以及其他电子设备的基础，持续了接近半个实际。（像灯泡一样会烧坏，成本高，体积大） 巨人 1 号 📌 被认为是第一个可编程的电子计算机 由工程师 Tommy Flowers 设计，完工于 1943 年 12 月。 在英国 布莱切利园（用于破解纳粹通信）首次大规模使用真空管（1600 个）。 Programming was done by plugging hundreds of wires into plugboards, sort of like old school telephone switchboards, in order to set up the computer to perform the right operations. so while “programmable”, it still had to be configured to perform any specific computation. 电子数值积分计算机（ENIAC） 📌 世界上第一个真正的通用，可编程，电子计算机。 1946 年，宾西法尼亚大学的 ENIAC。设计者是 Jhon Mauchly 和 J. Presper Eckert 。 每秒可执行 5000 次十位数加减法。 它运行了十年。据估计，它完成的计算，比全人类加起来还多。 真空管很多，所以故障很常见。ENIAC 运行半天左右就会出一次故障。 1950 年，真空管计算机达到极限。 1955 年，美国空军的 AN/FSQ-7 计算机。 晶体管 [ Transistors ] 降低成本和大小，提高可靠性和速度。 1947 年，贝尔实验室作出了晶体管，一个全新的计算机时代诞生。 晶体管有两个电极，电极之间有一种材料隔开它们，这种材料有时候导电，有时候不导电（半导体）。控制线连到一个“门”电极，通过改变“门”的电荷，来控制半导体的导电性。 对比真空管 晶体管每秒可以开关 10000 次。 晶体管是固态的，比玻璃的真空管更可靠 晶体管可以远远小于继电器或晶体管 使用晶体管可以制造更小更便宜的计算机。 1957 年发布的 IBM 608（第一个完全用晶体管，面向一般消费者的计算机）。 包含 3000 个晶体管 每秒执行 4500 次加法 每秒能执行 80 次左右的乘除法。 晶体管有诸多好处，IBM 很快全面转向晶体管 Today, computers use transistors that are smaller than 50 nanometers in size - for reference, a sheet of paper is roughly 10000 nanometers thick. They’re not only incredibly small, they’re super fast - they can switch states millions of times per second, and can run for decades. 硅谷的典故 很多晶体管和半导体的开发都是 “圣克拉拉谷” 做的（加州，位于 旧金山 和 圣荷西 之间）。而生产半导体最常见的材料是硅，这个地区被成为 “硅谷”。 英特尔 肖克利半导体（William Shockley） → 仙童半导体 → 英特尔 Reference: Transistor How do transistors work?]]></summary></entry><entry><title type="html">第一节：计算机早期历史</title><link href="/blogs/notes/2020/07/18/cc-computer-science-early-computing.html" rel="alternate" type="text/html" title="第一节：计算机早期历史" /><published>2020-07-18T00:00:00+00:00</published><updated>2020-07-18T00:00:00+00:00</updated><id>/blogs/notes/2020/07/18/cc-computer-science-early-computing</id><content type="html" xml:base="/blogs/notes/2020/07/18/cc-computer-science-early-computing.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=O5nskjZ_GoI" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong></p>
+
+<h2 id="recall">Recall</h2>
+
+<p>信息时代怎样影响生活？<br />
+最早的计算设备是什么？怎么用？<br />
+Computer 一词的起源？<br />
+什么是 步进计算器，有什么特点？<br />
+什么是差分机，为了解决什么问题，有怎样的特点？<br />
+分析机的特点？<br />
+打孔卡片制表机 的出现是为了解决什么问题？大致的工作原理是怎样的？<br />
+IBM 的起源？</p>
+
+<h2 id="notes">Notes</h2>
+
+<h3 id="计算机与信息革命">计算机与信息革命</h3>
+<ul>
+  <li>工业革命<br />
+生产力的提高，大幅提升了农业、工业、畜牧业的规模。机械化导致更好的收成，更多的食物，商品可以大批量生产。旅行和通讯变得更便宜更快，生活质量变得更好。</li>
+  <li>信息时代<br />
+计算机影响生活的方方面面：电网、交通、飞机、工厂、证券市场、工业制造 …<br />
+计算机对工业的影响：自动化农业、医疗设备、全球通信和教育机会。虚拟现实，无人机驾驶汽车…</li>
+</ul>
+
+<h3 id="计算机的起源">计算机的起源</h3>
+
+<h4 id="算盘">算盘</h4>
+
+<ul>
+  <li>
+    <p>最早的计算设备是算盘
+存储当前的计算状态，类似于如今的硬盘。<br />
+<img src="/assets/images/2020/07/18-01.png" alt="算盘" /></p>
+  </li>
+  <li>
+    <p>其他计算设备<br />
+星盘，计算尺，时钟</p>
+  </li>
+</ul>
+
+<aside>
+📌 各种各样的计算设备让原先很费力的事变得更快，更简单，更精确。降低了门槛，增加了我们的能力。
+</aside>
+
+<blockquote>
+  <p>随着知识的增长和新工具的诞生，人工劳动会越来越少。 ——Charles Babbage</p>
+</blockquote>
+
+<h4 id="计算机-一词的起源">“计算机” 一词的起源</h4>
+
+<blockquote>
+  <p>我听说过的计算者里最厉害的，能把好几天的工作量大大缩减</p>
+</blockquote>
+
+<p>1613 年的一本书，作者 Richard Braithwait 。指的不是机器，而是一种职业（指负责计算的人，这个职业一直到 1800 年还存在）。</p>
+
+<h4 id="步进计算器">步进计算器</h4>
+
+<blockquote>
+  <p>…让优秀的人浪费时间算数简直侮辱智商，农名用机器能算得一样准。</p>
+</blockquote>
+
+<p>由德国博学家 戈特弗里徳·莱布尼茨 建造于 1694 年。<br />
+像汽车的里程表，不断累加里程数。每当一个齿轮转过 9，它会转回 1，同时让旁边的齿轮前进 1 个齿。</p>
+
+<p><img src="/assets/images/2020/07/18-02.png" alt="步进计算器" /></p>
+
+<p>能够进行 <strong>加法</strong> 和 <strong>减法（反向运作）</strong> 计算。利用巧妙的机械结构，也能做 <strong>乘法</strong> 和 <strong>除法</strong>。（乘除法 实际上是多个 加减法）</p>
+
+<aside>
+📌 是第一台能做 加减乘除 全部四种运算的机器
+</aside>
+
+<p>效率比较低，且价格昂贵。</p>
+
+<ul>
+  <li>计算弹道
+    <ul>
+      <li>计算表<br />
+<img src="/assets/images/2020/07/18-03.png" alt="计算表" /></li>
+    </ul>
+
+    <p>炮弹为了精准，要计算弹道，二战是查表来做。但每次改设计了就需要做一张新表（耗时且容易出错）。</p>
+  </li>
+</ul>
+
+<h4 id="差分机">差分机</h4>
+
+<p>1822 年 Charles Babbage 提出 “差分机”（论文：机械在天文与计算表中的应用）的概念，在构造差分机期间，想出了分析机（更复杂），分析机是通用计算机。</p>
+
+<ul>
+  <li>能近似多项式<br />
+多项式描述几个变量的关系（射程、大气压力）
+多项式可以用于近似对数和三角函数</li>
+</ul>
+
+<p>1991 年，历史学家个根据 Charles Babbage 的草稿造出了一台能使用的差分机</p>
+
+<ul>
+  <li>分析机（过于超前，没有完成）
+    <ul>
+      <li>它可以做很多事，不只是一种特定运算</li>
+      <li>可以给他数据，然后按顺序执行一系列操作</li>
+      <li>有内存，甚至是一个原始的打印机</li>
+    </ul>
+  </li>
+</ul>
+
+<aside>
+📌 自动计算机：计算机可以自动完成一系列操作，这个跨时代的概念，预示着计算机程序的诞生。
+</aside>
+
+<h4 id="第一位程序员">第一位程序员</h4>
+<blockquote>
+  <p>未来会诞生一门全新的，强大的，专门分析所用的语言</p>
+</blockquote>
+
+<p>Lovelace 给分析机写了假想程序，因此成为了第一位程序员<br />
+分析机启发了第一代计算机科学家。Charles Babbage 被认为是现代计算机之父。</p>
+
+<h4 id="打孔卡片制表机">打孔卡片制表机</h4>
+
+<p>用传统机械来计数，结构类似莱布尼茨的乘法器，用电动结构连接其他组件。<br />
+人口普查 10 年一次。Herman Hollerith 的打孔卡片制表机大大提升了效率（手动的 10 倍）</p>
+
+<ul>
+  <li>打孔卡<br />
+<img src="/assets/images/2020/07/18-04.png" alt="打孔卡" /></li>
+</ul>
+
+<p>卡片插入 Hollerith 的机器时，小金属针会到卡片上。如果有个地方打孔了，针会穿过孔，泡入一小瓶汞，联通电路。电路驱动电机 ，给该项的齿轮加一。<br />
+企业意识到计算机的价值，可以提升劳动力以及数据密集型任务，来提升利润。<br />
+Hollerith 成立的制表机器公司发展成为后来的 IBM。</p>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="EECS" /><summary type="html"><![CDATA[📌 SUMMARY: Recall 信息时代怎样影响生活？ 最早的计算设备是什么？怎么用？ Computer 一词的起源？ 什么是 步进计算器，有什么特点？ 什么是差分机，为了解决什么问题，有怎样的特点？ 分析机的特点？ 打孔卡片制表机 的出现是为了解决什么问题？大致的工作原理是怎样的？ IBM 的起源？ Notes 计算机与信息革命 工业革命 生产力的提高，大幅提升了农业、工业、畜牧业的规模。机械化导致更好的收成，更多的食物，商品可以大批量生产。旅行和通讯变得更便宜更快，生活质量变得更好。 信息时代 计算机影响生活的方方面面：电网、交通、飞机、工厂、证券市场、工业制造 … 计算机对工业的影响：自动化农业、医疗设备、全球通信和教育机会。虚拟现实，无人机驾驶汽车… 计算机的起源 算盘 最早的计算设备是算盘 存储当前的计算状态，类似于如今的硬盘。 其他计算设备 星盘，计算尺，时钟 📌 各种各样的计算设备让原先很费力的事变得更快，更简单，更精确。降低了门槛，增加了我们的能力。 随着知识的增长和新工具的诞生，人工劳动会越来越少。 ——Charles Babbage “计算机” 一词的起源 我听说过的计算者里最厉害的，能把好几天的工作量大大缩减 1613 年的一本书，作者 Richard Braithwait 。指的不是机器，而是一种职业（指负责计算的人，这个职业一直到 1800 年还存在）。 步进计算器 …让优秀的人浪费时间算数简直侮辱智商，农名用机器能算得一样准。 由德国博学家 戈特弗里徳·莱布尼茨 建造于 1694 年。 像汽车的里程表，不断累加里程数。每当一个齿轮转过 9，它会转回 1，同时让旁边的齿轮前进 1 个齿。 能够进行 加法 和 减法（反向运作） 计算。利用巧妙的机械结构，也能做 乘法 和 除法。（乘除法 实际上是多个 加减法） 📌 是第一台能做 加减乘除 全部四种运算的机器 效率比较低，且价格昂贵。 计算弹道 计算表 炮弹为了精准，要计算弹道，二战是查表来做。但每次改设计了就需要做一张新表（耗时且容易出错）。 差分机 1822 年 Charles Babbage 提出 “差分机”（论文：机械在天文与计算表中的应用）的概念，在构造差分机期间，想出了分析机（更复杂），分析机是通用计算机。 能近似多项式 多项式描述几个变量的关系（射程、大气压力） 多项式可以用于近似对数和三角函数 1991 年，历史学家个根据 Charles Babbage 的草稿造出了一台能使用的差分机 分析机（过于超前，没有完成） 它可以做很多事，不只是一种特定运算 可以给他数据，然后按顺序执行一系列操作 有内存，甚至是一个原始的打印机 📌 自动计算机：计算机可以自动完成一系列操作，这个跨时代的概念，预示着计算机程序的诞生。 第一位程序员 未来会诞生一门全新的，强大的，专门分析所用的语言 Lovelace 给分析机写了假想程序，因此成为了第一位程序员 分析机启发了第一代计算机科学家。Charles Babbage 被认为是现代计算机之父。 打孔卡片制表机 用传统机械来计数，结构类似莱布尼茨的乘法器，用电动结构连接其他组件。 人口普查 10 年一次。Herman Hollerith 的打孔卡片制表机大大提升了效率（手动的 10 倍） 打孔卡 卡片插入 Hollerith 的机器时，小金属针会到卡片上。如果有个地方打孔了，针会穿过孔，泡入一小瓶汞，联通电路。电路驱动电机 ，给该项的齿轮加一。 企业意识到计算机的价值，可以提升劳动力以及数据密集型任务，来提升利润。 Hollerith 成立的制表机器公司发展成为后来的 IBM。]]></summary></entry><entry><title type="html">第十节：锻炼身体与学习</title><link href="/blogs/notes/2020/04/18/cc-study-skills-exercies.html" rel="alternate" type="text/html" title="第十节：锻炼身体与学习" /><published>2020-04-18T00:00:00+00:00</published><updated>2020-04-18T00:00:00+00:00</updated><id>/blogs/notes/2020/04/18/cc-study-skills-exercies</id><content type="html" xml:base="/blogs/notes/2020/04/18/cc-study-skills-exercies.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=SQONLdb1gow" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong><br />
+锻炼身体 对保持你的身体健康和大脑健康，都非常关键。大脑是为运动的生物诞生的，要用好它，才不是浪费资源。锻炼身体的过程，会 优化神经递质的水平、刺激神经发生 和 让新的神经通路形成，记忆巩固。有规律的锻炼身体，可以促进你专心和屏蔽分心干扰的，减轻压力，使你控制自己的情绪。在锻炼的时候，注意 不要在剧烈运动中做传统的知识学习，过结合 复杂有技巧的运动 与 心率提高 来得到到最好的效果。要找到最适合自己的方法。</p>
+
+<h2 id="recall">Recall</h2>
+
+<p>锻炼身体对学习有什么帮助？<br />
+为什么说大脑是为运动的生物诞生的？<br />
+从生理角度来讲，锻炼身体怎样有助于更好的学习？有哪几个方面？<br />
+具体应该怎么锻炼？<br />
+学习和生产有最好的方法吗？</p>
+
+<h2 id="notes">Notes</h2>
+
+<h3 id="锻炼的益处">锻炼的益处</h3>
+
+<p>锻炼身体 对保持你的身体健康和大脑健康，都非常关键。这同样时一个提高学习和专注能力的简单方法。</p>
+
+<blockquote>
+  <p>Exercise comes in many different shapes and forms, and regardless of your skill level or physical limitations, you can probably find something that gets your heart rate up - which can, in turn, improve your mind.</p>
+</blockquote>
+
+<p>大脑的学习功能，是随着运动一同进化的。（不需要运动的生命形式，是用不了大脑的）</p>
+
+<aside>
+📌 我们所称的 '思考' 是进化对运动的内化 —— 《漩涡的我：从神经元到自我》
+</aside>
+
+<p>大脑是为运动的生物诞生的。<br />
+综合来看，你身体的每个部分都是为了适应你要做的特定的事情。如果你不使用它，那么你身体的这些部分，就会仅仅是在浪费资源。</p>
+
+<p>你的身体系统是高度统一的，各部分相互依存。</p>
+
+<blockquote>
+  <p>In addition to keeping you healthy, getting your heartbeat elevated on a regular basis can also make you a better student.</p>
+</blockquote>
+
+<p>例子：伊利诺斯州 的 内珀维尔学区 and 宾西法尼亚州 的 泰特斯维尔学区</p>
+
+<ul>
+  <li>锻炼身体到底如何有助于更好地学习？
+    <ul>
+      <li>
+        <p>优化神经递质的水平<br />
+5-羟色胺：有助于调节心境，使你保持快乐<br />
+去甲肾上腺素：增强与注意力和动机有关的信号<br />
+多巴胺：高度参与学习，运动，操纵大脑的奖励中枢</p>
+      </li>
+      <li>
+        <p>锻炼身体同样会刺激 神经发生
+从海马中的神经干细胞中诞生新的神经元<br />
+新神经元是作为干细胞诞生，没有即刻的用处，许多新神经元会立即死亡。存活下来的神经元，需要嵌入已经存在的神经网络，这会在你学习新东西的时候发生<br />
+这种特定的大脑优化的关键操作，是有规律的锻炼身体，同时持续学习</p>
+      </li>
+      <li>
+        <p>锻炼身体会促进神经元相互联结的能力，这就是新的神经通路形成，记忆巩固的过程<br />
+脑源性神经营养因子（BDNF）<br />
+反过来促进和增强一个过程叫做 长时程增强（巩固学习的机制）</p>
+        <blockquote>
+          <p>当新的信息进入你的大脑，神经元开始放电，使用现存的另一种神经递质 谷氨酸 。如果持续放电，每个激活的神经元同样会开始制造材料，用来创建全新的 突触 。突触 就是不同神经元之间的联结。随着这些新的突触产生，记忆就会形成。BDNF 就是使这整个过程成为可能的秘方。</p>
+        </blockquote>
+
+        <blockquote>
+          <p>研究发现，有规律的锻炼身体，同样可以促进你专心和屏蔽分心干扰的能力。还能减轻压力，使你控制自己的情绪。</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="如何锻炼">如何锻炼</h3>
+
+<ul>
+  <li>你究竟应该如何锻炼身体
+    <ul>
+      <li>
+        <p>首先，不要在剧烈运动中做传统的知识学习
+当你的心率加快，血液实际上会游离你的 前额叶皮层 。前额叶皮层 管控你的执行功能、工作记忆，接受新的信息。然而你结束锻炼后，血液几乎会立刻回流 前额叶皮层。所以在你开始学习之前锻炼身体或跑步，会比较好。</p>
+      </li>
+      <li>
+        <p>通过结合 复杂有技巧的运动 与 心率提高 你会得到到最好的效果。<br />
+一种方法是，选择能将两者结合的需要技巧的运动。（花样滑冰、篮球、滑板、武术、瑜伽）<br />
+可以先做有氧运动，接着做一些低强度技巧性不强的运动。（跑步 15 分钟，然后做一些攀岩）</p>
+        <aside>
+📌 请先开始你能做的小规模运动，专注于习惯养成。
+</aside>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>学习和生产是 2 个不存在唯一 “最好方法” 的领域</p>
+
+<blockquote>
+  <p>采纳有用的，拒绝无用的。再加上你的特别之处。</p>
+</blockquote>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="study skills" /><summary type="html"><![CDATA[📌 SUMMARY: 锻炼身体 对保持你的身体健康和大脑健康，都非常关键。大脑是为运动的生物诞生的，要用好它，才不是浪费资源。锻炼身体的过程，会 优化神经递质的水平、刺激神经发生 和 让新的神经通路形成，记忆巩固。有规律的锻炼身体，可以促进你专心和屏蔽分心干扰的，减轻压力，使你控制自己的情绪。在锻炼的时候，注意 不要在剧烈运动中做传统的知识学习，过结合 复杂有技巧的运动 与 心率提高 来得到到最好的效果。要找到最适合自己的方法。 Recall 锻炼身体对学习有什么帮助？ 为什么说大脑是为运动的生物诞生的？ 从生理角度来讲，锻炼身体怎样有助于更好的学习？有哪几个方面？ 具体应该怎么锻炼？ 学习和生产有最好的方法吗？ Notes 锻炼的益处 锻炼身体 对保持你的身体健康和大脑健康，都非常关键。这同样时一个提高学习和专注能力的简单方法。 Exercise comes in many different shapes and forms, and regardless of your skill level or physical limitations, you can probably find something that gets your heart rate up - which can, in turn, improve your mind. 大脑的学习功能，是随着运动一同进化的。（不需要运动的生命形式，是用不了大脑的） 📌 我们所称的 '思考' 是进化对运动的内化 —— 《漩涡的我：从神经元到自我》 大脑是为运动的生物诞生的。 综合来看，你身体的每个部分都是为了适应你要做的特定的事情。如果你不使用它，那么你身体的这些部分，就会仅仅是在浪费资源。 你的身体系统是高度统一的，各部分相互依存。 In addition to keeping you healthy, getting your heartbeat elevated on a regular basis can also make you a better student. 例子：伊利诺斯州 的 内珀维尔学区 and 宾西法尼亚州 的 泰特斯维尔学区 锻炼身体到底如何有助于更好地学习？ 优化神经递质的水平 5-羟色胺：有助于调节心境，使你保持快乐 去甲肾上腺素：增强与注意力和动机有关的信号 多巴胺：高度参与学习，运动，操纵大脑的奖励中枢 锻炼身体同样会刺激 神经发生 从海马中的神经干细胞中诞生新的神经元 新神经元是作为干细胞诞生，没有即刻的用处，许多新神经元会立即死亡。存活下来的神经元，需要嵌入已经存在的神经网络，这会在你学习新东西的时候发生 这种特定的大脑优化的关键操作，是有规律的锻炼身体，同时持续学习 锻炼身体会促进神经元相互联结的能力，这就是新的神经通路形成，记忆巩固的过程 脑源性神经营养因子（BDNF） 反过来促进和增强一个过程叫做 长时程增强（巩固学习的机制） 当新的信息进入你的大脑，神经元开始放电，使用现存的另一种神经递质 谷氨酸 。如果持续放电，每个激活的神经元同样会开始制造材料，用来创建全新的 突触 。突触 就是不同神经元之间的联结。随着这些新的突触产生，记忆就会形成。BDNF 就是使这整个过程成为可能的秘方。 研究发现，有规律的锻炼身体，同样可以促进你专心和屏蔽分心干扰的能力。还能减轻压力，使你控制自己的情绪。 如何锻炼 你究竟应该如何锻炼身体 首先，不要在剧烈运动中做传统的知识学习 当你的心率加快，血液实际上会游离你的 前额叶皮层 。前额叶皮层 管控你的执行功能、工作记忆，接受新的信息。然而你结束锻炼后，血液几乎会立刻回流 前额叶皮层。所以在你开始学习之前锻炼身体或跑步，会比较好。 通过结合 复杂有技巧的运动 与 心率提高 你会得到到最好的效果。 一种方法是，选择能将两者结合的需要技巧的运动。（花样滑冰、篮球、滑板、武术、瑜伽） 可以先做有氧运动，接着做一些低强度技巧性不强的运动。（跑步 15 分钟，然后做一些攀岩） 📌 请先开始你能做的小规模运动，专注于习惯养成。 学习和生产是 2 个不存在唯一 “最好方法” 的领域 采纳有用的，拒绝无用的。再加上你的特别之处。]]></summary></entry><entry><title type="html">第九节：文章与写作</title><link href="/blogs/notes/2020/04/11/cc-study-skills-papers-&-essays.html" rel="alternate" type="text/html" title="第九节：文章与写作" /><published>2020-04-11T00:00:00+00:00</published><updated>2020-04-11T00:00:00+00:00</updated><id>/blogs/notes/2020/04/11/cc-study-skills-papers-&amp;-essays</id><content type="html" xml:base="/blogs/notes/2020/04/11/cc-study-skills-papers-&amp;-essays.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=KlgR1q3UQZE" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong><br />
+文章写作从 <strong>前写作阶段</strong> 开始，这样可以挖掘更多灵感，避免后面浪费过多时间查找资料。查找资料的时候，建议从维基百科入手，把查找的资料保存下来，并对材料注解。不要一开始就期望创造出完美的文章，一步一步的来。编辑的阶段分成 <strong>内容编辑</strong> 和 <strong>技术编辑</strong> 两个部分，一个是从思想观点角度入手，另一个是从拼写语法入手。一个有效的方式是把文章打印出来再改，并且花时间大声朗读出来。也可以选择给别人看你的文章，征求他们的意见。定稿之后，打印出来，从头到尾再认真读一遍。</p>
+
+<h2 id="recall">Recall</h2>
+
+<p>写作从哪个阶段开始？为什么？<br />
+写作能够分成几个阶段？<br />
+前写作阶段需要注意什么？<br />
+查资料的时候需要避免什么问题？从哪里开始比较好，然后呢？找到的资源怎么处理？怎么对材料注释？怎么判断是否查够了？<br />
+初稿的时候要注意什么地方？<br />
+编辑可以分成哪两个阶段？<br />
+怎么从整体把握整体，有哪些需要特别注意的问题？<br />
+技术编辑的阶段要注意哪些地方？有什么有效的方式？<br />
+怎么从别人那里得到反馈？<br />
+完成编辑之后需要做什么？</p>
+
+<h2 id="notes">Notes</h2>
+
+<h3 id="准备阶段">准备阶段</h3>
+
+<aside>
+📌 文章写作从 前写作阶段 开始，只有经过了这个过程，才应该开始查找资料。——西蒙·佩顿·琼斯
+</aside>
+
+<ul>
+  <li>前写作 会挖掘出你根本没想过的与话题有关的东西
+    <blockquote>
+      <p>This is something that professional writers know really well; when you spend some quality time writing in a focused state, your brain will make connections and serve up memories you didn’t event know you had.</p>
+    </blockquote>
+
+    <p>这样会想到大量的问题和初步论点，可能最后会写进你的最终稿</p>
+  </li>
+  <li>
+    <p>更加集中的查资料
+  带着 前写作阶段 的问题和论点，更清楚你要找什么资料，节省大量漫无目的的搜索时间<br />
+  不是要你一次就打磨出一篇完美的文章。一方面，你还没有查资料。更重要的是，写文章是个大工程。（雕塑家的例子）</p>
+  </li>
+  <li>前写作阶段
+    <ul>
+      <li>大脑清空
+        <ul>
+          <li>并不是试图要写一篇一气呵成的文章。这只是一个 “把所有想法写在纸上或记笔记 app 上” 的机会。</li>
+          <li>用番茄时钟，努力把所有大脑中所知的与话题有关的一切写出来，同时确认任何我可能想到的问题</li>
+          <li>列出我认为很重要需要提到的主要论点，最后尝试思考任何具体的外部资源，可能会对查资料过程有帮助</li>
+          <li>一旦结束，大脑清空</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="查资料阶段">查资料阶段</h3>
+<ul>
+  <li>绝大多是学生可能面对的陷阱，就是倾向于永远卡在这个这个阶段。资料递归症候群：卡在不停查找资料的循环里</li>
+  <li>查找资料的算法
+    <ul>
+      <li>首先，查找资料。（图书馆，网上）
+        <ul>
+          <li>更安全的起点是：维基百科，注意底部的引用部分</li>
+          <li>谷歌学术，EBSCO，图书馆</li>
+          <li>大多数科普书籍的注释和参考文献（万物简史）</li>
+        </ul>
+      </li>
+      <li>一旦找到资源，用私人的方式存档
+        <ul>
+          <li>如果在书中或是其他纸质媒介，拍照</li>
+          <li>如果是数字资源，把它们添加记笔记 app</li>
+          <li>确保在写作时，总能找到它们</li>
+        </ul>
+      </li>
+      <li>对材料进行注释
+        <ul>
+          <li>浏览每个资源，高亮你觉得与你要论证的观点特点相关的部分。添加笔记，当你实际写最终稿的时候，会帮助你突显这些论点的细节</li>
+        </ul>
+      </li>
+      <li>有意识的问自己是不是查够了
+        <aside>
+📌 在你的论文中，每个主要论点至少要有 2 个来源。间接论点、次要论点，至少要有 1 个来源
+</aside>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="初稿">初稿</h3>
+
+<blockquote>
+  <p>Write drunk, Edit sober</p>
+</blockquote>
+
+<p>开始创造时放飞自我，不管审核和限制的重要性。因为写作会遇见的最痛苦的问题之一，就是完美主义。<br />
+把初稿写在不同于最终定稿的位置上（写在不同文件中，写在完全不同的 app 上）</p>
+
+<h3 id="编辑">编辑</h3>
+
+<ul>
+  <li>内容编辑（确保文章尽可能高效地把你的思想传达给读者）<br />
+从整体把握自己的文章，问自己最重要的问题：
+    <ul>
+      <li>每个论证是否都支持论点？</li>
+      <li>文章读起来逻辑通顺吗？</li>
+      <li>每个论证是否恰当地展开，有资料或外部证据的支撑？</li>
+      <li>有什么可以删除，或写的更简洁？</li>
+    </ul>
+  </li>
+  <li>技术编辑（准备一丝不苟地检查你的文章，识别语言结构或句法方面的错误）
+    <ul>
+      <li>拼写和语法错误</li>
+      <li>语言组织糟糕的句子</li>
+      <li>格式错误，听上去不对劲的句子<br />
+最有效的方式，是把文章打印出来，亲手更改</li>
+      <li>更容易发现错误</li>
+      <li>防止匆匆忙忙的做校对<br />
+花时间，出声阅读</li>
+      <li>强迫你放慢速度，防止无意识跳过任何词</li>
+    </ul>
+  </li>
+  <li>给其他人看你的文章，获得他们的反馈
+    <ol>
+      <li>请意识到每个人第一次读你的文章的机会，只有一次。没有人能用崭新的眼光看你的文章两次。所以要有计划地找读者，让一部分人读初稿，留着另一部分人读最后的定稿。</li>
+      <li>请确保明确地询问你真正需要的那种反馈。（比如论证是否有理由据）</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="审查">审查</h3>
+
+<ul>
+  <li>打印你的定稿，从头到尾再认真读一遍</li>
+</ul>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="study skills" /><summary type="html"><![CDATA[📌 SUMMARY: 文章写作从 前写作阶段 开始，这样可以挖掘更多灵感，避免后面浪费过多时间查找资料。查找资料的时候，建议从维基百科入手，把查找的资料保存下来，并对材料注解。不要一开始就期望创造出完美的文章，一步一步的来。编辑的阶段分成 内容编辑 和 技术编辑 两个部分，一个是从思想观点角度入手，另一个是从拼写语法入手。一个有效的方式是把文章打印出来再改，并且花时间大声朗读出来。也可以选择给别人看你的文章，征求他们的意见。定稿之后，打印出来，从头到尾再认真读一遍。 Recall 写作从哪个阶段开始？为什么？ 写作能够分成几个阶段？ 前写作阶段需要注意什么？ 查资料的时候需要避免什么问题？从哪里开始比较好，然后呢？找到的资源怎么处理？怎么对材料注释？怎么判断是否查够了？ 初稿的时候要注意什么地方？ 编辑可以分成哪两个阶段？ 怎么从整体把握整体，有哪些需要特别注意的问题？ 技术编辑的阶段要注意哪些地方？有什么有效的方式？ 怎么从别人那里得到反馈？ 完成编辑之后需要做什么？ Notes 准备阶段 📌 文章写作从 前写作阶段 开始，只有经过了这个过程，才应该开始查找资料。——西蒙·佩顿·琼斯 前写作 会挖掘出你根本没想过的与话题有关的东西 This is something that professional writers know really well; when you spend some quality time writing in a focused state, your brain will make connections and serve up memories you didn’t event know you had. 这样会想到大量的问题和初步论点，可能最后会写进你的最终稿 更加集中的查资料 带着 前写作阶段 的问题和论点，更清楚你要找什么资料，节省大量漫无目的的搜索时间 不是要你一次就打磨出一篇完美的文章。一方面，你还没有查资料。更重要的是，写文章是个大工程。（雕塑家的例子） 前写作阶段 大脑清空 并不是试图要写一篇一气呵成的文章。这只是一个 “把所有想法写在纸上或记笔记 app 上” 的机会。 用番茄时钟，努力把所有大脑中所知的与话题有关的一切写出来，同时确认任何我可能想到的问题 列出我认为很重要需要提到的主要论点，最后尝试思考任何具体的外部资源，可能会对查资料过程有帮助 一旦结束，大脑清空 查资料阶段 绝大多是学生可能面对的陷阱，就是倾向于永远卡在这个这个阶段。资料递归症候群：卡在不停查找资料的循环里 查找资料的算法 首先，查找资料。（图书馆，网上） 更安全的起点是：维基百科，注意底部的引用部分 谷歌学术，EBSCO，图书馆 大多数科普书籍的注释和参考文献（万物简史） 一旦找到资源，用私人的方式存档 如果在书中或是其他纸质媒介，拍照 如果是数字资源，把它们添加记笔记 app 确保在写作时，总能找到它们 对材料进行注释 浏览每个资源，高亮你觉得与你要论证的观点特点相关的部分。添加笔记，当你实际写最终稿的时候，会帮助你突显这些论点的细节 有意识的问自己是不是查够了 📌 在你的论文中，每个主要论点至少要有 2 个来源。间接论点、次要论点，至少要有 1 个来源 初稿 Write drunk, Edit sober 开始创造时放飞自我，不管审核和限制的重要性。因为写作会遇见的最痛苦的问题之一，就是完美主义。 把初稿写在不同于最终定稿的位置上（写在不同文件中，写在完全不同的 app 上） 编辑 内容编辑（确保文章尽可能高效地把你的思想传达给读者） 从整体把握自己的文章，问自己最重要的问题： 每个论证是否都支持论点？ 文章读起来逻辑通顺吗？ 每个论证是否恰当地展开，有资料或外部证据的支撑？ 有什么可以删除，或写的更简洁？ 技术编辑（准备一丝不苟地检查你的文章，识别语言结构或句法方面的错误） 拼写和语法错误 语言组织糟糕的句子 格式错误，听上去不对劲的句子 最有效的方式，是把文章打印出来，亲手更改 更容易发现错误 防止匆匆忙忙的做校对 花时间，出声阅读 强迫你放慢速度，防止无意识跳过任何词 给其他人看你的文章，获得他们的反馈 请意识到每个人第一次读你的文章的机会，只有一次。没有人能用崭新的眼光看你的文章两次。所以要有计划地找读者，让一部分人读初稿，留着另一部分人读最后的定稿。 请确保明确地询问你真正需要的那种反馈。（比如论证是否有理由据） 审查 打印你的定稿，从头到尾再认真读一遍]]></summary></entry><entry><title type="html">第八节：应对考试焦虑</title><link href="/blogs/notes/2020/04/05/cc-study-skills-test-anxiety.html" rel="alternate" type="text/html" title="第八节：应对考试焦虑" /><published>2020-04-05T00:00:00+00:00</published><updated>2020-04-05T00:00:00+00:00</updated><id>/blogs/notes/2020/04/05/cc-study-skills-test-anxiety</id><content type="html" xml:base="/blogs/notes/2020/04/05/cc-study-skills-test-anxiety.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=t-9cqaRJMP4" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong><br />
+焦虑的感觉很正常，这意味着你做的事情很重要。但是学会控制考试的焦虑很重要，要确保它不会吞噬你的思维。焦虑的来源主要有三个方面：重复过往失败的恐惧、对未知的恐惧、对风险的恐惧。克服焦虑有效的方法是花几分钟把导致你焦虑的东西写下来。失败是不可避免的，你也不是由过去的成功或失败而定义的，要学会分析过去的错误，避免再犯。学习的时候要尽量模拟考试的场景，越了解考试，就越感到安心。把考试当作一次机会，一次的考试并不意味着全部。</p>
+
+<h2 id="recall">Recall</h2>
+
+<p>为什么在一定程度上是一件好事？<br />
+高压情景对身体有什么伤害？<br />
+焦虑的原因有哪些？<br />
+应对焦虑的普遍通用策略是什么？<br />
+怎样应对重复过往失败的恐惧？<br />
+如何面对未知的恐惧（克苏鲁）？<br />
+怎么面对对风险的恐惧？</p>
+
+<h2 id="notes">Notes</h2>
+
+<blockquote>
+  <p>Fear doesn’t go away. The warrior and the artist live by the same code of necessity, which dictates that the battle must be fought anew every day.</p>
+</blockquote>
+
+<p>焦虑的感觉很正常，你永远无法真正消除它们。如果你正在做对你来说重要的工作，你总会感到一定程度的焦虑。这实际上是一件好事，因为焦虑暗示着，你正在做的事很重要。</p>
+
+<p>高压情景实际上会损伤你的工作记忆。由焦虑导致的压力，会产生激素 皮质醇 ，太多的 皮质醇 会妨碍海马回忆记忆的能力。</p>
+
+<aside>
+📌 学会控制考试的焦虑至关重要，确保焦虑不会吞噬你的思维
+</aside>
+
+<h3 id="焦虑">焦虑</h3>
+
+<ul>
+  <li>焦虑的原因
+    <ul>
+      <li>重复过往失败的恐惧</li>
+      <li>对未知的恐惧</li>
+      <li>对风险的恐惧</li>
+    </ul>
+  </li>
+  <li>普遍的通用策略
+    <ul>
+      <li>花几分钟写下真正导致你感觉焦虑的东西
+        <blockquote>
+          <p>A study done at the University of Chicago found that students who were given 10 minutes to write about their fears and anxieties before a test improved their scores by an average of nearly one grade point compared to the control group.</p>
+        </blockquote>
+
+        <p>通过写下来，把这些担忧卸载，放入你能信任的外部系统中。潜意识里，你知道它们哪儿也不会去。通过这么做，你释放了心理资源，可以接着用来专注于考试中。</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="重复过往失败的恐惧">重复过往失败的恐惧</h3>
+
+<p>每个人都知道失败是不可避免的</p>
+
+<p>人有与生俱来的 消极偏见 。一种记住并赋予更多情绪比重，给消极而非积极事件的倾向。这在涉及生存时非常有用的大脑特征。</p>
+
+<ul>
+  <li>
+    <p>首先，意识到你不是由过去的成功或失败所定义
+任何时候，你都可以选择与过去不同的做法</p>
+  </li>
+  <li>
+    <p>如果你准备好了，你需要首先分析你过去的错误
+你只有明白自己错误在哪里，你才能真的进步（棋手的例子）。
+对于每个答错的问题，确保你真的理解为什么自己的答案是错的。如果题目很复杂，确认你犯错误的那个具体点，确保你知道正确的答案是什么，它为什么正确。
+要掌握所有错题，这样你就不会再犯同样的错误。
+不是只有错题的细节才值得反思，同样需要搞清楚，为什么你当初会选错题。</p>
+
+    <blockquote>
+      <p>Ask yourself: was i unprepared? And if so, why was I unprepared? Did I simply not put enough time into reviewing? Did I ignore the study guide? Or did I use an ineffective study method?</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h3 id="对未知的恐惧">对未知的恐惧</h3>
+
+<p>每一次失败都是一次学习，一次机会。但你需要确保你会把握住这个机会，通过制定计划在未来避免重蹈覆辙。仅仅说“我下次会做的更好”并不够，你需要知道你究竟如何会做的更好。越是能全方位地了解你的考试，你就越会感到安心。</p>
+
+<p>人会自然地恐惧他们所不理解的东西，一般来说，这是好事。这是大脑的另一个适应性进化结果，对生存非常有益。（大城市松鼠的例子）</p>
+
+<aside>
+📌 一般原则是，尽可能的在学习的时候模拟考试的场景。竭尽所能的获得练习题和学习指南。利用你的笔记编题目，以填补和考试的隔阂。
+</aside>
+
+<blockquote>
+  <p>By the time I present to an actual audience, it’s not really the first time at all.</p>
+</blockquote>
+
+<h3 id="对风险的恐惧">对风险的恐惧</h3>
+
+<p>考试焦虑的最大来源之一，是感觉这次考试就意味着一切。但是在现实中，你几乎很少会经历无法从错误中重新振作的考试或情景。</p>
+<blockquote>
+  <p>Think of it as yet another learning opportunit rather that as a judgement.</p>
+</blockquote>
+
+<aside>
+📌 把考试当作一次机会。通过 **主动回忆** 强化你对知识的掌握
+</aside>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="study skills" /><summary type="html"><![CDATA[📌 SUMMARY: 焦虑的感觉很正常，这意味着你做的事情很重要。但是学会控制考试的焦虑很重要，要确保它不会吞噬你的思维。焦虑的来源主要有三个方面：重复过往失败的恐惧、对未知的恐惧、对风险的恐惧。克服焦虑有效的方法是花几分钟把导致你焦虑的东西写下来。失败是不可避免的，你也不是由过去的成功或失败而定义的，要学会分析过去的错误，避免再犯。学习的时候要尽量模拟考试的场景，越了解考试，就越感到安心。把考试当作一次机会，一次的考试并不意味着全部。 Recall 为什么在一定程度上是一件好事？ 高压情景对身体有什么伤害？ 焦虑的原因有哪些？ 应对焦虑的普遍通用策略是什么？ 怎样应对重复过往失败的恐惧？ 如何面对未知的恐惧（克苏鲁）？ 怎么面对对风险的恐惧？ Notes Fear doesn’t go away. The warrior and the artist live by the same code of necessity, which dictates that the battle must be fought anew every day. 焦虑的感觉很正常，你永远无法真正消除它们。如果你正在做对你来说重要的工作，你总会感到一定程度的焦虑。这实际上是一件好事，因为焦虑暗示着，你正在做的事很重要。 高压情景实际上会损伤你的工作记忆。由焦虑导致的压力，会产生激素 皮质醇 ，太多的 皮质醇 会妨碍海马回忆记忆的能力。 📌 学会控制考试的焦虑至关重要，确保焦虑不会吞噬你的思维 焦虑 焦虑的原因 重复过往失败的恐惧 对未知的恐惧 对风险的恐惧 普遍的通用策略 花几分钟写下真正导致你感觉焦虑的东西 A study done at the University of Chicago found that students who were given 10 minutes to write about their fears and anxieties before a test improved their scores by an average of nearly one grade point compared to the control group. 通过写下来，把这些担忧卸载，放入你能信任的外部系统中。潜意识里，你知道它们哪儿也不会去。通过这么做，你释放了心理资源，可以接着用来专注于考试中。 重复过往失败的恐惧 每个人都知道失败是不可避免的 人有与生俱来的 消极偏见 。一种记住并赋予更多情绪比重，给消极而非积极事件的倾向。这在涉及生存时非常有用的大脑特征。 首先，意识到你不是由过去的成功或失败所定义 任何时候，你都可以选择与过去不同的做法 如果你准备好了，你需要首先分析你过去的错误 你只有明白自己错误在哪里，你才能真的进步（棋手的例子）。 对于每个答错的问题，确保你真的理解为什么自己的答案是错的。如果题目很复杂，确认你犯错误的那个具体点，确保你知道正确的答案是什么，它为什么正确。 要掌握所有错题，这样你就不会再犯同样的错误。 不是只有错题的细节才值得反思，同样需要搞清楚，为什么你当初会选错题。 Ask yourself: was i unprepared? And if so, why was I unprepared? Did I simply not put enough time into reviewing? Did I ignore the study guide? Or did I use an ineffective study method? 对未知的恐惧 每一次失败都是一次学习，一次机会。但你需要确保你会把握住这个机会，通过制定计划在未来避免重蹈覆辙。仅仅说“我下次会做的更好”并不够，你需要知道你究竟如何会做的更好。越是能全方位地了解你的考试，你就越会感到安心。 人会自然地恐惧他们所不理解的东西，一般来说，这是好事。这是大脑的另一个适应性进化结果，对生存非常有益。（大城市松鼠的例子） 📌 一般原则是，尽可能的在学习的时候模拟考试的场景。竭尽所能的获得练习题和学习指南。利用你的笔记编题目，以填补和考试的隔阂。 By the time I present to an actual audience, it’s not really the first time at all. 对风险的恐惧 考试焦虑的最大来源之一，是感觉这次考试就意味着一切。但是在现实中，你几乎很少会经历无法从错误中重新振作的考试或情景。 Think of it as yet another learning opportunit rather that as a judgement. 📌 把考试当作一次机会。通过 **主动回忆** 强化你对知识的掌握]]></summary></entry><entry><title type="html">第七节：备考</title><link href="/blogs/notes/2020/04/04/cc-study-skills-studying-for-exams.html" rel="alternate" type="text/html" title="第七节：备考" /><published>2020-04-04T00:00:00+00:00</published><updated>2020-04-04T00:00:00+00:00</updated><id>/blogs/notes/2020/04/04/cc-study-skills-studying-for-exams</id><content type="html" xml:base="/blogs/notes/2020/04/04/cc-study-skills-studying-for-exams.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=mLhwdITTrfE" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong></p>
+
+<h2 id="recall">Recall</h2>
+
+<p>花多长时间准备？<br />
+在真正坐下来之前还有什么需要注意的？<br />
+需要了解那些考试的信息？<br />
+选择什么地点？有什么限制？<br />
+怎么做自我测试？题目的来源有哪些？有哪些形式？<br />
+遇到问题的时候，怎么向老师求助？在此之前，自己需要做些什么？<br />
+怎么用好“小抄”？<br />
+怎么保持高强度的专注？</p>
+
+<h2 id="notes">Notes</h2>
+
+<blockquote>
+  <p>By failing to prepare, you are preparing to fail.</p>
+</blockquote>
+
+<aside>
+📌 学习需要多种多样的重复、巩固。还需要间隔时间进行。
+</aside>
+
+<p>大脑的生理结构不会自发的为考试做准备。需要构建外部结构，来帮助它把 <strong>学习计划</strong> 直接纳入你已经用来为其他事做准备的日历，把学习和备考两者的时间进行平衡，是非常关键的。</p>
+
+<h3 id="考前准备">考前准备</h3>
+
+<ul>
+  <li>搞清楚你考试的确切日期，把日期写入日历（确保要把记录下考试的地点）</li>
+  <li>回过头，制定学习计划
+    <ul>
+      <li>如果是期末考试，提前 3～4 周复习</li>
+      <li>如果是小测试，提前 2 周</li>
+      <li>如果有大量作业或小组任务，也需要花时间计划好</li>
+    </ul>
+  </li>
+  <li>当你真正坐下来开始学习，请尽最大的可能，模拟考试的情景（记忆依赖情景）
+    <ul>
+      <li>尽可能多的获得关于考试的信息（问老师，看教学大纲）
+        <ul>
+          <li>考试内容覆盖的内容</li>
+          <li>是不是综合测试</li>
+          <li>会有多少道题</li>
+          <li>答题的时间限制是多少</li>
+          <li>考试的题型是什么（多选题、判断题、简答题、论述题？）</li>
+          <li>考试允许携带的东西</li>
+        </ul>
+      </li>
+      <li>着手做练习题，或者以前考试的真题（问老师，参考资料；Koofers.com）</li>
+      <li>至少有 1～2 次，在真正要考试的教室里（或是外观和感觉相似的教室）</li>
+      <li>在和考试完全相同的限制下学习<br />
+定个计时器，模拟考试的时间限制。在不看教科书、笔记和其他考试禁止资料的情况下，对自己进行自我测试
+        <aside>
+📌 最好的备考方式，就是主动的学习，注重 回忆 （强迫自己从记忆深处提取事实和答案）
+</aside>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="自测">自测</h3>
+
+<ul>
+  <li>如何 自我测试 ？（给自己编题目）
+    <ul>
+      <li>如果老师给你学习指南，这就是你编题目的首要来源
+        <ul>
+          <li>把指南列出来的每个概念编成一个问题</li>
+          <li>如果没有学习指南，用 课程笔记 如法泡制
+            <ul>
+              <li>快速浏览笔记，用标题、主要概念甚至案例，编题目</li>
+            </ul>
+          </li>
+          <li>尽可能模仿考试真题</li>
+          <li>几种类型的题目本身完美契合特定的形式
+            <ul>
+              <li>事实和术语 非常适合 抽认卡</li>
+              <li>当涉及到数学、物理等学科、题目通常要以方程式或问题呈现（需要花绝大多数学习的时间，真正解决这些问题）</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="关于求助">关于求助</h3>
+<ul>
+  <li>知道什么时候去向老师求助，如何正确地求助
+    <blockquote>
+      <p>Before going up to the professor, ask yourself: What is it, exactly, that I don’t understand?</p>
+    </blockquote>
+  </li>
+  <li>当你困惑时，再花 15 分钟努力自己解决问题。一行一行地研究问题，直到你确切的知道困惑来自哪里
+    <blockquote>
+      <p>Also, try to write down the solutions you’ve tried so far. Doing this essentially documents the problem and creates context for the person who will eventually help you - and it might actually help you solve the problem on your own as well.</p>
+    </blockquote>
+  </li>
+  <li>小黄鸭调试法<br />
+把代码和代码背后的思考过程解释给小黄鸭听（从不同角度思考，问题往往迎刃而解）</li>
+</ul>
+
+<h3 id="小抄">“小抄”</h3>
+
+<ul>
+  <li>包含考试最重要的信息</li>
+  <li>在整理的过程中，主动地与知识交互</li>
+</ul>
+
+<h3 id="劳逸结合">劳逸结合</h3>
+
+<ul>
+  <li>不要学习（有些时候）
+    <ul>
+      <li>你学的好不好，是由你所花的时间和你的专注的强度决定的</li>
+      <li>为了高强度的专注，必须要大脑 适时休息</li>
+      <li>高密度的娱乐，释放压力</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="study skills" /><summary type="html"><![CDATA[📌 SUMMARY: Recall 花多长时间准备？ 在真正坐下来之前还有什么需要注意的？ 需要了解那些考试的信息？ 选择什么地点？有什么限制？ 怎么做自我测试？题目的来源有哪些？有哪些形式？ 遇到问题的时候，怎么向老师求助？在此之前，自己需要做些什么？ 怎么用好“小抄”？ 怎么保持高强度的专注？ Notes By failing to prepare, you are preparing to fail. 📌 学习需要多种多样的重复、巩固。还需要间隔时间进行。 大脑的生理结构不会自发的为考试做准备。需要构建外部结构，来帮助它把 学习计划 直接纳入你已经用来为其他事做准备的日历，把学习和备考两者的时间进行平衡，是非常关键的。 考前准备 搞清楚你考试的确切日期，把日期写入日历（确保要把记录下考试的地点） 回过头，制定学习计划 如果是期末考试，提前 3～4 周复习 如果是小测试，提前 2 周 如果有大量作业或小组任务，也需要花时间计划好 当你真正坐下来开始学习，请尽最大的可能，模拟考试的情景（记忆依赖情景） 尽可能多的获得关于考试的信息（问老师，看教学大纲） 考试内容覆盖的内容 是不是综合测试 会有多少道题 答题的时间限制是多少 考试的题型是什么（多选题、判断题、简答题、论述题？） 考试允许携带的东西 着手做练习题，或者以前考试的真题（问老师，参考资料；Koofers.com） 至少有 1～2 次，在真正要考试的教室里（或是外观和感觉相似的教室） 在和考试完全相同的限制下学习 定个计时器，模拟考试的时间限制。在不看教科书、笔记和其他考试禁止资料的情况下，对自己进行自我测试 📌 最好的备考方式，就是主动的学习，注重 回忆 （强迫自己从记忆深处提取事实和答案） 自测 如何 自我测试 ？（给自己编题目） 如果老师给你学习指南，这就是你编题目的首要来源 把指南列出来的每个概念编成一个问题 如果没有学习指南，用 课程笔记 如法泡制 快速浏览笔记，用标题、主要概念甚至案例，编题目 尽可能模仿考试真题 几种类型的题目本身完美契合特定的形式 事实和术语 非常适合 抽认卡 当涉及到数学、物理等学科、题目通常要以方程式或问题呈现（需要花绝大多数学习的时间，真正解决这些问题） 关于求助 知道什么时候去向老师求助，如何正确地求助 Before going up to the professor, ask yourself: What is it, exactly, that I don’t understand? 当你困惑时，再花 15 分钟努力自己解决问题。一行一行地研究问题，直到你确切的知道困惑来自哪里 Also, try to write down the solutions you’ve tried so far. Doing this essentially documents the problem and creates context for the person who will eventually help you - and it might actually help you solve the problem on your own as well. 小黄鸭调试法 把代码和代码背后的思考过程解释给小黄鸭听（从不同角度思考，问题往往迎刃而解） “小抄” 包含考试最重要的信息 在整理的过程中，主动地与知识交互 劳逸结合 不要学习（有些时候） 你学的好不好，是由你所花的时间和你的专注的强度决定的 为了高强度的专注，必须要大脑 适时休息 高密度的娱乐，释放压力]]></summary></entry><entry><title type="html">第六节：拖延症</title><link href="/blogs/notes/2020/03/29/cc-study-skills-procrastination.html" rel="alternate" type="text/html" title="第六节：拖延症" /><published>2020-03-29T00:00:00+00:00</published><updated>2020-03-29T00:00:00+00:00</updated><id>/blogs/notes/2020/03/29/cc-study-skills-procrastination</id><content type="html" xml:base="/blogs/notes/2020/03/29/cc-study-skills-procrastination.html"><![CDATA[<p><img src="https://www.youtube.com/watch?v=x2y_SLOvOvw" alt="" /></p>
+
+<p>📌 <strong>SUMMARY:</strong><br />
+时间动机理论指出，<code class="language-plaintext highlighter-rouge">动机 = （期望 x 价值）/ （冲动 x 延迟）</code>。因此我们可以通过<strong>提高期望</strong>、<strong>提高任务价值</strong> 和 <strong>降低被其他事物干扰的冲动</strong> 这些方式来减少拖延。要避免 <strong>低密度娱乐</strong> ，学会享受 <strong>高密度娱乐</strong>。同时，方程中没有涉及到的 <strong>意志力</strong> 也对拖延症有重要影响。而战胜拖延症最好的方式，就是从任务列表里最痛苦的事情开始做起。使用 <strong>番茄时钟</strong> 也是非常好的一种方式。</p>
+
+<h2 id="recall">Recall</h2>
+
+<p>关于 拖延方程 由哪些部分组成，它们之间有什么关系，各自代表着什么？<br />
+人为什么会拖延？<br />
+怎样提高 期望？<br />
+怎样提高 任务价值？<br />
+什么是 高密度娱乐 和 低密度娱乐？为什么应该鼓励 高密度娱乐 而避免 低密度娱乐？<br />
+会什么在避免拖延这件事情上，环境很重要？<br />
+拖延方程 中没有涉及到的重要一项是什么？<br />
+什么是 自我损耗 ？它有科学依据吗？<br />
+战胜拖延症最好的方式是什么？<br />
+怎么用 番茄时钟？</p>
+
+<h2 id="notes">Notes</h2>
+
+<h3 id="我们为什么会拖延">我们为什么会拖延？</h3>
+
+<ul>
+  <li>时间动机理论
+    <ul>
+      <li>人完成任务或作业的动机，可以由一个方程式表示（心理模型）：
+        <aside>
+📍 动机 = （期望 x 价值）/ （冲动 x 延迟）
+</aside>
+      </li>
+      <li>期望：你相信自己能完成任务的信念有多强，与拖延负相关</li>
+      <li>价值：你完成任务获得的奖励；实际做事的过程中，多么快乐或不快乐</li>
+      <li>冲动：你屈服于分心干扰的倾向，做其他事情的冲动（如果能抵抗这个冲动，你就实际在强化大脑的专注能力）</li>
+      <li>延迟：从现在开始到你完成任务获得的奖励时间（拖延方程中最难控制的因素，因为获得任务奖励的日期，往往是确定的）
+        <ul>
+          <li>延迟的时间越长，你就越有可能拖延。人类的天性对 短期奖励 的重视，要远远超过 长期奖励 的重视。这中机制在人类进化史上，帮助了适应性脑进化（狩猎）。</li>
+          <li>现代生活的中的大多数有益的活动，都需要长时间的投入才能得到收获</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>如果你觉得自己没有能力完成任务，就去找到一种方法提高 期望；如果你发现注意力总是被其他事情干扰，就去搞清楚如何降低你的 冲动；</p>
+
+<h3 id="克服拖延">克服拖延</h3>
+
+<h4 id="提高-期望">提高 期望</h4>
+<ul>
+  <li>把任务分解成更小的子任务
+    <ul>
+      <li>把注意力放在不那么可怕的东西上；同时让你更明确的定义，你需要采取的具体行动</li>
+      <li>例如：写论文，是一个可以被分解成 “查资料阶段、草稿阶段（可以再细分为 引言、论证、结论）、编辑阶段” 的项目</li>
+    </ul>
+  </li>
+  <li>寻求帮助
+    <ul>
+      <li>有些时候拒绝向他人求助，只会拖你后腿</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="提高任务价值">提高任务价值</h4>
+<ul>
+  <li>提高完成任务实际的奖励
+    <ul>
+      <li>选择更适合你的工作（选择喜欢的专业、课程）</li>
+      <li>对于大量不得不学的课程，要实际提高奖励就很困难</li>
+    </ul>
+  </li>
+  <li>提高工作本身的体验
+    <ul>
+      <li>选择自己喜欢的工作地点（咖啡店、图书馆、音乐单、朋友）</li>
+    </ul>
+  </li>
+  <li>给完成子任务增加额外奖励或小奖励
+    <ul>
+      <li>游戏化工作（App：habitica）</li>
+      <li>看电影，和朋友出去玩</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="高密度娱乐--低密度娱乐">高密度娱乐 &amp; 低密度娱乐</h4>
+<p>大量学生感觉他们有太多事情要做，以至于不能让自己花相当大的时间沉浸于任何娱乐。讽刺的是，正是这些一直抗拒自己进行 <strong>高密度娱乐</strong> 的学生，同样会花大量时间刷微博、逛淘宝、上 B 站 … 这些事情代表 低密度娱乐 ，他们比做正事更吸引人，而且很容易说服自己就只看 5 分钟。不可避免地，你会在这些事情上花费大量的时间，因为<strong>这些网站根本上就是专门设计成尽可能让人沉迷</strong>，它们甚至也并不有趣，只是分心干扰而已。<br />
+如果把时间浪费在 低密度娱乐 上，就没有时间享受正真高密度的，真正能够激发你完成正事的娱乐。</p>
+<aside>
+📍 要让自己享受 高密度娱乐 ，它创造了可以用来集中精力做正事的期待
+</aside>
+
+<h4 id="关于-冲动">关于 冲动</h4>
+<ul>
+  <li>环境真的非常重要
+    <ul>
+      <li>如果在能接触到分心干扰的地方学习，你的注意力会更容易从正事上被拽走
+        <aside>
+  📍 寻找一个发奋学习的地点
+  </aside>
+      </li>
+    </ul>
+  </li>
+  <li>有时需要稍微封锁环境（App：Cold Turkey）</li>
+</ul>
+
+<h4 id="意志力">意志力</h4>
+
+<blockquote>
+  <p>If it’s your job to eat a frog, it’s best to do it first thing in the morning, and if it’s your job to eat two frogs, it’s best to eat the biggest one first.</p>
+</blockquote>
+
+<ul>
+  <li>拖延方程 没有涉及到的一样东西是 <strong>意志力</strong> 在拖延中的重要性。
+    <ul>
+      <li>自我损耗
+        <ul>
+          <li>长久以来，人们相信 意志力 是有限的。它会随着你做一些偏离最省力途径的决定，而在一天里流逝。</li>
+        </ul>
+      </li>
+      <li>研究不能证明，意志力 本身是否是在一天时间里可以消耗的有限资源。但是大脑和身体确实有劳逸结合的节奏。</li>
+      <li>如果推迟有挑战性的作业，先做容易的事情。一旦这些事情做完，你就很容易说服自己今天已经“做的够多”了。</li>
+    </ul>
+
+    <aside>
+  📍 战胜拖延症最好的方式，就是从任务列表中最痛苦的事情开始做
+  </aside>
+  </li>
+</ul>
+
+<h4 id="番茄时钟">番茄时钟</h4>
+
+<blockquote>
+  <p>This method works so well because the timer helps you reframe your task as input-based rather that output-based.</p>
+</blockquote>
+
+<ul>
+  <li>首先，确定要从事的一个单一任务</li>
+  <li>然后，把计时器设置成 25 分钟，在这段时间里尽可能拼命的做这项工作</li>
+  <li>如果分心干扰出现，有搞其他事情的冲动，记在纸条上，然后继续工作</li>
+  <li>一旦时间到，花 5 分钟休息一下</li>
+  <li>重复这一过程，直到准备好更长的休息</li>
+</ul>
+
+<p>这种重塑的行为，把最初对任务感到的阻力切割分解。因为工作 25 分钟，感觉不像是特别大的努力投入。<br />
+计时器创造了一个外部动力，不依赖于大脑追踪你应该工作多久，而是让计时器代劳。</p>]]></content><author><name>Tang Yu</name></author><category term="Notes" /><category term="crash course" /><category term="study skills" /><summary type="html"><![CDATA[📌 SUMMARY: 时间动机理论指出，动机 = （期望 x 价值）/ （冲动 x 延迟）。因此我们可以通过提高期望、提高任务价值 和 降低被其他事物干扰的冲动 这些方式来减少拖延。要避免 低密度娱乐 ，学会享受 高密度娱乐。同时，方程中没有涉及到的 意志力 也对拖延症有重要影响。而战胜拖延症最好的方式，就是从任务列表里最痛苦的事情开始做起。使用 番茄时钟 也是非常好的一种方式。 Recall 关于 拖延方程 由哪些部分组成，它们之间有什么关系，各自代表着什么？ 人为什么会拖延？ 怎样提高 期望？ 怎样提高 任务价值？ 什么是 高密度娱乐 和 低密度娱乐？为什么应该鼓励 高密度娱乐 而避免 低密度娱乐？ 会什么在避免拖延这件事情上，环境很重要？ 拖延方程 中没有涉及到的重要一项是什么？ 什么是 自我损耗 ？它有科学依据吗？ 战胜拖延症最好的方式是什么？ 怎么用 番茄时钟？ Notes 我们为什么会拖延？ 时间动机理论 人完成任务或作业的动机，可以由一个方程式表示（心理模型）： 📍 动机 = （期望 x 价值）/ （冲动 x 延迟） 期望：你相信自己能完成任务的信念有多强，与拖延负相关 价值：你完成任务获得的奖励；实际做事的过程中，多么快乐或不快乐 冲动：你屈服于分心干扰的倾向，做其他事情的冲动（如果能抵抗这个冲动，你就实际在强化大脑的专注能力） 延迟：从现在开始到你完成任务获得的奖励时间（拖延方程中最难控制的因素，因为获得任务奖励的日期，往往是确定的） 延迟的时间越长，你就越有可能拖延。人类的天性对 短期奖励 的重视，要远远超过 长期奖励 的重视。这中机制在人类进化史上，帮助了适应性脑进化（狩猎）。 现代生活的中的大多数有益的活动，都需要长时间的投入才能得到收获 如果你觉得自己没有能力完成任务，就去找到一种方法提高 期望；如果你发现注意力总是被其他事情干扰，就去搞清楚如何降低你的 冲动； 克服拖延 提高 期望 把任务分解成更小的子任务 把注意力放在不那么可怕的东西上；同时让你更明确的定义，你需要采取的具体行动 例如：写论文，是一个可以被分解成 “查资料阶段、草稿阶段（可以再细分为 引言、论证、结论）、编辑阶段” 的项目 寻求帮助 有些时候拒绝向他人求助，只会拖你后腿 提高任务价值 提高完成任务实际的奖励 选择更适合你的工作（选择喜欢的专业、课程） 对于大量不得不学的课程，要实际提高奖励就很困难 提高工作本身的体验 选择自己喜欢的工作地点（咖啡店、图书馆、音乐单、朋友） 给完成子任务增加额外奖励或小奖励 游戏化工作（App：habitica） 看电影，和朋友出去玩 高密度娱乐 &amp; 低密度娱乐 大量学生感觉他们有太多事情要做，以至于不能让自己花相当大的时间沉浸于任何娱乐。讽刺的是，正是这些一直抗拒自己进行 高密度娱乐 的学生，同样会花大量时间刷微博、逛淘宝、上 B 站 … 这些事情代表 低密度娱乐 ，他们比做正事更吸引人，而且很容易说服自己就只看 5 分钟。不可避免地，你会在这些事情上花费大量的时间，因为这些网站根本上就是专门设计成尽可能让人沉迷，它们甚至也并不有趣，只是分心干扰而已。 如果把时间浪费在 低密度娱乐 上，就没有时间享受正真高密度的，真正能够激发你完成正事的娱乐。 📍 要让自己享受 高密度娱乐 ，它创造了可以用来集中精力做正事的期待 关于 冲动 环境真的非常重要 如果在能接触到分心干扰的地方学习，你的注意力会更容易从正事上被拽走 📍 寻找一个发奋学习的地点 有时需要稍微封锁环境（App：Cold Turkey） 意志力 If it’s your job to eat a frog, it’s best to do it first thing in the morning, and if it’s your job to eat two frogs, it’s best to eat the biggest one first. 拖延方程 没有涉及到的一样东西是 意志力 在拖延中的重要性。 自我损耗 长久以来，人们相信 意志力 是有限的。它会随着你做一些偏离最省力途径的决定，而在一天里流逝。 研究不能证明，意志力 本身是否是在一天时间里可以消耗的有限资源。但是大脑和身体确实有劳逸结合的节奏。 如果推迟有挑战性的作业，先做容易的事情。一旦这些事情做完，你就很容易说服自己今天已经“做的够多”了。 📍 战胜拖延症最好的方式，就是从任务列表中最痛苦的事情开始做 番茄时钟 This method works so well because the timer helps you reframe your task as input-based rather that output-based. 首先，确定要从事的一个单一任务 然后，把计时器设置成 25 分钟，在这段时间里尽可能拼命的做这项工作 如果分心干扰出现，有搞其他事情的冲动，记在纸条上，然后继续工作 一旦时间到，花 5 分钟休息一下 重复这一过程，直到准备好更长的休息 这种重塑的行为，把最初对任务感到的阻力切割分解。因为工作 25 分钟，感觉不像是特别大的努力投入。 计时器创造了一个外部动力，不依赖于大脑追踪你应该工作多久，而是让计时器代劳。]]></summary></entry></feed>
