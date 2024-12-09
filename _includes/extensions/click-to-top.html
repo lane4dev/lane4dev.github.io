@@ -5,9 +5,11 @@
   (function () {
     const clickToTop = document.getElementById('click-to-top');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
+      const atPositionTop = window.scrollY > 100;
+      const atPositionBottom = (window.innerHeight + window.scrollY) < (document.body.offsetHeight - 100);
+      if (atPositionTop && atPositionBottom) {
         clickToTop.classList.add('show')
-      }else {
+      } else {
         clickToTop.classList.remove('show')
       }
     });
