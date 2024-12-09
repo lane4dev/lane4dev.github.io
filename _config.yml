@@ -24,9 +24,9 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
-email: your-email@domain.com
-author: GitHub User
+title: lane4dev
+email: hi@tangyu.me
+author: Tang Yu
 
 # Copyright setting
 # You can use any html code, currently below placeholders are available:
@@ -43,13 +43,14 @@ author: GitHub User
 copyright: "Unpublished Work (cleft) 2017-{currentYear} {author}"
 
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Just for fun.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. https://example.com
 favicon: "" # the favicon for your site
+
+# setup permalink for blog posts under /blogs url
+permalink: /blogs/:categories/:year/:month/:day/:title:output_ext
 
 # Yat date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
@@ -63,7 +64,7 @@ yat:
 # header_transparent: true
 
 # If you want to change the content width, you can set to another value
-# content_width: "920px"
+content_width: "920px"
 
 # Google analytics - GA4
 # google_analytics: [Measurement ID]
@@ -73,7 +74,7 @@ yat:
 # sitemap: false
 
 # If you want to change site language, you can set lang option
-# lang: "en"  # default lang is en
+lang: "zh"  # default lang is en
 
 # Translate languges
 # langs refer to https://cloud.google.com/translate/docs/languages
@@ -101,6 +102,8 @@ yat:
 #   - lang: ru
 #     img: https://cdn.countryflags.com/thumbs/russia/flag-400.png
 #     text: Russian
+
+translate_langs: []
 
 # You can choose a theme color
 # Default theme colors as below:
@@ -159,6 +162,11 @@ yat:
 #   - tags.html
 #   - about.md
 
+header_pages:
+  - blogs/index.html
+  - blogs/archives.html
+  - about.html
+
 # Page default value
 # defaults:
 #   home:
@@ -190,8 +198,11 @@ yat:
 #   image_height: 160px     # Image default height
 #   text_size: 350          # Words default size
 
+excerpt_separator: "<!-- more -->"
+
 # Pagination setting
-# paginate: 5
+paginate: 12
+paginate_path: "/blogs/:num/"
 
 # Photo previewer settings (PhotoSwipe 5)
 # the options please refer to: https://photoswipe.com/options/
@@ -245,9 +256,18 @@ markdown: kramdown
 kramdown:
   input: GFM
 
+jekyll-spaceship:
+ # https://polyfill.io/v3/polyfill.min.js?features=es6 访问超时，替换源
+  mathjax-processor:
+    src:
+      - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
   - jekyll-spaceship
+
+sass:
+  quiet_deps: true
