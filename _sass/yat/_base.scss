@@ -30,7 +30,6 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  transition-duration: $base-transition-duration;
 }
 
 
@@ -42,7 +41,7 @@ h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
-  margin-bottom: divide($spacing-unit, 2);
+  margin-bottom: $spacing-unit / 2;
 }
 
 
@@ -128,7 +127,7 @@ a {
 blockquote {
   color: $grey-color;
   border-left: 4px solid $grey-color-light;
-  padding-left: divide($spacing-unit, 2);
+  padding-left: $spacing-unit / 2;
   @include relative-font-size(1.125);
   letter-spacing: -1px;
   font-style: italic;
@@ -186,8 +185,13 @@ pre {
 .wrapper {
   max-width: $content-width;
   margin: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
+  padding: 0 $spacing-unit;
+
+  @include media-query($on-laptop) {
+    padding-right: calc($spacing-unit * 2);
+    padding-left: calc($spacing-unit * 2);
+  }
+
   @extend %clearfix;
 }
 
@@ -222,7 +226,7 @@ table {
   }
 
   th, td {
-    padding: divide($spacing-unit, 3) divide($spacing-unit, 2);
+    padding: ($spacing-unit / 3) ($spacing-unit / 2);
   }
 
   th {
@@ -289,28 +293,4 @@ table {
   background-size: cover;
   background-position: center center;
   overflow: hidden;
-}
-
-/**
- * Text Selection
- */
-::selection {
-  color: $selection-color;
-  background-color: $selection-background-color;
-}
-::-moz-selection { /* Code for Firefox */
-  color: $selection-color;
-  background-color: $selection-background-color;
-}
-::-ms-selection {
-  color: $selection-color;
-  background-color: $selection-background-color;
-}
-::-o-selection {
-  color: $selection-color;
-  background-color: $selection-background-color;
-}
-::-webkit-selection {
-  color: $selection-color;
-  background-color: $selection-background-color;
 }

@@ -1,10 +1,16 @@
-$dark-background-color: #0e0e0e !default;
-$dark-text-color: #b0b0b0 !default;
+$dark-background-color:       #2d2e2f !default;
+$dark-text-color: #bbb !default;
 
 html[data-theme="dark"]  {
+  color-scheme: dark;
+
   &[data-scroll-status='top'] {
     header.site-header-transparent {
       &.site-header {
+        .header-menu__button-icon {
+          color: white;
+        }
+
         @include media-query($on-laptop) {
           .page-link {
             color: #f8f8f8;
@@ -19,6 +25,10 @@ html[data-theme="dark"]  {
         transition: 0s;
       }
     }
+  }
+
+  svg {
+    fill: rgba($dark-text-color, 80%);
   }
 
   body {
@@ -48,7 +58,10 @@ html[data-theme="dark"]  {
   }
 
   .site-header {
-    background-color: #090909;
+    background-color: #313233;
+    --animation-waiting-time: .5s;
+    --animation-delay-multiplier: .07s;
+    transition: background-color 0.3s linear,transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
 
     .site-brand {
       .site-brand-inner {
@@ -56,6 +69,18 @@ html[data-theme="dark"]  {
           color: #f8f8f8;
         }
       }
+    }
+
+    .header__drawer {
+      background-color: $dark-background-color;
+
+      .header-menu__primary .page-link {
+        color: #f8f8f8;
+      }
+    }
+
+    .header-menu__button-icon {
+      color: white;
     }
 
     .site-nav .page-link {
@@ -85,11 +110,11 @@ html[data-theme="dark"]  {
 
   .site-footer {
     color: #fff;
-    background-color: #000;
+    background-color: #313233;
   }
 
   .left-vsplit:before {
-    background-color: #505050;
+    background-color: #9a9a9a;
   }
 
   .page-banner {
@@ -100,13 +125,37 @@ html[data-theme="dark"]  {
     }
   }
 
-  .pagination {
-    .post-link {
-      color: #bbb;
+  #blogs {
+    .blog-item:first-child {
+      background-color: #3a3a3a;
     }
 
-    .post-excerpt {
-      color: $grey-color;
+    a {
+      color: $dark-text-color;
+    }
+  }
+
+  #contact {
+    .contact-mail {
+      a {
+        color: $dark-text-color;
+      }
+    }
+  }
+
+  .pagination {
+    .post-link {
+      color: $dark-text-color;
+    }
+
+    .post-title {
+      a:visited:after {
+        background-color: $dark-background-color;
+      }
+
+      a:after {
+        color: $dark-background-color;
+      }
     }
 
     .post-list {
@@ -125,32 +174,42 @@ html[data-theme="dark"]  {
       a {
         color: #ddd;
       }
+
+      a:visited:after {
+        background-color: $dark-background-color;
+      }
+
+      a:after {
+        color: $dark-background-color;
+      }
     }
   }
 
-  .post {
-    .post-header {
-      border-bottom: 1px solid #555;
+  .post .post-content {
+    img:not([raw]) {
+      background-color: #ffffff33;
     }
 
-    .post-content {
-      img:not(.emoji):not([raw]) {
-        background-color: #ffffff33;
-      }
+    aside {
+      background: rgb(60, 65, 68);
+    }
+  }
 
-      hr {
-        background-color: #555;
-      }
+  .post-related {
+    & > *:first-child {
+      color: #d7d7d7;
     }
 
-    .post-related {
-      & > *:first-child {
-        color: #d7d7d7;
-      }
+    a:visited:after {
+      background-color: $dark-background-color;
+    }
 
-      a:hover {
-        color: #aaa;
-      }
+    a:after {
+      color: $dark-background-color;
+    }
+
+    a:hover {
+      color: #aaa;
     }
   }
 
@@ -196,14 +255,4 @@ html[data-theme="dark"]  {
       }
     }
   }
-
-  a .post-badges .post-badge {
-    color: $dark-background-color !important;
-  }
-
-  a:visited .post-badges .post-badge.badge-new {
-    display: none;
-    background-color: $dark-background-color;
-  }
 }
-
