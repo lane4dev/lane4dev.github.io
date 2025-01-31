@@ -96,7 +96,7 @@ div#google_translate_element {
 }
 
 /* HIDE the google translate toolbar */
-.skiptranslate {
+.goog-te-banner-frame.skiptranslate {
   display: none !important;
   border: none;
   box-shadow: 0 0;
@@ -193,4 +193,3 @@ body {
     font-family: FontAwesome;
   }
 }
-

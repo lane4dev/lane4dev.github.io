@@ -3,7 +3,7 @@
   width: $base-font-size * 7.65;
   margin-top: 10px;
   margin-right: 60px;
-  margin-left: auto;
+  margin: 16px 0;
   transition: .3s cubic-bezier(.4,.03,0,1);
 
   label, .toggle {
@@ -36,19 +36,18 @@
     user-select: none;
   }
 
-  .names p {
-    margin-bottom: 0;
-    line-height: 24px;
+  .dark {
     opacity: .5;
   }
 
-  label .light {
-    color: #868686;
-    margin-left: -0.2em;
+  p {
+    color: #acacac;
+    margin-bottom: 0;
+    line-height: 24px;
   }
 
-  label .dark {
-    color: #b9b9b9;
+  img {
+    vertical-align: text-bottom;
   }
 
   [type="checkbox"] {
@@ -61,12 +60,12 @@
     background-color: #34323D;
   }
 
-  [type="checkbox"]:checked ~ label .dark {
-    color: #ddd;
+  [type="checkbox"]:checked ~ label .dark{
+    opacity: 1;
   }
 
-  [type="checkbox"]:checked ~ label .light {
-    color: #ccc;
+  [type="checkbox"]:checked ~ label .light{
+    opacity: .5;
   }
 
   @include media-query(1024px) {
