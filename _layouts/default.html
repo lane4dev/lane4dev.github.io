@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-  {%- include head.html -%}
+{%- include head.html -%}
 
-  <body>
+<body>
 
-    {%- include views/header.html -%}
+  {%- include views/header.html -%}
 
     {%- include views/banner.html -%}
 
     {%- include extensions/hashlocate.html -%}
-
-    {%- include extensions/theme-toggle.html -%}
 
     {%- include extensions/click-to-top.html -%}
 
@@ -23,5 +21,6 @@
 
     {%- include views/footer.html -%}
 
-  </body>
+</body>
+
 </html>
