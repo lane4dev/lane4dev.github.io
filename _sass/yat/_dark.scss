@@ -126,6 +126,16 @@ html[data-theme="dark"]  {
   }
 
   #blogs {
+    .blog-item {
+      background-color: #313233;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+
+      &:hover {
+        background-color: #363738;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+      }
+    }
+
     .blog-item:first-child {
       background-color: #3a3a3a;
     }

@@ -483,6 +483,7 @@ html.global-disable-scroll {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     justify-items: stretch;
+    gap: 30px; /* Changed from 20px to 30px */
 
     @include media-query($on-palm) {
       grid-template-columns: 1fr;
@@ -505,7 +506,15 @@ html.global-disable-scroll {
 
   .blog-item {
     padding: 20px;
-    margin-top: 10px;
+    border-radius: 8px; /* Added: 圆角 */
+    background-color: #fff; /* Added: 确保有背景色 */
+    box-shadow: $card-shadow-light; /* Added: 现代柔和阴影 */
+    transition: all 0.3s ease; /* Added: 平滑过渡 */
+
+    &:hover {
+      transform: translateY(-5px); /* Added: 上浮效果 */
+      box-shadow: $card-shadow-hover; /* Added: 加深阴影 */
+    }
 
     .blog-link {
       display: block;
