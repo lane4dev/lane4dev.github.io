@@ -145,6 +145,16 @@ html[data-theme="dark"]  {
     }
   }
 
+  .post-tags .post-tag {
+    background-color: #4b5563; /* Darker background for tags */
+    color: #e5e7eb; /* Lighter text color */
+
+    &:hover {
+      background-color: #6b7280; /* Slightly lighter on hover */
+      color: #f3f4f6; /* Even lighter text on hover */
+    }
+  }
+
   #contact {
     .contact-mail {
       a {
@@ -172,10 +182,6 @@ html[data-theme="dark"]  {
       & > li:not(:last-child) {
         border-bottom: 1px solid #545454;
       }
-    }
-
-    .post-tags .post-tag:hover {
-      color: #d7d7d7;
     }
   }
 

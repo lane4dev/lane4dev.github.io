@@ -363,11 +363,33 @@ html.global-disable-scroll {
 
   .post-tags {
     padding-right: 150px;
+  }
+}
 
-    .post-tag {
-      display: inline-block;
-      margin: 0 12px 0 0;
-    }
+/**
+ * Post tags
+ */
+.post-tags .post-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px; /* 全圆角 (胶囊形) */
+  background-color: #f3f4f6;
+  color: #4b5563;
+  font-size: 0.85em;
+  font-weight: 500;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+    text-decoration: none;
+  }
+
+  &:not(:last-child):after {
+    content: none; /* 移除之前的 "/" 分隔符 */
   }
 }
 
@@ -657,28 +679,6 @@ html.global-disable-scroll {
 
   .post-tags {
     margin: 0px;
-  }
-
-  .post-tags .post-tag {
-    display: inline-block;
-    text-decoration: none;
-    // border: 1px solid;
-    padding: 2px 4px;
-    border-radius: 2px;
-    transition: color 0.2s;
-    margin-bottom: 8px;
-
-    &:not(:last-child) {
-      // margin-right: 4px;
-      &:after {
-        content: "/";
-        padding-left: 8px;
-      }
-    }
-
-    &:hover {
-      color: #787878;
-    }
   }
 
   .paginator {
