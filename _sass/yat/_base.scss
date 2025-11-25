@@ -164,13 +164,35 @@ code {
 pre {
   overflow-x: auto;
   position: relative;
-  background-color: #f0f0f0;
+  background-color: #282c34; /* Atom One Dark background */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Subtle shadow */
+  padding-top: 38px; /* Space for the "window dots" header */
+  margin: 20px 0;
+
+  /* Mac-style window dots */
+  &::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ff5f56; /* Red */
+    box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #27c93f; /* Yellow and Green dots */
+    z-index: 10;
+  }
 
   > code {
     display: inline-block;
-    padding: 20px!important;
+    padding: 0 20px 20px 20px !important; /* Adjust padding inside the code area */
     background-color: transparent;
     border: 0;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace; /* Modern coding fonts */
+    font-size: 0.9em;
+    line-height: 1.5;
   }
 
   table, pre {
