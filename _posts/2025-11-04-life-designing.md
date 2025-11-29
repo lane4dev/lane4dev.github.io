@@ -7,7 +7,7 @@ tags: ["日常"]
 comments: true
 ---
 
-![](https://www.youtube.com/watch?v=YKEq5iEmMSo)
+{% include video.html type="youtube" id="YKEq5iEmMSo" %}
 
 这是 Stanford 的 Open Office Hours，对话的是 **Dave Evans 和 Bill Burnett**，也就是《Designing Your Life》的那两位老师。他们把“设计思维”用在 **“我该干嘛 / 人生要往哪走”** 这种大问题上，试图告诉你：
 
