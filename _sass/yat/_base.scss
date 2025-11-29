@@ -150,15 +150,18 @@ blockquote {
  */
 pre,
 code {
-  @include relative-font-size(0.9375);
+  /* @include relative-font-size(0.9375); */
   color: $text-color;
 }
 
 *:not(pre) > code {
-  padding: 3px 6px;
-  border-radius: 3px;
-  background-color: #eee;
-  margin: 0 5px;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  background-color: #f6f8fa;
+  color: #24292e;
+  margin: 0 0.2em;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 0.9em; /* Ensure font size scales with parent */
 }
 
 pre {
