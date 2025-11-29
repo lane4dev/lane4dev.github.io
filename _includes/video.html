@@ -1,0 +1,22 @@
+{% assign ratio = include.ratio | default: '56.25%' %}
+<div class="video-container" style="padding-bottom: {{ ratio }}">
+  {% if include.url %}
+    <!-- Local/Direct link video -->
+    <video controls poster="{{ include.cover }}" style="width: 100%">
+      <source src="{{ include.url }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  {% elsif include.type == 'youtube' %}
+    <!-- YouTube -->
+    <iframe src="https://www.youtube.com/embed/{{ include.id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  {% elsif include.type == 'bilibili' %}
+    <!-- Bilibili -->
+    <iframe src="//player.bilibili.com/player.html?bvid={{ include.id }}&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+  {% elsif include.type == 'vimeo' %}
+    <!-- Vimeo -->
+    <iframe src="https://player.vimeo.com/video/{{ include.id }}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  {% elsif include.type == 'ted' %}
+    <!-- TED -->
+    <iframe src="https://embed.ted.com/talks/{{ include.id }}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+  {% endif %}
+</div>

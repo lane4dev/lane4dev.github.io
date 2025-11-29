@@ -1038,13 +1038,42 @@ html.global-disable-scroll {
 
   @include media-query($on-palm) {
     height: $banner-height / 1.5;
+    }
   }
-}
-
-
-/**
- * Layout and sidebar
- */
+  
+  /**
+   * Responsive video container
+   */
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+  
+      iframe,
+      video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0 !important; /* Force reset margin with high priority */
+        padding: 0 !important; /* Force reset padding with high priority */
+        border: none; /* Remove any default iframe border */
+    
+        /* Apply object-fit only to video tags, if desired for local videos */
+        &[src$=".mp4"], &[src$=".webm"] { /* Targeting video elements by common source types or just the video tag */
+            object-fit: contain; /* Or 'cover' depending on desired fill behavior for local videos */
+        }
+      }  }
+  
+  /**
+   * Layout and sidebar
+   */
 .framework {
     @extend %flex;
 
