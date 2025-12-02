@@ -1,83 +1,129 @@
 .theme-toggle {
-  position: relative;
-  width: $base-font-size * 7.65;
-  margin-top: 10px;
-  margin-right: 60px;
-  margin: 16px 0;
-  transition: .3s cubic-bezier(.4,.03,0,1);
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+  cursor: pointer;
 
-  label, .toggle {
-    border-radius: 100px;
-  }
-
-  label {
-    display: block;
-    background-color: rgba(120,120,120,.15);
-    cursor: pointer;
-  }
-
-  .toggle {
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 15px rgba(0,0,0,.15);
-    transition: transform .2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  .names {
-    font-size: 1em;
-    font-weight: bolder;
-    width: 76%;
-    margin-left: 12%;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    user-select: none;
-  }
-
-  .dark {
-    opacity: .5;
-  }
-
-  p {
-    color: #acacac;
-    margin-bottom: 0;
-    line-height: 24px;
-  }
-
-  img {
-    vertical-align: text-bottom;
-  }
-
-  [type="checkbox"] {
+  input[type="checkbox"] {
     display: none;
   }
 
-  /* Toggle */
-  [type="checkbox"]:checked ~ label .toggle {
-    transform: translateX(100%);
-    background-color: #34323D;
+  label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px; /* Ensure fixed height for alignment */
+    color: inherit;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
-  [type="checkbox"]:checked ~ label .dark{
-    opacity: 1;
+  .icon {
+    width: 24px;
+    height: 24px;
+    fill: none !important; /* Force no fill to fix black fill on desktop */
+    stroke: currentColor;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: inherit; /* CRITICAL: Always inherit color from parent */
   }
 
-  [type="checkbox"]:checked ~ label .light{
-    opacity: .5;
+  /* Default State (Light Mode / Unchecked): Show Moon, Hide Sun */
+  .icon-sun {
+    display: none;
+  }
+  .icon-moon {
+    display: block;
   }
 
+  /* Checked State (Dark Mode): Show Sun, Hide Moon */
+  input[type="checkbox"]:checked ~ label {
+    .icon-sun {
+      display: block;
+    }
+    .icon-moon {
+      display: none;
+    }
+  }
+
+  /* When header is transparent (Desktop context) */
+  .site-header-transparent & .icon {
+    color: #fff;
+  }
+
+  /* Mobile specific adjustments */
+  @include media-query($on-laptop) {
+    &.theme-toggle--desktop {
+      display: none; /* Hide desktop toggle on laptop/mobile */
+    }
+  }
+
+  /* Desktop specific adjustments */
   @include media-query(1024px) {
-    margin-right: 35px;
+    .theme-toggle--mobile {
+      display: none; /* Hide mobile toggle on desktop */
+    }
+  }
+}
+
+/* Wrapper for mobile toggle button */
+.theme-toggle--mobile {
+  display: none; /* Hidden by default on desktop */
+  position: absolute;
+  right: 80px; /* Positioned left of hamburger menu */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for its own height */
+  margin-top: -4px; /* 微调向上移动 1px */
+  height: 24px;
+  width: 24px;
+  z-index: 1001;
+
+  /* 1. DEFAULT COLOR STATE (Light Theme, Scrolled Down / Non-Transparent) */
+  /* This matches the default behavior of the hamburger menu (inheriting body text color) */
+  color: $text-color;
+
+  @include media-query($on-laptop) {
+    display: block; /* Show on laptop/mobile */
   }
 
   @include media-query($on-palm) {
-    width: $base-font-size * 6.65;
-    margin-right: 20px;
+    right: 68px; /* Moved 8px to the left for smaller mobile screens */
+  }
+}
 
-    .names {
-      font-size: .85em;
-    }
+/* 2. TRANSPARENT HEADER STATE (At Top of Page) */
+/* This mimics the logic in _layout.scss for .header-menu__button-icon */
+html[data-scroll-status='top'] header.site-header-transparent .theme-toggle--mobile {
+  color: #fff !important; /* Force white when header is transparent */
+}
+
+/* 3. DARK MODE STATE */
+/* Ensure visibility in dark mode (usually overrides default text color) */
+html[data-theme="dark"] .theme-toggle--mobile {
+  color: #f8f8f8;
+}
+
+/* Ensure inheritance flows down to the icon in the mobile wrapper */
+.theme-toggle--mobile .theme-toggle,
+.theme-toggle--mobile .icon {
+  color: inherit !important;
+}
+
+/* Desktop header toggle positioning */
+.site-nav .page-link .theme-toggle {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: -2px;
+  
+  .icon {
+    color: inherit;
+  }
+
+  @include media-query($on-laptop) {
+    display: none;
   }
 }

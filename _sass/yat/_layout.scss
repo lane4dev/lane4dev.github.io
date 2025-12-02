@@ -99,13 +99,19 @@ html.global-disable-scroll {
   cursor: pointer;
   grid-row: 1;
   padding: 0;
+  transition: transform 0.3s ease; /* Add transition for hover effect */
+
+  &:hover {
+    transform: scale(1.1); /* Scale effect on hover */
+  }
 }
 
 .header-menu__hamburger {
   display: none;
   position: absolute;
   right: 8px;
-  top: 28px;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for its own height */
 
   @include media-query($on-laptop) {
     display: block;
