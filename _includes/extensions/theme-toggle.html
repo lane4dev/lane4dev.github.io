@@ -1,10 +1,9 @@
 <div class="theme-toggle">
-  <input type="checkbox" id="theme-switch">
-  <label for="theme-switch">
-    <div class="toggle"></div>
-    <div class="names">
-      <p class="light">Light</p>
-      <p class="dark">Dark</p>
+  <input type="checkbox" id="theme-switch-{{ include.uid }}" class="theme-switch">
+  <label for="theme-switch-{{ include.uid }}">
+    <div class="toggle-icon">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
     </div>
   </label>
 </div>
@@ -15,7 +14,7 @@
 
 <script>
   (function() {
-    var sw = document.getElementById('theme-switch');
+    var switches = document.querySelectorAll('.theme-switch');
     var html = document.getElementsByTagName('html')[0];
     var nightModeOption = ('{{ night_mode }}' || 'auto').toLowerCase();
     var storage = nightModeOption === 'manual'
@@ -42,9 +41,13 @@
       themeData.nightShift = nightShift;
       saveThemeData(themeData);
       html.dataset.theme = nightShift ? 'dark' : 'light';
-      setTimeout(function() {
-        sw.checked = nightShift ? true : false;
-      }, 50);
+      
+      // Update all switches
+      switches.forEach(function(sw) {
+        setTimeout(function() {
+          sw.checked = nightShift ? true : false;
+        }, 50);
+      });
     }
 
     function autoThemeToggle() {
@@ -80,9 +83,11 @@
       };
     }
 
-    // Listen the theme toggle event
-    sw.addEventListener('change', function(event) {
-      handleThemeToggle(event.target.checked);
+    // Listen the theme toggle event on all switches
+    switches.forEach(function(sw) {
+      sw.addEventListener('change', function(event) {
+        handleThemeToggle(event.target.checked);
+      });
     });
 
     if (nightModeOption == 'auto') {
