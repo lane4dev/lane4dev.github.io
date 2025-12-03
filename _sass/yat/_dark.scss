@@ -164,11 +164,27 @@ html[data-theme="dark"]  {
   }
 
   .pagination {
-    .post-link {
-      color: $dark-text-color;
+    .post-list {
+      & > li {
+        background-color: #313233; /* Darker background for cards */
+        border: 1px solid #3a3a3a; /* Darker border */
+
+        &:hover {
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+          border-color: #555; /* Slightly lighter border on hover */
+        }
+      }
     }
 
     .post-title {
+      a {
+        color: #f8f8f8; /* Lighter title color */
+
+        &:hover {
+          color: lighten($brand-color, 15%); /* Lighter brand color on hover */
+        }
+      }
+
       a:visited:after {
         background-color: $dark-background-color;
       }
@@ -178,13 +194,52 @@ html[data-theme="dark"]  {
       }
     }
 
+    .post-meta {
+      color: #9a9a9a; /* Lighter meta color */
+
+      i {
+        color: #9a9a9a;
+      }
+    }
+
+    .post-excerpt {
+      color: #ccc; /* Lighter excerpt color */
+
+      .read_more a {
+        color: lighten($brand-color, 15%); /* Lighter brand color for read more */
+      }
+    }
+
+    .post-tags {
+      .post-tag {
+        background-color: #4b5563; /* Darker tag background */
+        color: #e5e7eb; /* Lighter tag text */
+
+        a {
+            color: inherit;
+        }
+
+        &:hover {
+          background-color: #6b7280; /* Slightly lighter tag background on hover */
+          color: #f3f4f6; /* Even lighter tag text on hover */
+        }
+      }
+    }
+
+    .post-link {
+      color: $dark-text-color;
+    }
+
     .post-list {
       & > li:not(:last-child) {
-        border-bottom: 1px solid #545454;
+        border-bottom: none; /* Remove border-bottom from old pagination rule */
       }
     }
   }
-
+  
+  .left-vsplit:before {
+    background-color: #9a9a9a; /* Ensure consistency with other left-vsplit in dark mode */
+  }
   .page-segments {
     li {
       a {
