@@ -1,0 +1,234 @@
+/**
+ * Post header
+ */
+%post-header {
+  .post-header {
+    margin-bottom: $spacing-unit;
+  }
+
+  .post-title {
+    @include relative-font-size(2.625);
+    letter-spacing: -1px;
+    line-height: 1.6;
+
+    @include media-query($on-laptop) {
+      @include relative-font-size(2.25);
+    }
+  }
+
+  .post-tags {
+    padding-right: 150px;
+  }
+}
+
+/**
+ * Post tags
+ */
+.post-tags .post-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px; /* 全圆角 (胶囊形) */
+  background-color: #f3f4f6;
+  color: #4b5563;
+  font-size: 0.85em;
+  font-weight: 500;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+    text-decoration: none;
+  }
+
+  &:not(:last-child):after {
+    content: none; /* 移除之前的 "/" 分隔符 */
+  }
+}
+
+/**
+ * Posts
+ */
+.post {
+  @extend %post-header;
+
+  max-width: 860px;
+
+  .post-header {
+    margin: 50px auto 60px;
+    padding: 0 0 20px;
+    border-bottom: 1px solid #ebebeb;
+
+    .post-title {
+      margin-bottom: 6px;
+    }
+
+    .post-subtitle {
+      font-weight: lighter;
+    }
+
+    .post-meta {
+      color: #808080;
+    }
+  }
+
+  .post-content {
+    margin-bottom: $spacing-unit;
+    overflow-wrap: normal;
+    word-wrap: normal;
+    word-break: normal;
+
+    h2 {
+      @include relative-font-size(2);
+
+      @include media-query($on-laptop) {
+        @include relative-font-size(1.75);
+      }
+    }
+
+    h3 {
+      @include relative-font-size(1.625);
+
+      @include media-query($on-laptop) {
+        @include relative-font-size(1.375);
+      }
+    }
+
+    h4 {
+      @include relative-font-size(1.25);
+
+      @include media-query($on-laptop) {
+        @include relative-font-size(1.125);
+      }
+    }
+
+    img, svg, iframe {
+      margin: 24px auto;
+      display: block;
+    }
+
+    h2, h3, h4, h5, h6 {
+      margin: 60px 0 20px;
+      color: #1a1a1a;
+      line-height: 1.4;
+    }
+
+    p {
+      margin: 18px 0;
+      text-align: justify;
+    }
+
+    hr {
+      margin: 24px 0;
+      height: 1px;
+      background-color: #ebebeb;
+      border: none;
+    }
+
+    aside {
+      border-radius: 3px;
+      background: rgb(241, 241, 239);
+      padding: 16px 16px 16px 12px;
+    }
+  }
+
+  .post-related {
+    &>*:first-child {
+      @include relative-font-size(1.425);
+      color: #333;
+      margin-bottom: 14px;
+    }
+
+    ul {
+      margin-left: 15px;
+      .post-link {
+        @include relative-font-size(1.075);
+      }
+
+      li {
+        line-height: 1.6;
+        margin-top: 16px;
+      }
+
+      a {
+        color: #666;
+
+        &:hover {
+          color: #333;
+        }
+
+        &:after {
+          content: 'NEW';
+          position: absolute;
+          margin-left: 8px;
+          margin-top: 3px;
+          padding: 0px 3px;
+          background-color: $brand-color;
+          color: #fff;
+          font-size: 10px;
+          font-weight: 600;
+          border-radius: 2px;
+        }
+
+        &:visited:after {
+          background-color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.post-comments {
+  padding-top: 25px;
+}
+
+
+/**
+ * Posts misc
+ */
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin: 32px 0;
+  padding: 32px 0 0;
+
+  a {
+    @include relative-font-size(1.125);
+    color: #666;
+    margin: 0;
+  }
+
+  .previous:before {
+    content: ' ';
+    border: solid #787878;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    margin-right: 8px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+  .next:after {
+    content: ' ';
+    border: solid #787878;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    margin-left: 8px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+  @include media-query($on-laptop) {
+    flex-direction: column;
+
+    a {
+      margin: auto;
+      padding: 16px 0;
+    }
+  }
+}

@@ -202,6 +202,10 @@ html[data-theme="dark"]  {
   }
 
   .post .post-content {
+    h2, h3, h4, h5, h6 {
+      color: $dark-text-color;
+    }
+
     img:not([raw]) {
       background-color: #ffffff33;
     }

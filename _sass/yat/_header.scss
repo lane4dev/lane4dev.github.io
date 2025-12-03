@@ -1,0 +1,278 @@
+/**
+ * Animation for transparent header
+ */
+html {
+  &[data-header-transparent] {
+    header.site-header {
+      position: fixed;
+    }
+  }
+
+  &[data-scroll-status='top'] {
+    header.site-header-transparent {
+      height: 0;
+      // margin-top: 12px;
+      background-color: transparent;
+      transition: 0.1s height,background-color,box-shadow;
+
+      &.site-header {
+        .site-brand-inner, .page-link {
+          color: #fff;
+          transition: 0.1s color;
+        }
+
+        .header__inner, .page-link {
+          color: #fff;
+          transition: 0.1s color;
+
+          .header-menu__button-icon {
+            color: white;
+          }
+        }
+
+        @include media-query($on-laptop) {
+          .page-link {
+            color: $header-text-color;
+          }
+
+          .menu-icon {
+            > svg {
+              fill: $white-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &[data-scroll-status='down'] {
+    header.site-header {
+      // top: -$header-height;
+      transform: translateY(-$header-height);
+    }
+  }
+}
+
+/**
+ * Site header
+ */
+.header--nav-open {
+  .header__drawer {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  .header-menu__hamburger {
+    display: none;
+  }
+
+  .header-menu__drawer-close {
+    display: block;
+  }
+}
+
+.header-menu__button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  grid-row: 1;
+  padding: 0;
+  transition: transform 0.3s ease; /* Add transition for hover effect */
+
+  &:hover {
+    transform: scale(1.1); /* Scale effect on hover */
+  }
+}
+
+.header-menu__hamburger {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for its own height */
+
+  @include media-query($on-laptop) {
+    display: block;
+  }
+}
+
+.header-menu__drawer-close {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 28px;
+}
+
+.icon--svg {
+  fill: currentColor;
+  outline: none;
+}
+
+.header-menu__button-icon {
+  height: 24px;
+  width: 24px;
+}
+
+.page-link__icon {
+  height: 24px;
+  margin-left: 8px;
+  transition: transform .3s linear;
+  width: 24px;
+}
+
+.site-header {
+  background-color: $header-background-color;
+  height: $header-height;
+  width: 100%;
+  // transition: height 0.2s, text-shadow 0.2s, top 0.2s;
+  --animation-waiting-time: .5s;
+  --animation-delay-multiplier: .07s;
+  transition: background-color 0.3s linear,transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, .06);
+
+  // Positioning context for the mobile navigation icon
+  // @include flex-sticky(0);
+  position: fixed;
+  z-index: 1000;
+
+  & > .header__wrapper {
+    margin: 0 60px;
+    padding: 0;
+    max-width: 100%;
+    transition: 0.2s margin;
+
+    @include media-query(1024px) {
+      margin: 0 20px;
+      max-width: unset;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .header__inner {
+    position: relative;
+  }
+}
+
+.site-brand {
+  line-height: $header-height;
+  margin-right: 50px;
+
+  .site-brand-inner {
+    color: black;
+    font-size: 15.75px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    transition: 0.1s filter color;
+
+    .site-favicon {
+      width: 24px;
+      height: auto;
+    }
+  }
+}
+
+.site-nav {
+  @include relative-font-size(1.125);
+  line-height: $header-height;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .page-link {
+    line-height: $base-line-height;
+    color: $header-text-color;
+    transition: 0.1s ease-in-out;
+
+    .header-menu__button-icon {
+      vertical-align: sub;
+      color: $header-text-color;
+    }
+
+    svg {
+      fill: $header-text-color;
+    }
+
+    // Gaps between nav items, but not on the last one
+    &:not(:last-child) {
+      margin-right: 64px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @include media-query($on-laptop) {
+    display: none;
+  }
+}
+
+.header__drawer {
+  display: none;
+
+  background-color: white;
+  height: 100vh;
+  overflow-y: auto;
+  padding-bottom: 200px;
+  position: absolute;
+  right: 0;
+  top: $header-height;
+  transform: translateX(100%);
+  transition: transform .2s ease-in-out, visibility .2s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  z-index: 20;
+
+  & > .header__drawer-container {
+    @include media-query(1024px) {
+      margin: 0 20px;
+    }
+  }
+
+  .header-menu__primary {
+    padding: 80px 0 120px;
+    border-bottom: 1px solid #c6c6c6;
+
+    .page-link {
+      color: $header-text-color;
+      transition: 0.1s ease-in-out;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+  }
+
+  .header-menu__primary-item {
+    margin-bottom: 48px;
+    margin-left: -16px;
+    padding-left: 16px;
+
+    .icon--svg {
+      vertical-align: middle;
+    }
+  }
+
+  .header-menu__language {
+    .page-link {
+      float: right;
+    }
+  }
+
+  .ct-language-dropdown {
+    top: auto;
+    bottom: 110%;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 0px;
+  }
+
+  @include media-query($on-laptop) {
+    display: block;
+  }
+}

@@ -2,7 +2,7 @@
 
 // Define defaults for each variable.
 
-$base-font-family: 'Microsoft Yahei', 'WenQuanYi Micro Hei', Helvetica, Arial, Oswald, sans-serif, !default;
+$base-font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $base-font-size: 16px !default;
 $base-font-weight: 400 !default;
 $small-font-size:  $base-font-size * 0.875 !default;
@@ -60,6 +60,12 @@ $on-laptop:        1080px !default;
 @import
   "yat/base",
   "yat/layout",
+  "yat/header",
+  "yat/footer",
+  "yat/home",
+  "yat/posts",
+  "yat/archive",
+  "yat/components",
   "yat/dark",
   "misc/theme-toggle",
   "misc/article-menu",
