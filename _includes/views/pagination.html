@@ -10,8 +10,7 @@
   <ul class="post-list">
     {%- for post in paginator.posts -%}
     <li>
-      {%- assign date_format = site.yat.date_format | default: "%b %-d, %Y" -%}
-
+      {%- assign date_format = site.yat.date_format | default: "%Y-%m-%d" -%}
       {% assign article = post.content %}
       {% assign lang = post.lang %}
       {%- include functions.html func='get_reading_time' -%}
