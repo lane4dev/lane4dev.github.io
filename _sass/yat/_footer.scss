@@ -1,0 +1,68 @@
+/**
+ * Transparent Footer Animation
+ */
+html {
+  &[data-scroll-status='top'] {
+    footer.site-footer {
+      color: unset;
+      background-color: transparent;
+
+      .site-footer-inner {
+        border-top: solid 1px #eee;
+      }
+    }
+  }
+}
+
+/**
+ * Site footer
+ */
+.site-footer {
+  @include relative-font-size(1.0);
+  color: $footer-text-color;
+  background-color: $footer-background-color;
+  text-align: left;
+  transition: background-color 0.2s;
+
+  .site-footer-inner {
+    display: flex;
+    justify-content: space-between;
+
+    transition: border-top 0.2s;
+    padding: $spacing-unit * 1.8 0;
+
+    .site-footer-text {
+      order: 2;
+    }
+
+    .theme-toggle-wrapper {
+      order: 4;
+    }
+
+    @include media-query($on-palm) {
+      flex-direction: column;
+
+      .site-footer-text {
+        order: 4;
+      }
+
+      .theme-toggle-wrapper {
+        order: 2;
+      }
+    }
+  }
+
+  a {
+    $a-color: $brand-color;
+    color: $a-color;
+
+    &:hover {
+      color: lighten($a-color, 10%);
+    }
+  }
+}
+
+.copyleft {
+  display: inline-block;
+  transform: rotate(180deg);
+}
