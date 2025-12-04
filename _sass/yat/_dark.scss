@@ -268,6 +268,10 @@ html[data-theme="dark"]  {
     aside {
       background: rgb(60, 65, 68);
     }
+
+    hr:after {
+      background-color: $dark-background-color;
+    }
   }
 
   .post-related {
