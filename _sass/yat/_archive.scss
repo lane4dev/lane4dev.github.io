@@ -46,6 +46,55 @@
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
         border-color: transparent;
       }
+
+      .post-card-container {
+        display: flex;
+        flex-direction: row; /* 默认横向排列 */
+        gap: 20px;
+        height: 100%;
+
+        @media (max-width: 768px) {
+           flex-direction: column; /* 移动端纵向排列 */
+        }
+      }
+
+      .post-card-image {
+        flex: 0 0 240px; /* 固定宽度，或者百分比 */
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px; /* 图片圆角 */
+        min-height: 160px; /* 最小高度 */
+
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* 裁剪填充 */
+          transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.05); /* 悬停轻微放大效果 */
+        }
+
+        @media (max-width: 768px) {
+          flex: 0 0 auto;
+          width: 100%;
+          height: 200px;
+        }
+      }
+
+      .post-card-text {
+        flex: 1; /* 占据剩余空间 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* 垂直居中，视情况而定 */
+      }
     }
   }
 
@@ -90,6 +139,11 @@
     color: #555;
     line-height: 1.7;
     margin-bottom: 20px;
+    display: -webkit-box; /* 用于限制行数 */
+    -webkit-line-clamp: 3; /* 限制为 3 行 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     .read_more {
       margin-left: 8px;

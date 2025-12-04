@@ -121,10 +121,26 @@
     }
 
     hr {
-      margin: 24px 0;
-      height: 1px;
-      background-color: #ebebeb;
-      border: none;
+      border: 0;
+      border-top: 1px dashed #FF2D92;
+      height: 0;
+      margin: 40px 0;
+      opacity: 0.7;
+      position: relative;
+      overflow: visible;
+
+      &:after {
+        content: "◆";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--bg-color, #fff); /* 尝试使用变量，如果没有定义则回退到白色 */
+        padding: 0 10px;
+        color: #FF2D92;
+        font-size: 18px;
+        line-height: 1;
+      }
     }
 
     aside {
@@ -199,6 +215,17 @@
     @include relative-font-size(1.125);
     color: #666;
     margin: 0;
+    display: flex;
+    align-items: center;
+    max-width: 48%; /* 限制宽度，防止挤在一起 */
+    text-decoration: none;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0; /* 允许flex子项小于内容宽度 */
+    }
   }
 
   .previous:before {
@@ -210,6 +237,7 @@
     margin-right: 8px;
     transform: rotate(135deg);
     -webkit-transform: rotate(135deg);
+    flex-shrink: 0; /* 防止箭头变形 */
   }
 
   .next:after {
@@ -221,6 +249,7 @@
     margin-left: 8px;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
+    flex-shrink: 0; /* 防止箭头变形 */
   }
 
   @include media-query($on-laptop) {
