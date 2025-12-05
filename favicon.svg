@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512"
+     xmlns="http://www.w3.org/2000/svg">
+  <!-- 圆形背景 -->
+  <circle cx="256" cy="256" r="256" fill="#050814" />
+
+  <!-- 外圈玉璧（赛博环） -->
+  <circle cx="256" cy="256" r="200"
+          fill="none"
+          stroke="#FF2D92"
+          stroke-width="40"
+          stroke-linecap="round"/>
+
+  <!-- 三个缺口：用背景色“抹掉”圆环部分 -->
+  <rect x="236" y="36" width="40" height="80" fill="#050814" />
+  <rect x="364" y="292" width="80" height="40" transform="rotate(30 404 312)" fill="#050814" />
+  <rect x="68" y="292" width="80" height="40" transform="rotate(-30 108 312)" fill="#050814" />
+
+  <!-- 内部六边形芯片 -->
+  <polygon fill="#15F5C9"
+           points="
+             351.3,201.0
+             351.3,311.0
+             256.0,366.0
+             160.7,311.0
+             160.7,201.0
+             256.0,146.0
+           "/>
+</svg>

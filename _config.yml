@@ -47,7 +47,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. https://example.com
-favicon: "" # the favicon for your site
+favicon: "/favicon.svg" # the favicon for your site
 
 # setup permalink for blog posts under /blogs url
 permalink: /blogs/:categories/:year/:month/:day/:title:output_ext
