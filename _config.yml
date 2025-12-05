@@ -75,6 +75,7 @@ content_width: "1200px"
 
 # If you want to change site language, you can set lang option
 lang: "zh"  # default lang is en
+mathjax: true # Enable MathJax globally
 
 # Translate languges
 # langs refer to https://cloud.google.com/translate/docs/languages

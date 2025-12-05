@@ -18,7 +18,7 @@
   {%- endif -%}
   {%- include extensions/code-highlight.html -%}
   {%- include extensions/photo-swipe.html -%}
-  {%- if page.mathjax -%}
+  {%- if page.mathjax or site.mathjax -%}
   {%- include extensions/mathjax.html -%}
   {%- endif -%}
   {%- include custom-head.html -%}
