@@ -20,7 +20,6 @@ Hyprland 下安装与配置 fcitx5 的小段备忘（Arch + Wayland）,
 - 桌面：Hyprland（Wayland）
 - 目标：在 Hyprland 里正常使用 **fcitx5 + 拼音输入法**，并简单美化一下主题。
 
----
 
 ## 1. 安装 fcitx5 及中文扩展
 
@@ -40,7 +39,6 @@ paru -S fcitx5-chinese-addons
 
 装完这一步，fcitx5 已经在系统里有了，只是还没被桌面环境“接上”。
 
----
 
 ## 2. 配置环境变量（让应用知道用 fcitx5）
 
@@ -62,7 +60,6 @@ export QT_IM_MODULE=fcitx
 - 如果平时用的是 `zsh` / `fish`，仍然建议在 `~/.bash_profile` 或显示管理器加载的环境文件里写这些变量，保证图形会话都能拿到。
 - 改完后需要**重新登录会话**才会生效（单纯 `source` 有时不够）。
 
----
 
 ## 3. 在 Hyprland 启动时自动拉起 fcitx5
 
@@ -89,7 +86,6 @@ exec-once = fcitx5 -d
 - 是否有系统托盘 / bar 支持（Waybar 等）
 - 是否连上了 `fcitx5-qt` / `fcitx5-gtk`（一般 `fcitx5-im` 已覆盖）
 
----
 
 ## 4. 添加拼音输入法 & 快捷键
 
@@ -110,7 +106,6 @@ exec-once = fcitx5 -d
   - 看看 Hyprland 的键位绑定有没有抢这个组合。
   - 在 fcitx5 配置里改一下快捷键（比如 `Super + Space`），避免冲突。
 
----
 
 ## 5. 主题与配色简易美化
 

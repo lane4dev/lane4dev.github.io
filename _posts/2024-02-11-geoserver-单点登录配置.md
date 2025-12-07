@@ -28,7 +28,6 @@ GeoServer 自带的账号体系在小规模使用场景下其实已经够用，�
 - 已部署并可访问的 **GeoServer**
 - GeoServer 管理员账号（默认是 `admin`）
 
----
 
 ## 在 Keycloak 中创建 GeoServer 对应的 Client
 
@@ -51,7 +50,6 @@ GeoServer 自带的账号体系在小规模使用场景下其实已经够用，�
 - `Client Secret`
 - Keycloak 服务地址和 Realm 名字（后面要拼出 issuer / discovery 地址）
 
----
 
 ## 登录 GeoServer 管理端
 
@@ -59,7 +57,6 @@ GeoServer 自带的账号体系在小规模使用场景下其实已经够用，�
    `http://your-geoserver-host/geoserver/web`
 2. 使用管理员账号登录（例如 `admin`）
 
----
 
 ## 在 GeoServer 中添加新的 Authentication Filter（使用 OpenID Connect）
 
@@ -156,7 +153,6 @@ Authorization: Bearer <token>
 
 确认前面所有字段（特别是 URL、Client ID、Client Secret）无误后，点击 **保存**。
 
----
 
 ## 将新建的 OIDC Filter 加入 Filter Chains
 
@@ -192,7 +188,6 @@ Authorization: Bearer <token>
 
 配置完成后，点击 **保存**。
 
----
 
 ## 验证：通过 Keycloak 登录 GeoServer
 
@@ -212,7 +207,6 @@ Authorization: Bearer <token>
 
 ![]({{ base.siteurl }}/assets/images/2024-02/11-012-gs-login-3.png)
 
----
 
 ## 限制匿名用户访问 GeoServer 图层
 

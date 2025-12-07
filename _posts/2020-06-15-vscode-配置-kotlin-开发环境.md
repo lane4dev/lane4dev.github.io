@@ -18,7 +18,6 @@ VSCode 里需要首先安装这几个扩展：
 - **Extension Pack for Java**
 - **Gradle for Java**
 
----
 
 ## 新建 Gradle 项目（选 Kotlin DSL）
 
@@ -30,7 +29,6 @@ VSCode 里需要首先安装这几个扩展：
 
 > 这里先按 Java 项目建，后面再给它加 Kotlin 支持。
 
----
 
 ## 创建 `tasks.json`，方便一键 build/run
 
@@ -64,7 +62,6 @@ VSCode 里需要首先安装这几个扩展：
 
 > 之后就可以用 VSCode 的任务面板来跑 Gradle，不用每次敲命令。
 
----
 
 ## 先确认 Java 版本能跑起来
 
@@ -85,7 +82,6 @@ BUILD SUCCESSFUL in 1s
 
 > 这一步只是确认：Gradle 项目本身是 OK 的，问题别出在环境上。
 
----
 
 ## 给项目加上 Kotlin 支持
 
@@ -144,7 +140,6 @@ BUILD SUCCESSFUL in 4s
 
 > 至此：VSCode + Gradle + Kotlin 基本开发环境就设置好了。
 
----
 
 ## 备忘
 

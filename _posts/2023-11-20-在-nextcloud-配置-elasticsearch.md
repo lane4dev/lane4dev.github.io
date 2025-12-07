@@ -29,7 +29,6 @@ Nextcloud 文件 → Full Text Search → ElasticSearch 建索引 → Nextcloud 
 
 下面按步骤展开。
 
----
 
 ## 通过 docker-compose 启动 ElasticSearch
 
@@ -60,7 +59,6 @@ docker compose up -d elastic_search
 
 确认容器正常运行后再进行下一步。
 
----
 
 ## 安装 ElasticSearch 插件
 
@@ -98,7 +96,6 @@ docker restart elastic_search
 
 提示：插件版本必须与 ElasticSearch 版本对应，升级 ES 前先确认插件是否有对应版本。
 
----
 
 ## 在 Nextcloud 中启用 Full Text Search 相关应用
 
@@ -117,7 +114,6 @@ docker restart elastic_search
 这一步的目标是：
 让 Nextcloud 知道**全文检索由谁来做**，并建立与 ElasticSearch 的连接。
 
----
 
 ## 使用 occ 建立全文索引
 
@@ -138,7 +134,6 @@ docker exec -u www-data next_cloud-app-1 \
 
 首次构建索引时，耗时取决于：文件数量、文件大小、文件类型以及机器性能。之后可以按需定期重建或增量更新（比如通过 cron 或计划任务）。
 
----
 
 ## 解决 `occ fulltextsearch:index` NULL Pointer 报错
 
@@ -208,7 +203,6 @@ docker exec -u www-data next_cloud-app-1 \
 
 如果不再报 NULL Pointer，说明修复生效。
 
----
 
 ## 参考资料
 

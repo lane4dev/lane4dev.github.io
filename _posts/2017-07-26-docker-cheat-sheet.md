@@ -39,7 +39,6 @@ curl -sSL https://get.docker.com/ | sh
 
 [下载 Docker for Windows](https://download.docker.com/win/stable/InstallDocker.msi)
 
----
 
 ## 镜像仓库与镜像仓库操作（Docker Registries & Repositories）
 
@@ -84,7 +83,6 @@ docker push eon01/nginx localhost:5000/myadmin/nginx
 
 > 推送前记得先登录对应 registry，并配置好 tag。
 
----
 
 ## 运行容器（Running Containers）
 
@@ -129,7 +127,6 @@ docker update --cpu-shares 512 -m 300M infinite
 
 > 运行中也可以调整容器的 CPU / 内存限制。
 
----
 
 ## 启动与停止容器（Starting & Stopping Containers）
 
@@ -189,7 +186,6 @@ docker attach nginx
 
 > 把当前终端“接”到正在运行的容器上，查看输出或交互。
 
----
 
 ## 查看容器信息（Getting Information about Containers）
 
@@ -255,7 +251,6 @@ docker diff infinite
 
 > 看看容器相对于镜像，哪些文件被新增、修改或删除。
 
----
 
 ## 镜像管理（Manipulating Images）
 
@@ -326,7 +321,6 @@ docker tag nginx eon01/nginx
 docker push eon01/nginx
 ```
 
----
 
 ## 网络（Networking）
 
@@ -384,7 +378,6 @@ docker run -it -d --network=MyOverlayNetwork nginx
 docker network disconnect MyOverlayNetwork nginx
 ```
 
----
 
 ## 清理 Docker 环境（Cleaning Docker）
 
@@ -444,7 +437,6 @@ docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
 docker volume rm $(docker volume ls -f dangling=true -q)
 ```
 
----
 
 ## Docker Swarm 简要速查（Docker Swarm）
 

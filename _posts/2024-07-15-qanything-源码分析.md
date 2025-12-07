@@ -118,7 +118,6 @@ bash scripts/base_run.sh -s 'LinuxOrWSL' -m 19530 -q 8777 -M 3B
 
 到这一步为止，我们已经从一行 Bash顺利走到了一个挂着 LocalDocQA 的 Sanic Web 服务。
 
----
 
 ## LocalDocQA 初始化
 
@@ -220,7 +219,6 @@ self.faiss_client.asimilarity_search_with_score(
 
 在 L2 空间里找到最近的向量，再结合 rerank 分数做综合排序。
 
----
 
 ## 文档上传流程
 
@@ -287,7 +285,6 @@ Body（multipart form-data）核心字段：
 
    返回每个文件的上传结果、知识库 ID、基础状态信息等。
 
----
 
 ## 问答流程
 
@@ -378,7 +375,6 @@ POST http://{your_host}:8777/api/local_doc_qa/local_doc_chat
 
    将最终回答和引用片段信息返回给前端。
 
----
 
 ## 一些值得继续追的技术问题
 
@@ -404,7 +400,6 @@ POST http://{your_host}:8777/api/local_doc_qa/local_doc_chat
 
    中提到的 MiniCPM、QWen 2B 等本地模型，未来是否可以接入到 `OpenAICustomLLM` 封装，保持上层接口不变的前提下试不同 LLM。
 
----
 
 ## 小结
 

@@ -56,7 +56,6 @@ class User(BaseModel):
 
 在 domain 层，你甚至不允许写任何 SQLAlchemy 的字段，哪怕只是反射字段，也不要写。只保持**业务信息纯净**。
 
----
 
 ### Use Cases 作为业务行为的 orchestration（编排）
 
@@ -77,7 +76,6 @@ class CreateUserUseCase:
 
 Use Case 很像项目里的**业务经理**，不管事怎么做，只管说 **给我用户数据**、**给我存进去**。
 
----
 
 ### API Controllers 作为用户联络窗口
 
@@ -89,7 +87,6 @@ FastAPI 的 router 属于接口适配层。它负责：
 
 但不应该写任何业务逻辑。
 
----
 
 ### Infrastructure 作为现细节
 
@@ -97,7 +94,6 @@ FastAPI 的 router 属于接口适配层。它负责：
 
 让它们紧贴 Use Case，但不反向影响 Domain。
 
----
 
 ## 模块按业务切分
 
@@ -124,7 +120,6 @@ modules/
 
 要访问别的模块的数据怎么办？继续往下看。
 
----
 
 ## 模块之间的数据关联
 
@@ -169,7 +164,6 @@ app.dependency_overrides[UserRepository] = UserRepositoryImpl(...)
 
 这样模块之间没有“互相依赖”，只有“依赖抽象接口”。
 
----
 
 ## Domain（Pydantic BaseModel）与 SQLAlchemy Base 的冲突解决
 
@@ -205,7 +199,6 @@ class User(BaseModel):
         orm_mode = True
 ```
 
----
 
 ## Repository 组合多个 datasource 的最佳实践
 
@@ -246,7 +239,6 @@ class UserRepositoryImpl(UserRepository):
 
 Repository 成为**组合逻辑**的唯一出口，Use Case 看到的就是一种干净的接口。
 
----
 
 ## 一个完整示例流程
 
@@ -274,7 +266,6 @@ graph LR
 
 整个流程对外表现为“两个模块协作”，但技术上是完全解耦的。
 
----
 
 ## 一点使用感想与踩坑提醒
 
@@ -290,7 +281,6 @@ graph LR
 - **DI (依赖注入) 是 Clean Architecture 的润滑剂**，
   没有 DI，Clean Architecture 实操会非常累。
 
----
 
 # 结语
 

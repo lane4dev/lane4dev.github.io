@@ -56,7 +56,6 @@ conn.commit()
 - `enable_load_extension(True)` 必须在 `load_extension()` 之前调用；
 - 一般只需在应用启动时加载一次扩展即可。
 
----
 
 ## 原始数据表：`news`
 
@@ -81,7 +80,6 @@ CREATE TABLE IF NOT EXISTS news(
 - `title` / `text`：需要做全文检索的字段；
 - 其他字段就是正常业务字段，随业务扩展。
 
----
 
 ## FTS5 虚拟表：`news_fts`
 
@@ -114,7 +112,6 @@ CREATE VIRTUAL TABLE IF NOT EXISTS news_fts USING fts5 (
   使用 simple 插件提供的分词器，对中文更友好。
   不用自己写分词逻辑。
 
----
 
 ## 用触发器保持索引同步
 
@@ -150,7 +147,6 @@ END;
 只维护 `news` 表即可，
 `news_fts` 会自动跟上，无需额外代码。
 
----
 
 ## 查询示例：用 `simple_query` 做中文检索
 
@@ -184,7 +180,6 @@ JOIN news_fts ON news.id = news_fts.rowid
 WHERE news_fts MATCH simple_query('山东');
 ```
 
----
 
 ## 备注
 

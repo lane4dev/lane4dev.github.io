@@ -22,7 +22,6 @@ OnlyOffice DocumentServer 可以让 Nextcloud 直接在线编辑 Word / Excel / 
   - 是“多容器 + Docker 网络”的方式，还是 Nextcloud 单机服务。
   - Nextcloud 和 OnlyOffice 是否在同一个 docker-compose 网络里。
 
----
 
 ## 通过 docker-compose 部署 OnlyOffice DocumentServer
 
@@ -70,7 +69,6 @@ docker-compose up -d onlyoffice
 
 容器正常运行后，可以先用浏览器打开 `http://<服务器IP>:8887/` 进行基本连通性确认。
 
----
 
 ## 在 Nextcloud 中安装 OnlyOffice 插件
 
@@ -83,7 +81,6 @@ docker-compose up -d onlyoffice
 
 插件安装完成后，Nextcloud 菜单中会多出一个 OnlyOffice 配置入口。
 
----
 
 ## 修改 Nextcloud 配置，允许访问本地服务
 
@@ -115,7 +112,6 @@ docker-compose up -d onlyoffice
 
 如果你的 Nextcloud 服务名称不是 `nextcloud`，请根据实际服务名调整上面的命令。
 
----
 
 ## 在 Nextcloud 中配置 OnlyOffice 服务
 
@@ -147,7 +143,6 @@ docker-compose up -d onlyoffice
 如果一切正常，页面会提示连接成功。
 此时你可以上传一个 `.docx` 或 `.xlsx` 文件，点击打开，应该会直接进入 OnlyOffice 在线编辑界面。
 
----
 
 ## 简单验证与常见问题
 
@@ -180,7 +175,6 @@ docker-compose up -d onlyoffice
 
 - 修改后别忘了重启 Nextcloud 容器。
 
----
 
 ## 总结
 

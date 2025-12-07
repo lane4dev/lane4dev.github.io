@@ -61,7 +61,6 @@ done
 
 每个选项在 `case` 里只做一件事：打印一行提示，可按需换成真正逻辑。
 
----
 
 ## getopt 调用
 
@@ -81,7 +80,6 @@ OPTS=$(getopt --options abg:h --long alpha,beta,gamma:,help -- "$@")
 
 `if [[ $? -ne 0 ]]; then ... fi` 用来在 `getopt` 失败（非法参数）时提前退出。
 
----
 
 ## 把解析结果「塞回」参数列表
 
@@ -96,7 +94,6 @@ eval set -- "$OPTS"
 - `eval set -- "$OPTS"` 把整理好的参数重新写回 `$1 $2 ...`，方便后面用 `while ... case` 统一处理。
 - `--` 是分隔符，表示「选项结束，后面都是普通参数」。
 
----
 
 ## while + case 解析循环
 

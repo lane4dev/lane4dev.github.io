@@ -37,7 +37,6 @@ pip install celery
 
 注意确认你的环境里已经有可用的 Redis（或 RabbitMQ），之后会用到。
 
----
 
 ## 配置
 
@@ -72,7 +71,6 @@ def make_celery(app):
 
 最终返回的就是一个和当前 Flask 应用“绑在一起”的 `celery` 对象。
 
----
 
 ## 示例：一个简单的“长任务”接口
 

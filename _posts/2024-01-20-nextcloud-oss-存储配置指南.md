@@ -28,7 +28,6 @@ comments: true
 - `xxx`：Bucket 名称、密钥等具体值
 - `xxx.aliyuncs.com`：OSS 的 Endpoint，例如 `oss-cn-hangzhou.aliyuncs.com`
 
----
 
 ## 方式一：使用 External Storage 插件挂载 OSS（推荐入门）
 
@@ -94,7 +93,6 @@ comments: true
 更多细节可参考官方文档：
 [Configuring External Storage (GUI) — Nextcloud Admin Manual](https://docs.nextcloud.com/server/27/admin_manual/configuration_files/primary_storage.html)
 
----
 
 ## 方式二：将 OSS 配置为 Nextcloud 主存储（Primary Storage）
 
@@ -168,7 +166,6 @@ OBJECTSTORE_S3_PORT=443
 参考文档：
 [Configuring Object Storage as Primary Storage — Nextcloud Admin Manual](https://docs.nextcloud.com/server/27/admin_manual/configuration_files/primary_storage.html)
 
----
 
 ## 方式三：通过 ossfs 将 OSS 挂载为本地文件系统（不推荐）
 
@@ -227,7 +224,6 @@ fusermount -u /mnt/ossfs
 把 ossfs 当作 Nextcloud 的长期后端存储存在兼容性风险，不建议用于生产环境的核心存储。
 如果是为了“看一看 Bucket 里有什么”或者做一次性迁移，是 ok 的。
 
----
 
 ## 如何选择合适的接入方式？
 

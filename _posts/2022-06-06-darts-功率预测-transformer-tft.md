@@ -49,7 +49,6 @@ from darts.utils.likelihood_models import QuantileRegression
 - `TransformerModel` / `TFTModel` 是本文的主角。
 - `QuantileRegression` 用于支持分位数预测（预测区间）。
 
----
 
 ## 数据读取与预处理
 
@@ -102,7 +101,6 @@ df = df.resample("H", convention="start").sum()
 - `resample("H")`：以小时为频率重采样；
 - `sum()`：如果某小时内有多条记录，就累加功率值。
 
----
 
 ## 转换为 Darts TimeSeries 并可视化
 
@@ -139,7 +137,6 @@ df_ts.plot()
 
 这些特征也会影响后续模型的选择和效果。
 
----
 
 ## 划分训练集与验证集
 
@@ -166,7 +163,6 @@ plt.legend(["train (last 7 days)", "val (first 3 days)"])
 
 这样可以直观地看到模型要接力预测的那一段区域。
 
----
 
 ## 标准化：用 Scaler 处理时间序列
 
@@ -183,7 +179,6 @@ series_transformed = transformer.transform(df_ts)
 - `fit_transform(train)`：只用训练集来学习缩放参数（例如均值和标准差）。
 - 对 `val` 和完整序列 `df_ts` 使用同一个 `transformer` 做 `transform`，保证它们处在统一尺度上。
 
----
 
 ## 使用 TransformerModel 做时间序列预测
 
@@ -270,7 +265,6 @@ plt.legend()
 - 模型是否捕捉到了功率变化的趋势；
 - 预测是否明显偏高或偏低。
 
----
 
 ## 构造协变量：为 TFT 做准备
 
@@ -319,7 +313,6 @@ covariates_transformed = scaler_covs.transform(covariates)
 
 和前面目标时间序列一样，我们只用训练时间段的数据拟合缩放器，然后对完整协变量序列做变换。
 
----
 
 ## 使用 Temporal Fusion Transformer (TFT) 做分位数预测
 
@@ -430,7 +423,6 @@ plt.legend()
 
 通过对比真实值与预测区间的位置，可以直观判断模型的 **不确定性建模能力** 和 **风险覆盖情况**。
 
----
 
 ## 小结
 

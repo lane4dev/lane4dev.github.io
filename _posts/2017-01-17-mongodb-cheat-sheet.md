@@ -42,7 +42,6 @@ $sudo chown [User] /data/db
 
 Mongo 在使用过程中需要先运行 `mongod` 打开一个本地服务器，然后再运行 `mongo` 客户端，执行相关操作。
 
----
 
 ## MongoDB 的基本特点
 
@@ -71,7 +70,6 @@ Mongo 中可以运行 JavaScript 的程序：
 2
 ```
 
----
 
 ## 初始化操作
 
@@ -113,7 +111,6 @@ person
 physicist
 ```
 
----
 
 ## 添加数据
 
@@ -148,7 +145,6 @@ BulkWriteResult({
 })
 ```
 
----
 
 ## 查找与修改数据
 
@@ -259,7 +255,6 @@ WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
 
 想要了解更详细的关于操作符的使用情况，可以访问[Mongo DB Documentation](https://docs.mongodb.com/manual/reference/operator/)
 
----
 
 ## 删除数据
 
@@ -276,7 +271,6 @@ WriteResult({ "nRemoved" : 1 })
 > db.physicist.remove({first_name:"Galileo"},{justOne:true});
 ```
 
----
 
 ## 查找与筛选
 
@@ -524,7 +518,6 @@ WriteResult({ "nRemoved" : 1 })
 }
 ```
 
----
 
 ## 排序
 
