@@ -55,3 +55,31 @@ function smoothScrollTo(y, time) {
     })();
   }
 }
+
+// Scroll Reveal Animation
+document.addEventListener("DOMContentLoaded", function() {
+  var reveals = document.querySelectorAll(".reveal");
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    });
+
+    reveals.forEach(function(reveal) {
+      observer.observe(reveal);
+    });
+  } else {
+    // Fallback for older browsers
+    reveals.forEach(function(reveal) {
+      reveal.classList.add("active");
+    });
+  }
+});
