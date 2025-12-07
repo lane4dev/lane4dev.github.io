@@ -18,7 +18,6 @@ comments: true
 > **Bangaluru_Wind Generation 2017–2021** <br/>
 > 记录了 2017–2021 年间某风电场按时间的发电功率（kW）。
 
----
 
 ## 环境与依赖
 

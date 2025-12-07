@@ -13,6 +13,7 @@ Clean Architecture 和 Hexagonal Architecture 常常被放在一起讨论，结�
 如果你已经用 FastAPI 搭过一圈服务，现在开始认真思考 **目录如何分层**、**Use Case 怎么落位**、**API 层要不要再加 Controller**，
 这篇文章会试着给出一套可操作的「对比与实践指引」。
 
+
 ## 先看共同点：它们都想保护的，是“业务内核”
 
 无论是 Clean 还是 Hexagonal，本质上都在做一件事：

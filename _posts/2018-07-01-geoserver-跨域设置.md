@@ -21,7 +21,6 @@ comments: true
 
 如果我们确认 GeoServer 是可信服务，就可以通过 **启用 CORS** 的方式，让浏览器“放心地”放行这些跨域请求。
 
----
 
 ### 在 GeoServer 中启用 CORS（基于内置 Jetty）
 

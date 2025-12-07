@@ -16,6 +16,7 @@ MQTT可以通过TCP / IP运行，并且可以直接对TCP / IP进行编码，还
 [MQTT community wiki](https://github.com/mqtt/mqtt.github.io/wiki)
 [Eclipse Paho project](http://eclipse.org/paho/)
 
+
 ## 版本支持
 
 想了解有关Watson IoT Platform支持的MQTT版本的信息，请参阅 [Standards and requirements](https://console.ng.bluemix.net/docs/services/IoT/reference/standards_and_requirements.html#mqtt)。

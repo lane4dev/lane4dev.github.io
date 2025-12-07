@@ -9,6 +9,7 @@ comments: true
 
 这是一篇简短的备忘录，记录如何用 Nginx 把本地的 **Cesium 地形瓦片（.terrain）** 当静态文件发出去，让 Cesium 通过 URL 直接访问。
 
+
 ## 场景 & 目录
 
 假设目录结构：

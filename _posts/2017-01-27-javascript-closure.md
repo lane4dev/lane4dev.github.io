@@ -10,6 +10,7 @@ comments: true
 > TLDR: Closures are nothing but **functions with preserved data**  
 > 简而言之：闭包其实就是：**带着自己环境数据一起工作的函数**。
 
+
 ## 一个非典型的 Closure
 
 所谓闭包（Closure），简单说就是：**一个函数，把它外面作用域里的变量一起“打包带走了”**。

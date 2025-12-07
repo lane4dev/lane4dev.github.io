@@ -15,6 +15,7 @@ comments: true
 
 这篇文章就记录一下我自己从能用就行到用得舒服的这条小路，希望也能帮你把手上的 SQLite 变成一台好用的中文搜索引擎。
 
+
 ## 总体思路
 
 1. 安装并加载 `wangfenjin/simple` 这个 SQLite 扩展，它提供了适合中文的 `tokenize='simple'` 和 `simple_query()`。
@@ -22,8 +23,6 @@ comments: true
 3. 用 FTS5 建一个**虚拟表**做全文索引，指向原始表。
 4. 用触发器保证原始表和 FTS 索引表自动同步。
 5. 用 `MATCH simple_query('关键词')` 直接查。
-
----
 
 ## 加载 simple 插件
 

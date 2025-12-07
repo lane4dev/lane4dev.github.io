@@ -22,7 +22,6 @@ comments: true
 - **Java 6**：GeoServer 2.3.x ~ 2.5.x（已在 Oracle JRE 上测试）
 - **Java 5**：GeoServer 2.2.x 及更早版本（已在 Sun JRE 上测试）
 
----
 
 ## 使用 JAI 和 ImageIO 插件
 

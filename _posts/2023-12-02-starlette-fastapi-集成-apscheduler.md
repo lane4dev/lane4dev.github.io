@@ -10,7 +10,6 @@ comments: true
 在 Web 服务里跑一些**定时任务**（比如每分钟拉一次数据、定时清理缓存），又不想单独开一个脚本，
 就可以把 APScheduler 嵌进 Starlette / FastAPI 里，随应用一起启动和停止。
 
----
 
 ## 核心思路
 
