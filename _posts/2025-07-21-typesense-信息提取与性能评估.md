@@ -2,8 +2,8 @@
 layout: post
 title: "Typesense 信息提取与性能评估"
 date: 2025-07-21 00:00:00 +0800
-categories: 新能源
-tags: ["政策"]
+categories: Code
+tags: ["Typesense", "RAG"]
 comments: true
 ---
 
@@ -135,7 +135,6 @@ Typesense 会认为你已经把查询分好词，只做基于空格的拆分，�
 
 这就顺滑地过渡到下一节：**哪些字段的索引会常驻内存？对 RAM 有多大影响？**
 
----
 
 ## Typesense 的性能评估
 
@@ -159,7 +158,6 @@ Typesense 的一大特点，是采用**索引常驻内存 + 原始文档落盘**
 
 社区实践也大致印证了这个量级：几百万到上千万文档的集合，索引常常会占用数 GB 甚至十几 GB 内存，尤其是在引入向量搜索之后。
 
----
 
 ### 字段配置如何影响 RAM 占用？
 
@@ -209,7 +207,6 @@ schema 配置不是「纯逻辑层设计」，它直接等价为「内存账单�
 
 每多一个 `index=true`、`facet=true`、`infix=true`，都在给 RAM 增压。
 
----
 
 ### 一套可落地的 RAM 估算流程
 

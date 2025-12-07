@@ -34,7 +34,6 @@ LVM（Logical Volume Manager）是 Linux 下的一套磁盘管理机制。
 2. 把它组装好；
 3. 然后你才能打开你要用的抽屉（逻辑卷），也就是挂载真正的文件系统。
 
----
 
 ## 我的磁盘状态
 
@@ -54,7 +53,6 @@ sda
 2. 识别并激活其中的 LVM 卷组和逻辑卷
 3. 挂载逻辑卷的根文件系统
 
----
 
 ## 步骤一：解锁 LUKS 加密分区
 
@@ -73,7 +71,6 @@ sudo cryptsetup luksOpen /dev/sda2 crypt_data
 它会提示输入密码。输入正确后，会看到 `/dev/mapper/crypt_data` 出现了。
 这是已经解密后的“原始内容”，但还不是我能挂载的根分区，因为它里面套了个 LVM。
 
----
 
 ## 步骤二：识别并激活 LVM 卷组
 
@@ -112,7 +109,6 @@ sudo vgchange -ay
 
 这一步会让 `/dev/mapper/vg0-root` 这种逻辑卷路径生效。
 
----
 
 ## 步骤三：挂载文件系统
 
@@ -132,7 +128,6 @@ sudo mount /dev/mapper/vg0-root /mnt/data
 
 搞定！现在就可以访问 `/mnt/data` 里的内容了。
 
----
 
 ## 如果要卸载怎么办？
 
@@ -144,7 +139,6 @@ sudo vgchange -an          # 关闭卷组
 sudo cryptsetup luksClose crypt_data  # 关闭加密设备
 ```
 
----
 
 ## 小结
 

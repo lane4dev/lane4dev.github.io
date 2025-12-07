@@ -46,7 +46,6 @@ logging.disable(logging.CRITICAL)
 plt.style.use("seaborn-v0_8")
 ```
 
----
 
 ## 数据加载与基础预处理
 
@@ -76,7 +75,6 @@ df.describe()
 df = df.resample("H", convention="start").sum()
 ```
 
----
 
 ## 转换为 Darts 的 TimeSeries 对象并初步探索
 
@@ -109,7 +107,6 @@ for m in range(16, 744):  # 从 16 到 744 小时尝试不同周期
 
 有了这种直觉之后，我们心里大致知道：这个序列是不是有明显的周期性、周期大概多长，对后面选择输入窗口长度有帮助。
 
----
 
 ## 划分训练集 / 验证集
 
@@ -133,7 +130,6 @@ plt.title("Train / Validation split around 2021-01-01")
 
 ![边界附近的走势]({{ base.siteurl }}/assets/images/2022-06/220608-darts-deepar-002.png)
 
----
 
 ## 标准化：让模型更好收敛
 
@@ -149,7 +145,6 @@ series_transformed = transformer.transform(df_ts)
 
 这里我们保留了 `series_transformed`，后面构造时间特征时会用到完整序列。
 
----
 
 ## 构造时间协变量（covariates）
 
@@ -189,7 +184,6 @@ cov_train, cov_val = covariates.split_before(pd.Timestamp("2021-01-01"))
 * `cov_train`：训练阶段可用的时间协变量
 * `cov_val`：验证阶段可用的时间协变量
 
----
 
 ## 使用 RNNModel + GaussianLikelihood 搭建 DeepAR 风格模型
 
@@ -220,7 +214,6 @@ model_en = RNNModel(
 如何从直觉上理解这个模型？
 每一次预测时，它都会看过去 168 小时的功率和时间特征，然后输出未来一段时间功率的 **概率分布**，我们可以从这个分布中采样多条路径，得到预测区间。
 
----
 
 ## 训练模型
 
@@ -236,7 +229,6 @@ model_en.fit(
 )
 ```
 
----
 
 ## 预测未来 48 小时并可视化结果
 
@@ -284,7 +276,6 @@ print("Validation RMSE:", rmse_val)
 
 如果预测区间大致包住了真实值，而且均值曲线的趋势跟实测较吻合，说明模型对于这个问题是「说得过去」的；MAE / RMSE 则给出了量化指标。
 
----
 
 ## 保存模型以便后续复用
 
@@ -303,7 +294,6 @@ from darts.models import RNNModel
 loaded_model = RNNModel.load_model("deepar_v010.pth.tar")
 ```
 
----
 
 ## 小结
 

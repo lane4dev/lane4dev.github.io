@@ -32,7 +32,6 @@ comments: true
 **Java Image I/O Technology（ImageIO）** 用于读取和写入栅格数据。
 ImageIO 会影响 WMS 和 WCS 对栅格数据的读取；即便没有栅格数据，WMS 在输出 PNG/GIF/JPEG 等图片时也需要依赖 ImageIO 进行编码。
 
----
 
 ## 针对容器的优化
 
@@ -56,7 +55,6 @@ ImageIO 会影响 WMS 和 WCS 对栅格数据的读取；即便没有栅格数�
 - `-Xbootclasspath/a:$MARLIN_JAR`
 - `-Dsun.java2d.renderer=org.marlin.pisces.MarlinRenderingEngine`
 
----
 
 ## 针对配置的优化
 
@@ -90,7 +88,6 @@ geoserver/src/web/app/src/main/webapp/WEB-INF/web.xml
 
 通过合理的数据缓存策略，减少重复计算和 IO，提升整体响应性能。
 
----
 
 ## 针对数据的优化
 

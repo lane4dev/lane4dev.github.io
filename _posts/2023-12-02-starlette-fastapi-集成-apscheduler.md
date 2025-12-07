@@ -18,7 +18,6 @@ comments: true
 3. 用 **CronTrigger / IntervalTrigger** 之类添加任务。
 4. 进程退出时，记得关掉 scheduler（可选但推荐）。
 
----
 
 ## Starlette 示例（每分钟执行一次）
 
@@ -45,7 +44,6 @@ app = Starlette(on_startup=[startup_event])
 - `CronTrigger.from_crontab("* * * * *")`：用 crontab 表达式定义调度规则。
 - `on_startup=[startup_event]`：应用启动时，自动创建并启动 scheduler。
 
----
 
 ## FastAPI 版本（lifespan 的方式）
 
@@ -74,7 +72,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 ```
 
----
 
 ## 常用触发器速记
 
@@ -86,7 +83,6 @@ app = FastAPI(lifespan=lifespan)
 
   - 例：`scheduler.add_job(job, "interval", minutes=5)`
 
----
 
 ## 备注
 

@@ -33,7 +33,6 @@ Clean Architecture 和 Hexagonal Architecture 常常被放在一起讨论，结�
 
 在这一点上，Clean 和 Hexagonal 是完全一致的，只是画图的方式、层次的颗粒度不太一样。
 
----
 
 ## 差异：圈和边的审美不一样
 
@@ -75,7 +74,6 @@ Clean 在此基础上，又强调了“内核内部也要分层”，特别是�
 所以粗暴一点理解：
 **Clean = Hexagonal + 更细的内核分层（多了一圈 Use Case）**
 
----
 
 ## 在 FastAPI 项目里，大概会长成什么形状？
 
@@ -103,7 +101,6 @@ Clean 在此基础上，又强调了“内核内部也要分层”，特别是�
 
 Hexagonal 的图会简单一点：Domain 在中间，路由、Controller、Repository 实现、外部 HTTP 调用，统统看作各种 Adapter，只是方向不一样（驱动 vs 被驱动）。
 
----
 
 ## Interface Adapters 里，Controller 到底该不该单独一层？
 
@@ -183,7 +180,6 @@ class CreateUserUseCase:
 
 看起来很简单，但有一个副作用：Use Case 和外部协议/DTO 就绑死了。逻辑一旦需要在 CLI、消息消费者里复用，会明显感觉不顺手。
 
----
 
 ## 怎么结合 Clean 和 Hexagonal 的思路落地？
 
@@ -205,7 +201,6 @@ class CreateUserUseCase:
    - 简单 CRUD：Router 兼任 Controller。
    - 大量业务流程、统一错误处理、审计日志：单独 Controller 层，别犹豫。
 
----
 
 ## 小结
 

@@ -69,7 +69,6 @@ fastapi-app/
 - `plugins` 单独成层，只跟“宿主协议”打交道。
 - 项目入口非常克制：`main.py` 聚合路由，`cli.py` 聚合命令。
 
----
 
 ## 配置与生命周期
 
@@ -134,7 +133,6 @@ app.include_router(incident_router, prefix="/api/incidents", tags=["incidents"])
 - 语义更集中：启动 / 关闭逻辑集中在 `lifespan`，不会散落在各个模块。
 - 测试更顺滑：用 TestClient 时可以完整触发生命周期，不会出现“本地跑得好好的，CI 一执行就崩”的情况。
 
----
 
 ## 数据层与迁移
 
@@ -168,7 +166,6 @@ alembic upgrade head
 - 忘了导入模型 → Alembic 自然“看不见”。Dispatch 文档强调“把模型 import 到统一模块里供 Alembic introspection”。
 - 生产库改大表结构的过程中，避免“结构 + 重度数据迁移”同一条 revision，先改结构、再小步数据迁移。
 
----
 
 ## 领域模块规范
 
@@ -219,7 +216,6 @@ def create(data: IncidentCreate, db: Session = Depends(get_db)):
 是我看到包括 [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices) 从 Dispatch 身上学来的核心模式：
 一个目录讲清楚一个领域，不把逻辑拆散到全项目各个角落。
 
----
 
 ## 插件化
 
@@ -313,7 +309,6 @@ def create_incident(db: Session, data: IncidentCreate) -> Incident:
 在 `service.create_incident` 的最后调用这些插件钩子，就等于把“事件创建后该做什么”这件事，
 从核心服务里剥离出去，交给插件体系来演化。新需求来了，加插件就好，不必进核心改代码。
 
----
 
 ## CLI
 
@@ -344,7 +339,6 @@ if __name__ == "__main__":
 常见的本地开发、数据库迁移、插件管理、数据初始化，
 都可以往这个 CLI 里逐步沉淀。
 
----
 
 ## 测试与质量
 
@@ -352,7 +346,6 @@ if __name__ == "__main__":
 - **规范**：`black + flake8 + isort + pre-commit`，这与 Dispatch 文档里对代码一致性的要求相呼应。
 - **数据库用例**：独立的测试数据库 + 事务回滚 fixture，覆盖成功/失败/并发/边界。
 
----
 
 ## API-First 的好处
 

@@ -27,7 +27,6 @@ comments: true
 http://localhost/tilesets/terrain/0/0/0.terrain
 ```
 
----
 
 ## Nginx 核心配置
 
@@ -65,7 +64,6 @@ server {
 }
 ```
 
----
 
 ## Cesium 端配置示例
 
@@ -79,7 +77,6 @@ const terrainProvider = new Cesium.CesiumTerrainProvider({
 viewer.terrainProvider = terrainProvider;
 ```
 
----
 
 ## 4. 备忘
 

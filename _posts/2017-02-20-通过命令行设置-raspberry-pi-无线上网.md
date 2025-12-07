@@ -37,7 +37,6 @@ sudo iwlist wlan0 scan
 * 无线网络名（`ESSID` / `ssid`）：`testing`
 * 密码（`psk`）：`testingPassword`
 
----
 
 ## 二、用 `wpa_passphrase` 生成安全配置
 
@@ -90,7 +89,6 @@ wpa_passphrase "testing" "testingPassword" >> /etc/wpa_supplicant/wpa_supplicant
 
 处理完记得删除明文密码文件，避免安全隐患。
 
----
 
 ## 三、把网络信息写入 Raspberry Pi 配置
 
@@ -137,7 +135,6 @@ network={
 sudo wpa_cli reconfigure
 ```
 
----
 
 ## 四、如何确认 Raspberry Pi 已连上 WiFi？
 
@@ -161,7 +158,6 @@ inet addr:192.168.1.23
 2. 密码是否输错
 3. 路由器是否限制了接入设备（比如 MAC 地址过滤等）
 
----
 
 ## 五、连接不需要密码的网络
 
@@ -176,7 +172,6 @@ network={
 
 保存后，按前面的方法 `sudo wpa_cli reconfigure`，再通过 `ifconfig wlan0` 检查是否获得 IP 地址。
 
----
 
 ## 六、连接隐藏 SSID 的网络
 
@@ -192,7 +187,6 @@ network={
 
 `scan_ssid=1` 的意思是：即便网络没有在广播 SSID，也主动去尝试连接。重载配置并检查连接方式与前面相同。
 
----
 
 ## 七、配置多个无线网络
 
@@ -234,6 +228,5 @@ network={
 
 在这个例子中，如果两个网络都能连到，Raspberry Pi 会优先连接 `HomeTwoSSID`，因为它的 `priority=2` 更高。
 
----
 
 无论你身在家里、办公室还是教室，只要提前把常用 WiFi 配好，Raspberry Pi 插上电就能自动上线，省心又省事。
