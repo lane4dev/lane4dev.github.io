@@ -13,6 +13,7 @@ comments: true
 2. 把 **OSS 配置成主存储（Primary Storage）**
 3. 用 **ossfs 挂载到本地，再由 Nextcloud 访问**（不推荐，只做补充说明）
 
+
 ## 准备工作
 
 在开始配置之前，你需要准备好：

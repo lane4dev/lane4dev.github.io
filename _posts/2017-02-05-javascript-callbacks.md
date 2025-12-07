@@ -13,7 +13,6 @@ Callback 函数在 JavaScript 编程中非常常见，这和 JavaScript 本身�
 
 理解了这件事，其它内容就好办多了。
 
----
 
 ## callback 基础
 

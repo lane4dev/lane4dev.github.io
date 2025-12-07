@@ -19,6 +19,7 @@ comments: true
 
 如果你也在为 GeoServer 时不时抽风、内存时不时飙满而头大，希望这篇文章能帮你少走一点弯路。
 
+
 ## 运行环境概览
 
 当前 GeoServer 运行在 Java 11 环境下：

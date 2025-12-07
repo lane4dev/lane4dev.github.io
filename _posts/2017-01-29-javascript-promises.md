@@ -9,6 +9,7 @@ comments: true
 
 > TLDR: Promise 可以先拿到“还没到的结果”，再约好：**结果到了之后要做什么**。
 
+
 ## 一个非典型的 Promise
 
 姑且不论晦涩的概念，把 Promise 想象成这样一件事：

@@ -13,6 +13,7 @@ comments: true
 
 这篇《再谈 FastAPI 架构落地：从 Dispatch 学来的几件事》想做的，就是把这些做法抽成一套可以直接复用的骨架：目录怎么按领域拆，核心设施放哪儿，生命周期和数据库迁移怎么收口，插件和 CLI 怎么接进来，方便自己在之后的项目里，也能快速搭出一个“小而清晰的 Dispatch 式” FastAPI 后端。
 
+
 ## Dispatch 的关键特点
 
 - **按领域分组（Domain-Oriented）**：目录即语义边界，同一目录内聚 `models/schemas/service/router`。这同时也是 [fastapi-best-practices](https://github.com/zhanymkanov/fastapi-best-practices) 里提到应该借鉴 Dispatch 的地方。

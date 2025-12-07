@@ -15,6 +15,7 @@ Andrew Ng 在 Sequoia 的 AI Ascent 演讲里，就是是把这个幻想当场�
 
 这篇笔记就是围绕这场演讲，整理出一些对我做系统设计、RAG、Agent 编排都很有启发的要点，方便以后翻回来复用。
 
+
 ## 基本信息 & TL;DR
 
 - **主讲人**：Andrew Ng（DeepLearning.AI、AI Fund 创始人）
@@ -25,8 +26,6 @@ Andrew Ng 在 Sequoia 的 AI Ascent 演讲里，就是是把这个幻想当场�
 
 与其砸更多钱上最强模型，不如先把「工作流」做好：拆解任务 + Reflection + 工具调用 + 规划 + 多 Agent 协作。
 很多场景里，**老模型 + 好工作流** 可以干翻 **新模型 + 一条 Prompt**。
-
----
 
 ## 从单条 Prompt 幻觉，到 Agentic Workflow
 

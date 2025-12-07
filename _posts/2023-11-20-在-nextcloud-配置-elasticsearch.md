@@ -15,7 +15,6 @@ comments: true
 - 使用 `occ` 建立索引
 - 解决 `occ fulltextsearch:index` 执行时的 NULL Pointer 报错问题
 
----
 
 ## 整体思路概览
 

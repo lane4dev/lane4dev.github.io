@@ -15,7 +15,6 @@ Clean Architecture 正好帮我们解决这个困局。它把**业务逻辑**和
 下面这篇文档，会带你把 Clean Architecture 放进 FastAPI 项目，不仅告诉你怎么**分层**，
 还会展示**每个模块该长什么样**、**模块之间怎么安全交互**，以及 **Repository 如何组合多个 datasource**。
 
----
 
 ## Clean Architecture 的落地视角
 

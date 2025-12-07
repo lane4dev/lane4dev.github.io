@@ -9,6 +9,7 @@ comments: true
 
 这篇文章带你一步步把 Raspberry Pi 接入 IBM Bluemix 的物联网服务，让小板子也能把自己的状态实时“上报到云端”。
 
+
 ## 必要的软件包安装
 
 如果你想顺便看看 Raspberry Pi 的 GPIO 状态，可以先安装一下 `wiringPi`（可选，但挺方便）。
