@@ -4,6 +4,10 @@
 .index-section {
   margin: 0 auto 128px auto;
 
+  @include media-query($on-palm) {
+    margin-bottom: 64px; // Reduced margin for mobile
+  }
+
   .section-wrapper {
     display: flex;
     flex-flow: row nowrap;

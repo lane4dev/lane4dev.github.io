@@ -116,16 +116,52 @@
 
           <div class="page-banner-default">
             <h1 class="page-banner-heading">
-              {{ heading | default: page.title | escape }}
+              {%- if page.typing_effect -%}
+                <span id="typed-heading"></span>
+              {%- else -%}
+                {{ heading | default: page.title | escape }}
+              {%- endif -%}
             </h1>
             <h2 class="page-banner-subheading">
-              {{ subheading | default: page.subtitle | escape }}
+              {%- if page.typing_effect -%}
+                <span id="typed-subheading"></span>
+              {%- else -%}
+                {{ subheading | default: page.subtitle | escape }}
+              {%- endif -%}
             </h2>
           </div>
+
+          {%- if page.typing_effect -%}
+          <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var headingText = {{ heading | default: page.title | jsonify }};
+              var subheadingText = {{ subheading | default: page.subtitle | jsonify }};
+              
+              new Typed('#typed-heading', {
+                strings: [headingText],
+                typeSpeed: 90,
+                showCursor: true,
+                cursorChar: '|',
+                onComplete: function(self) {
+                  self.cursor.remove(); // Remove cursor from heading when done
+                  
+                  // Start subheading typing
+                  new Typed('#typed-subheading', {
+                    strings: [subheadingText],
+                    typeSpeed: 60,
+                    startDelay: 500,
+                    showCursor: true,
+                    cursorChar: '|'
+                  });
+                }
+              });
+            });
+          </script>
+          {%- endif -%}
 
         {%- endif -%}
       </div>
     </div>
   </section>
 {%- endif -%}
-
