@@ -11,9 +11,9 @@ banner:
 
 <div class="index-main">
   <div id="service" class="index-section">
-    <h2 class="ttl">Interest</h2>
+    <h2 class="ttl reveal">Interest</h2>
     <div class="section-wrapper">
-      <div class="service-section">
+      <div class="service-section reveal">
         <h3 class="ttl">设计</h3>
         <p class="ttl">DESIGN</p>
         <p class="icon">
@@ -36,7 +36,7 @@ banner:
         <p>设计是对复杂问题的优雅化解。我关注 UI/UX 的实践，并将设计美学融入软件架构，以确保系统不仅功能完善，更能提供简洁高效的用户体验。</p>
         <p>我认为优秀的设计能力是艺术鉴赏力与逻辑归纳能力的结合，是通过持续学习和实践构建高品质品味的过程。</p>
       </div>
-      <div class="service-section">
+      <div class="service-section reveal">
         <h3 class="ttl">硬件</h3>
         <p class="ttl">HARDWARE</p>
         <p class="icon">
@@ -49,7 +49,7 @@ banner:
         <p>阿瑟·克拉克的名言启发了我对计算机底层逻辑的探究。我对硬件（CPU、内存、网络）的工作原理充满好奇。</p>
         <p>这种对底层运行机制的好奇心，驱使我深入理解系统架构。我认为，对硬件的认知是构建高效、稳定软件的基石，也是我软件开发生涯的起点。</p>
       </div>
-      <div class="service-section">
+      <div class="service-section reveal">
         <h3 class="ttl">软件</h3>
         <p class="ttl">SOFTWARE</p>
         <p class="icon">
@@ -67,8 +67,8 @@ banner:
     </div>
   </div>
   <div id="works" class="index-section">
-    <h2 class="ttl">Works</h2>
-    <div class="work-wrapper">
+    <h2 class="ttl reveal">Works</h2>
+    <div class="work-wrapper reveal">
       <canvas id="earth-view"></canvas>
       <div class="works-desc">
         <h3 class="ttl">GIS + 新能源</h3>
@@ -79,10 +79,10 @@ banner:
     </div>
   </div>
   <div id="blogs" class="index-section">
-    <h2 class="ttl">Blogs</h2>
+    <h2 class="ttl reveal">Blogs</h2>
     <div class="blogs-wrapper">
       {% for post in site.posts limit:5 %}
-      <div class="blog-item">
+      <div class="blog-item reveal">
         {% assign article = post.content %}
         {%- include functions.html func='get_article_excerpt' excerpt_size=128 -%}
         {% assign excerpt = return %}
@@ -105,8 +105,8 @@ banner:
   </div>
 </div>
 <div id="contact" class="index-section">
-  <h2 class="ttl">Contact</h2>
-  <div class="contact-mail">
+  <h2 class="ttl reveal">Contact</h2>
+  <div class="contact-mail reveal">
     <a href="mailto:hi@tangyu.me">
       <h3 class="contact-info">hi@tangyu.me</h3>
     </a>
