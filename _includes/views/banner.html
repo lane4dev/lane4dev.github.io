@@ -100,8 +100,51 @@
           })();
         </script>
       {%- else -%}
-        <div style="background-image: url({{ banner_image }})"></div>
-        <img class="img-placeholder" src="{{ banner_image }}">
+        {%- if page.vanta_effect -%}
+          <div id="vanta-canvas" style="width: 100%; height: 100%; background: #23153c;"></div>
+          <!-- Load Three.js -->
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+          <!-- Load Vanta Effect -->
+          <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.{{ page.vanta_effect }}.min.js"></script>
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var effectName = "{{ page.vanta_effect | upcase }}";
+              var config = {
+                el: "#vanta-canvas",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00
+              };
+              
+              // Custom configurations based on effect type
+              if (effectName === 'GLOBE') {
+                config.color = 0xff2d92;
+                config.color2 = 0xffffff;
+                config.backgroundColor = 0x23153c;
+                config.size = 1.0;
+              } else if (effectName === 'NET') {
+                config.color = 0xff2d92;
+                config.backgroundColor = 0x23153c;
+                config.points = 10.0;
+              } else {
+                // Default colors for other effects
+                config.color = 0xff2d92;
+                config.backgroundColor = 0x23153c;
+              }
+
+              if (window.VANTA && window.VANTA[effectName]) {
+                window.VANTA[effectName](config);
+              }
+            });
+          </script>
+        {%- else -%}
+          <div style="background-image: url({{ banner_image }})"></div>
+          <img class="img-placeholder" src="{{ banner_image }}">
+        {%- endif -%}
       {%- endif -%}
     </div>
     <div class="wrapper">
