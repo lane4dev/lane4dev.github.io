@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "geoserver 跨域设置"
+title: "Geoserver 跨域设置"
 date: 2018-07-01 09:56:00 +0800
 categories: Code
 tags: [Network]
