@@ -334,4 +334,43 @@ html[data-theme="dark"]  {
       }
     }
   }
+  
+  /* About Page Dark Mode Overrides */
+  .about {
+    .about-tech-stack li,
+    .about-tech-interests li {
+      background-color: transparent; /* 保持透明 */
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.05); /* 极淡的白色背景 */
+        box-shadow: none;
+      }
+    }
+  }
+
+  .about-tools ul li {
+    background-color: transparent;
+    border-color: #444;
+
+    strong {
+      color: #ccc;
+    }
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-color: #666;
+    }
+  }
+
+  .about-philosophy {
+    border-top-color: #444;
+    p {
+      color: #bbb;
+    }
+  }
+
+  .about-site {
+    background-color: transparent;
+    border-color: #444;
+  }
 }
