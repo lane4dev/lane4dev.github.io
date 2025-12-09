@@ -6,31 +6,155 @@ title: 关于
 <h2 id="ttl-about">关于</h2>
 
 <h3 id="ttl-about-me">我</h3>
-<div>
-    <div>
-        <p>软件开发者，致力于用代码解决现实问题。</p>
-        <p>我对简洁、精确的技术交流方式抱有极大的热情，享受与计算机逻辑驱动的交互过程。</p>
-        <p>强烈的好奇心是我持续学习和探索技术领域的核心驱动力。</p>
-        <p>喜欢折腾与计算机相关的一切，包括但不限于以下主题：<br>
-        <ul>
-            <li>数字电路 / 嵌入式 / 计算机网络</li>
-            <li>Linux / Android / Docker</li>
-            <li>HTML / CSS / JavaScript / TypeScript / Python / Kotlin</li>
-            <li>Angular / Express.js / FastApi / PostgreSQL</li>
-            <li>爬虫 / 数据挖掘 / 大模型应用</li>
-            <li>UI / UE / 架构 / 设计 </li>
-        </ul>
-        </p>
-        <p>我最大的乐趣和成就感，源于将所学技术应用于实践并解决真实世界中的问题。</p>
+<div class="about">
+    <div class="about-main">
+        <p>我是一名偏后端的全栈软件开发者，致力于用代码解决现实问题。</p>
+
         <p>
-            我热衷于电子游戏、阅读、电影及游戏配乐等文化媒介。<br>
-            在工作和生活中，我崇尚极简主义（ I use Arch BTW. :P ），信奉奥卡姆剃刀原理，欣赏简洁、高效的设计。
-            认为好的工具应该 "Do one thing, and do it well"，不太喜欢使用社交媒体（INFJ + 社恐），倾向于使用专业且轻量化的工具，并保持对软件的批判性思考。
+            目前主要聚焦在：
+            <strong>Web 服务开发、数据抓取与分析、大模型应用</strong>，
+            以及围绕这些领域的工程化与架构设计。
         </p>
+
+        <div class="about-tech-inline">
+            <div class="about-tech-stack">
+                <h4>常用的技术栈</h4>
+                <ul class="tech-list">
+                    <li>
+                        <strong>Python · 后端 / 数据 / GIS</strong>：
+                        使用 <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noreferrer">FastAPI</a> 构建 API
+                        服务与后台应用；
+                        结合 <code>numpy</code> / <code>pandas</code> / <code>xarray</code> 做数据处理与分析，
+                        用 <code>matplotlib</code> / <code>plotly</code> 可视化结果；
+                        利用 <a href="https://gdal.org/" target="_blank" rel="noreferrer">GDAL</a>、
+                        <a href="https://geopandas.org/" target="_blank" rel="noreferrer">GeoPandas</a>、
+                        <a href="https://shapely.readthedocs.io/" target="_blank" rel="noreferrer">Shapely</a>、
+                        <code>fiona</code>、<code>rasterio</code> 进行空间与遥感数据处理，
+                        服务于风电 / 光伏等可再生能源项目的选址与技术评估。
+                    </li>
+
+                    <li>
+                        <strong>Python · 爬虫 / 自动化 / 文档</strong>：
+                        使用 <code>BeautifulSoup</code>、<code>scrapy</code>、<code>playwright</code> 构建爬虫与自动化脚本；
+                        通过 <code>python-docx</code>、<code>openpyxl</code> 与
+                        <a href="https://quarto.org/" target="_blank" rel="noreferrer">Quarto</a>
+                        打通数据处理与报告 / 文档生成流程，减少重复劳动。
+                    </li>
+
+                    <li>
+                        <strong>Web / 前端 & Node.js</strong>：
+                        使用 TypeScript +
+                        <a href="https://angular.io/" target="_blank" rel="noreferrer">Angular</a> 构建前端界面；
+                        以 <a href="https://nodejs.org/" target="_blank" rel="noreferrer">Node.js</a> 为基础，
+                        使用 <a href="https://expressjs.com/" target="_blank" rel="noreferrer">Express.js</a>、
+                        <a href="https://nestjs.com/" target="_blank" rel="noreferrer">NestJS</a>
+                        搭建后端服务与 BFF 层。
+                    </li>
+
+                    <li>
+                        <strong>自动化工作流 & LLM 工程</strong>：
+                        关注大模型提示词设计、流程编排与 “vibe-coding”，
+                        使用 <a href="https://dify.ai/" target="_blank" rel="noreferrer">Dify</a>、
+                        <a href="https://n8n.io/" target="_blank" rel="noreferrer">n8n</a>
+                        组合现有服务，搭建自动化工作流和小型 Agent 系统。
+                    </li>
+
+                    <li>
+                        <strong>大模型应用与训练</strong>：
+                        基于 <a href="https://www.llamaindex.ai/" target="_blank" rel="noreferrer">LlamaIndex</a>、
+                        <a href="https://python.langchain.com/" target="_blank" rel="noreferrer">LangChain</a>
+                        构建检索增强应用与工作流，
+                        使用 <a href="https://spacy.io/" target="_blank" rel="noreferrer">spaCy</a> 做 NLP 预处理；
+                        以 <code>PyTorch</code> / <code>PyTorch Lightning</code> / <code>darts</code>
+                        进行模型实验和时间序列预测。
+                    </li>
+
+                    <li>
+                        <strong>基础设施 & 数据库</strong>：
+                        日常在 <a href="https://www.kernel.org/" target="_blank" rel="noreferrer">Linux</a> 环境下开发与运维，
+                        使用 <a href="https://www.docker.com/" target="_blank" rel="noreferrer">Docker</a> 容器化部署服务；
+                        数据库以 <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer">PostgreSQL</a> 为主。
+                        同时使用 Git / GitHub、<code>pytest</code> 及简单 CI 流程，保证工程的可维护性与可演化性。
+                    </li>
+
+                    <li>
+                        <strong>客户端 / 多端 & 设计</strong>：
+                        使用 Kotlin / Android 与 Dart /
+                        <a href="https://flutter.dev/" target="_blank" rel="noreferrer">Flutter</a>
+                        做移动端和多端应用探索；
+                        借助 <a href="https://www.figma.com/" target="_blank" rel="noreferrer">Figma</a> 进行界面原型与交互设计，
+                        偏好简洁、可理解的视觉与信息层级。
+                    </li>
+
+                    <li>
+                        <strong>桌面工具</strong>：
+                        使用 <code>PyQt</code> 与
+                        <a href="https://www.electronjs.org/" target="_blank" rel="noreferrer">Electron</a>
+                        构建桌面端小工具，将日常工作流程中的重复操作固化为可复用的应用。
+                    </li>
+                </ul>
+            </div>
+
+            <div class="about-tech-interests">
+                <h4>我感兴趣的方向</h4>
+                <ul class="interest-list">
+                    <li>
+                        <strong>AI 工程与开发者工具</strong>：
+                        围绕 Agent / RAG 系统、自动化工作流和知识管理工具，
+                        打造更顺手的开发与创作环境。
+                    </li>
+                    <li>
+                        <strong>数字电路 / 嵌入式 / 机器人</strong>：
+                        从逻辑电路到嵌入式开发，喜欢折腾
+                        <a href="https://www.raspberrypi.com/" target="_blank" rel="noreferrer">树莓派</a>、
+                        <a href="https://www.espressif.com/en/products/socs/esp32" target="_blank"
+                            rel="noreferrer">ESP32</a>、
+                        以及像 <a href="https://github.com/foostan/crkbd" target="_blank" rel="noreferrer">corne
+                            键盘</a>这类可以自己动手改造和组装的小工具。
+                    </li>
+                    <li>
+                        <strong><a href="https://www.rust-lang.org/" target="_blank" rel="noreferrer">Rust</a></strong>
+                        ：
+                        很看好它的长期发展潜力，对它提出的所有权 / 借用检查、零成本抽象等概念很感兴趣，
+                        目前主要处于学习和试验阶段，把它视作未来可能深入使用的主力语言之一。
+                    </li>
+                    <li>
+                        <strong>大数据与数据平台</strong>：
+                        关注批处理 / 流处理、数据仓库与 OLAP、时序 / 观测数据的建模与分析，
+                        思考如何把数据真正用在决策与优化上。
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="about-philosophy">
+            <p>
+                我对简洁、精确的技术交流方式有强烈偏好，享受与计算机逻辑驱动的交互过程。
+                好奇心是我持续学习和钻研技术的核心驱动力，
+                而最大的成就感来自：把抽象的想法落地成真正能被别人使用的工具。
+            </p>
+
+            <p>
+                在工作和生活中，我崇尚极简主义（I use
+                <a href="https://archlinux.org/" target="_blank" rel="noreferrer">Arch</a> BTW :P），
+                信奉<a href="https://zh.wikipedia.org/zh-cn/%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80" target="_blank"
+                    rel="noreferrer">奥卡姆剃刀原理</a>，
+                喜欢一句话概括为：<strong>好的工具应该 “Do one thing, and do it well.”</strong>
+            </p>
+
+            <p>
+                不太活跃于社交媒体（INFJ + 社恐），更倾向于使用专业、轻量的工具，
+                并保持对软件和产品的批判性思考。
+            </p>
+        </div>
     </div>
-    <div>
-        <p style="margin-bottom: 8px;">Google 生态下的重度用户，习惯通过 YouTube 分享的教程和公开课来学习新的知识。</p>
-        <p>我通过这些网站提升自己：</p>
+    <div class="about-learning">
+        <p style="margin-bottom: 8px;">
+            我也是 Google 生态下的重度用户，很多新知识都来自
+            <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">YouTube</a>
+            上的教程和公开课。
+        </p>
+        <p>我经常通过这些网站学习和获得灵感：</p>
         <ul>
             <li><a href="https://ocw.mit.edu/"><strong>MIT OpenCourseWare</strong></a></li>
             <li><a href="https://www.freecodecamp.org/"><strong>freeCodeCamp.org</strong></a></li>
@@ -43,17 +167,20 @@ title: 关于
             <li><a href="https://www.youtube.com/sentdex"><strong>sentdex</strong></a></li>
             <li><a href="https://www.gcores.com/"><strong>机核</strong></a></li>
         </ul>
+        <p>
+            工作之外，我热衷于电子游戏、阅读、电影以及游戏配乐，
+            这些媒介往往会反过来影响我对系统设计、叙事和交互的理解。
+        </p>
     </div>
 </div>
 
 <h3 id="ttl-about-tool">我使用的工具</h3>
-<div>
+<div class="about-tools">
     <p>公欲善其事，必先利其器。我使用这些工具帮助提高生产力：</p>
     <ul>
-        <li><strong>操作系统</strong> : <a href="https://archlinux.org/">Arch Linux</a></li>
+        <li><strong>操作系统</strong> : <a href="https://archlinux.org/">Arch Linux</a> + Hyprland</li>
         <li>
-            <strong>代码编辑器</strong> : <a href="https://code.visualstudio.com/">Visual Studio Code</a> with
-            <a href="https://github.com/Binaryify/OneDark-Pro">One Dark Pro Flat</a>
+            <strong>代码编辑器</strong> : <a href="https://code.visualstudio.com/">Visual Studio Code</a> + Vim
         </li>
         <li><strong>绘画</strong> : <a href="https://procreate.art/">Procreate</a></li>
         <li><strong>UML</strong> : <a href="https://app.diagrams.net/">Draw.io</a></li>
@@ -65,7 +192,7 @@ title: 关于
 </div>
 
 <h3 id="ttl-about-site">本站</h3>
-<div>
+<div class="about-site">
     <div>
         <p>建立本站旨在实现两大核心目标：分享我在技术探索中的所学、所获，并以此记录成长历程；同时，通过持续的写作来深化思考。我坚信，写作是检验对概念是否真正理解的最佳方式。</p>
         <p>我深信费曼学习法（Feynman Technique）的价值，即能够将复杂的专业知识以清晰、简洁的方式传达给非专业读者——这正是我通过博客分享知识所努力达到的目标。</p>
