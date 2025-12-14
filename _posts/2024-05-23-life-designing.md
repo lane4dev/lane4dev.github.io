@@ -1,15 +1,18 @@
 ---
 layout: post
 title: "Life Designing 视频笔记"
-date: 2025-11-04 18:14:00 +0800
+date: 2024-05-23 18:14:00 +0800
 categories: Notes
 tags: ["日常"]
+banner:
+  image: /assets/images/2024-05/23-000-cover.png
 comments: true
 ---
 
 {% include video.html type="youtube" id="YKEq5iEmMSo" %}
 
-这是 Stanford 的 Open Office Hours，对话的是 **Dave Evans 和 Bill Burnett**，也就是《Designing Your Life》的那两位老师。他们把“设计思维”用在 **“我该干嘛 / 人生要往哪走”** 这种大问题上，试图告诉你：
+这是 Stanford 的 Open Office Hours，对话的是 **Dave Evans 和 Bill Burnett**，也就是《Designing Your Life》的那两位老师。
+他们把“设计思维”用在 **“我该干嘛 / 人生要往哪走”** 这种大问题上，试图告诉你：
 
 > 不用等“想明白了再开始”，
 > 先从手边能做的一小步开始，边走边设计。

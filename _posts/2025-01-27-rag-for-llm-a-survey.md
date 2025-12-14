@@ -1,9 +1,11 @@
 ---
 layout: post
-title: "RAG for LLM: A Survey 读书笔记"
+title: "《RAG for LLM: A Survey》 读书笔记"
 date: 2025-01-02 00:00:00 +0800
 categories: AI
 tags: ["RAG", "Notes"]
+banner:
+  image: /assets/images/2025-01/27-000-cover.png
 comments: true
 ---
 
