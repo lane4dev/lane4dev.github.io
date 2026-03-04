@@ -4,6 +4,8 @@ title: "QAnything 源码解析"
 date: 2024-07-15 00:00:00 +0800
 categories: AI
 tags: ["RAG", "Notes"]
+banner:
+  image: /assets/images/2024-07/15-000-cover.png
 comments: true
 ---
 
