@@ -104,12 +104,18 @@
       }
     }
 
-    img, svg, iframe {
+    img,
+    svg,
+    iframe {
       margin: 24px auto;
       display: block;
     }
 
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       margin: 60px 0 20px;
       color: #1a1a1a;
       line-height: 1.4;
@@ -122,7 +128,7 @@
 
     hr {
       border: 0;
-      border-top: 1px dashed #FF2D92;
+      border-top: 1px dashed #ff2d92;
       height: 0;
       margin: 40px 0;
       opacity: 0.7;
@@ -135,9 +141,12 @@
         top: -12px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--bg-color, #fff); /* 尝试使用变量，如果没有定义则回退到白色 */
+        background-color: var(
+          --bg-color,
+          #fff
+        ); /* 尝试使用变量，如果没有定义则回退到白色 */
         padding: 0 10px;
-        color: #FF2D92;
+        color: #ff2d92;
         font-size: 18px;
         line-height: 1;
       }
@@ -167,7 +176,7 @@
   }
 
   .post-related {
-    &>*:first-child {
+    & > *:first-child {
       @include relative-font-size(1.425);
       color: #333;
       margin-bottom: 14px;
@@ -192,7 +201,7 @@
         }
 
         &:after {
-          content: 'NEW';
+          content: "NEW";
           position: absolute;
           margin-left: 8px;
           margin-top: 3px;
@@ -215,7 +224,6 @@
 .post-comments {
   padding-top: 25px;
 }
-
 
 /**
  * Posts misc
@@ -245,7 +253,7 @@
   }
 
   .previous:before {
-    content: ' ';
+    content: " ";
     border: solid #787878;
     border-width: 0 2px 2px 0;
     display: inline-block;
@@ -257,7 +265,7 @@
   }
 
   .next:after {
-    content: ' ';
+    content: " ";
     border: solid #787878;
     border-width: 0 2px 2px 0;
     display: inline-block;

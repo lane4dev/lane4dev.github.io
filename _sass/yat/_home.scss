@@ -22,7 +22,7 @@
   h2.ttl {
     margin-bottom: 40px;
     text-align: center;
-    line-height: 1.0;
+    line-height: 1;
     font-weight: 100;
     font-size: 40px;
     letter-spacing: 0.05em;
@@ -31,7 +31,7 @@
   h3.ttl {
     margin-bottom: 12px;
     text-align: center;
-    line-height: 1.0;
+    line-height: 1;
     font-size: 22px;
     // color: $text-color;
   }
@@ -39,7 +39,7 @@
   p.ttl {
     margin-bottom: 20px;
     text-align: center;
-    line-height: 1.0;
+    line-height: 1;
     font-weight: 400;
     font-size: 15px;
     letter-spacing: 0.1em;
@@ -106,9 +106,9 @@
     padding: 40px;
     text-align: center;
     display: flex;
-    align-items : center;
+    align-items: center;
     grid-row: 1 / span 2;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
 
     .blog-content {
       vertical-align: middle;
@@ -130,32 +130,32 @@
     .blog-link {
       display: block;
       text-decoration: none;
-      -webkit-transition: .4s cubic-bezier(.77,0,.175,1);
-      transition: .4s cubic-bezier(.77,0,.175,1);
+      -webkit-transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+      transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     }
 
     .blog-content {
-      -webkit-transition: .4s cubic-bezier(.77,0,.175,1);
-      transition: .4s cubic-bezier(.77,0,.175,1);
+      -webkit-transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+      transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
       position: relative;
       overflow: hidden;
       margin-top: 10px;
     }
 
     .blog-content__headline {
-      margin: 0 0 .2em;
+      margin: 0 0 0.2em;
     }
 
     .blog-content__tag {
-      margin: 0 0 .2em;
+      margin: 0 0 0.2em;
     }
 
     .blog-content__read-more {
       color: #87c6bd;
 
       opacity: 0;
-      -webkit-transition: .4s cubic-bezier(.77,0,.175,1);
-      transition: .4s cubic-bezier(.77,0,.175,1);
+      -webkit-transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+      transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
 
       @include media-query($on-laptop) {
         opacity: 1;

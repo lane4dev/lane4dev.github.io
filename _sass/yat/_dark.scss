@@ -1,10 +1,10 @@
-$dark-background-color:       #2d2e2f !default;
+$dark-background-color: #2d2e2f !default;
 $dark-text-color: #bbb !default;
 
-html[data-theme="dark"]  {
+html[data-theme="dark"] {
   color-scheme: dark;
 
-  &[data-scroll-status='top'] {
+  &[data-scroll-status="top"] {
     header.site-header-transparent {
       &.site-header {
         .header-menu__button-icon {
@@ -59,13 +59,16 @@ html[data-theme="dark"]  {
 
   .site-header {
     background-color: #313233;
-    --animation-waiting-time: .5s;
-    --animation-delay-multiplier: .07s;
-    transition: background-color 0.3s linear,transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+    --animation-waiting-time: 0.5s;
+    --animation-delay-multiplier: 0.07s;
+    transition:
+      background-color 0.3s linear,
+      transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
 
     .site-brand {
       .site-brand-inner {
-        &, &:visited {
+        &,
+        &:visited {
           color: #f8f8f8;
         }
       }
@@ -93,13 +96,14 @@ html[data-theme="dark"]  {
       box-shadow: 0 0 3px 1px #0000005b;
     }
 
-    .ct-language-selected, .ct-language-dropdown li:hover {
+    .ct-language-selected,
+    .ct-language-dropdown li:hover {
       background-color: #222 !important;
     }
 
     @include media-query($on-laptop) {
       .menu-icon > svg {
-          fill: rgba($dark-text-color, 80%);
+        fill: rgba($dark-text-color, 80%);
       }
 
       .site-nav input:checked ~ .trigger {
@@ -206,7 +210,10 @@ html[data-theme="dark"]  {
       color: #ccc; /* Lighter excerpt color */
 
       .read_more a {
-        color: lighten($brand-color, 15%); /* Lighter brand color for read more */
+        color: lighten(
+          $brand-color,
+          15%
+        ); /* Lighter brand color for read more */
       }
     }
 
@@ -216,7 +223,7 @@ html[data-theme="dark"]  {
         color: #e5e7eb; /* Lighter tag text */
 
         a {
-            color: inherit;
+          color: inherit;
         }
 
         &:hover {
@@ -236,7 +243,7 @@ html[data-theme="dark"]  {
       }
     }
   }
-  
+
   .left-vsplit:before {
     background-color: #9a9a9a; /* Ensure consistency with other left-vsplit in dark mode */
   }
@@ -257,7 +264,11 @@ html[data-theme="dark"]  {
   }
 
   .post .post-content {
-    h2, h3, h4, h5, h6 {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       color: $dark-text-color;
     }
 
@@ -334,13 +345,13 @@ html[data-theme="dark"]  {
       }
     }
   }
-  
+
   /* About Page Dark Mode Overrides */
   .about {
     .about-tech-stack li,
     .about-tech-interests li {
       background-color: transparent; /* 保持透明 */
-      
+
       &:hover {
         background-color: rgba(255, 255, 255, 0.05); /* 极淡的白色背景 */
         box-shadow: none;
@@ -357,8 +368,8 @@ html[data-theme="dark"]  {
     }
 
     &:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-        border-color: #666;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: #666;
     }
   }
 

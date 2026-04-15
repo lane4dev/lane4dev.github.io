@@ -8,20 +8,25 @@ html {
     }
   }
 
-  &[data-scroll-status='top'] {
+  &[data-scroll-status="top"] {
     header.site-header-transparent {
       height: 0;
       // margin-top: 12px;
       background-color: transparent;
-      transition: 0.1s height,background-color,box-shadow;
+      transition:
+        0.1s height,
+        background-color,
+        box-shadow;
 
       &.site-header {
-        .site-brand-inner, .page-link {
+        .site-brand-inner,
+        .page-link {
           color: #fff;
           transition: 0.1s color;
         }
 
-        .header__inner, .page-link {
+        .header__inner,
+        .page-link {
           color: #fff;
           transition: 0.1s color;
 
@@ -45,7 +50,7 @@ html {
     }
   }
 
-  &[data-scroll-status='down'] {
+  &[data-scroll-status="down"] {
     header.site-header {
       // top: -$header-height;
       transform: translateY(-$header-height);
@@ -119,7 +124,7 @@ html {
 .page-link__icon {
   height: 24px;
   margin-left: 8px;
-  transition: transform .3s linear;
+  transition: transform 0.3s linear;
   width: 24px;
 }
 
@@ -128,10 +133,12 @@ html {
   height: $header-height;
   width: 100%;
   // transition: height 0.2s, text-shadow 0.2s, top 0.2s;
-  --animation-waiting-time: .5s;
-  --animation-delay-multiplier: .07s;
-  transition: background-color 0.3s linear,transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
-  box-shadow: 0 1px 0 0 rgba(0, 0, 0, .06);
+  --animation-waiting-time: 0.5s;
+  --animation-delay-multiplier: 0.07s;
+  transition:
+    background-color 0.3s linear,
+    transform 0.3s cubic-bezier(0.35, 0, 0.25, 1);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.06);
 
   // Positioning context for the mobile navigation icon
   // @include flex-sticky(0);
@@ -223,7 +230,9 @@ html {
   right: 0;
   top: $header-height;
   transform: translateX(100%);
-  transition: transform .2s ease-in-out, visibility .2s ease-in-out;
+  transition:
+    transform 0.2s ease-in-out,
+    visibility 0.2s ease-in-out;
   visibility: hidden;
   width: 100%;
   z-index: 20;

@@ -49,7 +49,7 @@ div#google_translate_element {
     font-size: 0;
   }
 
-  div[id=':0.targetLanguage'] {
+  div[id=":0.targetLanguage"] {
     display: inline;
   }
 
@@ -109,7 +109,6 @@ body {
 
 /* OVERRIDE GOOGLE TRANSLATE WIDGET CSS END */
 
-
 // Main look
 
 .ct-language-selected {
@@ -144,7 +143,7 @@ body {
     }
 
     &:not(:last-child) {
-      border-bottom: 1px solid rgba(0, 0, 0, .04);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     }
 
     a {
@@ -184,7 +183,7 @@ body {
       margin-top: 8px;
       max-height: 10000px;
       visibility: visible;
-      box-shadow: 0 0 9px 3px rgba(0, 0, 0, .06);
+      box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.06);
     }
   }
 

@@ -2,20 +2,31 @@
 
 // Define defaults for each variable.
 
-$base-font-family: 'Inter', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$base-font-family:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "PingFang SC",
+  "Hiragino Sans GB",
+  "Microsoft YaHei",
+  "WenQuanYi Micro Hei",
+  "Helvetica Neue",
+  Helvetica,
+  Arial,
+  sans-serif !default;
 $base-font-size: 16px !default;
 $base-font-weight: 400 !default;
-$small-font-size:  $base-font-size * 0.875 !default;
+$small-font-size: $base-font-size * 0.875 !default;
 $base-line-height: 1.8 !default;
 
-$spacing-unit:     16px !default;
+$spacing-unit: 16px !default;
 
-$text-color:       #454545 !default;
+$text-color: #454545 !default;
 $background-color: #fff !default;
 
-$grey-color:       #828282 !default;
+$grey-color: #828282 !default;
 $grey-color-light: lighten($grey-color, 40%) !default;
-$grey-color-dark:  darken($grey-color, 25%) !default;
+$grey-color-dark: darken($grey-color, 25%) !default;
 
 $white-color: #fdfdfd !default;
 
@@ -31,7 +42,7 @@ $footer-background-color: darken($theme-color, 5%) !default;
 
 $banner-height: 640px !default;
 $banner-text-color: lighten($white-color, 0%) !default;
-$banner-background: rgba(0,0,0,0.8) !default;
+$banner-background: rgba(0, 0, 0, 0.8) !default;
 
 // Default card shadows for a modern look
 $card-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05) !default;
@@ -40,8 +51,8 @@ $card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.1) !default;
 // Width of the content area
 // $content-width:    920px !default;
 
-$on-palm:          600px !default;
-$on-laptop:        1080px !default;
+$on-palm: 600px !default;
+$on-laptop: 1080px !default;
 
 // Use media queries like this:
 // @include media-query($on-palm) {
@@ -61,20 +72,7 @@ $on-laptop:        1080px !default;
 }
 
 // Import partials.
-@import
-  "yat/base",
-  "yat/layout",
-  "yat/header",
-  "yat/footer",
-  "yat/home",
-  "yat/posts",
-  "yat/archive",
-  "yat/components",
-  "yat/dark",
-  "misc/theme-toggle",
-  "misc/article-menu",
-  "misc/common-list",
-  "misc/google-translate",
-  "misc/gitment",
-  "misc/click-to-top"
-;
+@import "yat/base", "yat/layout", "yat/header", "yat/footer", "yat/home",
+  "yat/posts", "yat/archive", "yat/components", "yat/dark", "misc/theme-toggle",
+  "misc/article-menu", "misc/common-list", "misc/google-translate",
+  "misc/gitment", "misc/click-to-top";

@@ -2,7 +2,7 @@
  * Transparent Footer Animation
  */
 html {
-  &[data-scroll-status='top'] {
+  &[data-scroll-status="top"] {
     footer.site-footer {
       color: unset;
       background-color: transparent;
@@ -18,7 +18,7 @@ html {
  * Site footer
  */
 .site-footer {
-  @include relative-font-size(1.0);
+  @include relative-font-size(1);
   color: $footer-text-color;
   background-color: $footer-background-color;
   text-align: left;
