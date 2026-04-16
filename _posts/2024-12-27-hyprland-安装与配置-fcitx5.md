@@ -2,8 +2,8 @@
 layout: post
 title: "Hyprland 下安装与配置 fcitx5"
 date: 2024-12-27 00:00:00 +0800
-categories: ArchLinux
-tags: ["hyprland", "fcitx5"]
+categories: Infra
+tags: ["Hyprland", "fcitx5", "Linux"]
 comments: true
 ---
 

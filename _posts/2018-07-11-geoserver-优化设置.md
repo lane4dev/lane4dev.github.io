@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Geoserver 优化配置"
+title: "GeoServer 优化配置"
 date: 2018-07-11 10:56:00 +0800
-categories: Code
+categories: Infra
 tags: [GIS]
 comments: true
 ---

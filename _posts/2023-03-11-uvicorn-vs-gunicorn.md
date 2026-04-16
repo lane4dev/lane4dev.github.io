@@ -2,7 +2,7 @@
 layout: post
 title: "Gunicorn 和 Uvicorn 的适用场景选择"
 date: 2023-03-11 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["Python", "Server"]
 comments: true
 ---

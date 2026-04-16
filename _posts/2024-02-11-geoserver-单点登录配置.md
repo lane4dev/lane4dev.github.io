@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Geoserver 单点登录配置"
+title: "GeoServer 单点登录配置"
 date: 2024-02-11 00:00:00 +0800
-categories: Code
+categories: Infra
 tags: ["GeoServer", "Keycloak"]
 comments: true
 ---

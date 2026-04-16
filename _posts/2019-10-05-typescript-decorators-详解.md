@@ -2,8 +2,8 @@
 layout: post
 title: "一篇搞懂 TypeScript 装饰器"
 date: 2019-10-05 20:11:00 +0800
-categories: Code
-tags: [Typescript, Decorator]
+categories: Software
+tags: [TypeScript, Decorator]
 comments: true
 ---
 

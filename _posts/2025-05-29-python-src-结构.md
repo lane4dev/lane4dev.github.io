@@ -2,7 +2,7 @@
 layout: post
 title: "为什么需要在 Python 项目里坚持用 src 目录结构"
 date: 2025-05-11 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["Python", "FastAPI"]
 comments: true
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: Crash Course 学习技巧笔记
 subtitle: 构建一套正确的学习系统
-categories: Notes
+categories: Reading
 tags: [Crash Course, Study Skills]
 ---
 

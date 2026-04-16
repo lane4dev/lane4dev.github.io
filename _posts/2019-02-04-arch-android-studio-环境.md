@@ -2,7 +2,7 @@
 layout: post
 title: "在 Arch Linux 上搭建 Android 开发环境"
 date: 2019-02-04 21:14:00 +0800
-categories: ArchLinux
+categories: Infra
 tags: [Android, Methodology]
 comments: true
 ---

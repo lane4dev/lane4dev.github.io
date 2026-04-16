@@ -1,19 +1,19 @@
 ---
 layout: post
-title: "What's next for AI agentic workflows 总结笔记"
+title: " 总结笔记"
 date: 2024-07-29 00:00:00 +0800
-categories: AI
-tags: ["LLM", "Agent"]
+categories: Reading
+tags: ["LLM", "Agent", "视频笔记"]
 comments: true
 ---
 
 很多人一提起“大模型应用”，脑子里还停留在那种：写一条超级长的 Prompt，按回车，等模型给自己一个“一步到位”的回复。
 
-Andrew Ng 在 Sequoia 的 AI Ascent 演讲里，就是是把这个幻想当场掀掉，
+[Andrew Ng 在 Sequoia 的 AI Ascent 演讲](https://www.youtube.com/watch?v=sal78ACtGTc)里，把这个幻想当场掀翻，
 他反复强调，真正能把模型能力榨干的，不是更大一代的基础模型，而是一整套更像人干活的 agentic workflow：
 先拆解任务，再规划、调用工具、自我反思，甚至让多个 Agent 互相**吵一吵**。
 
-这篇笔记就是围绕这场演讲，整理出一些对我做系统设计、RAG、Agent 编排都很有启发的要点，方便以后翻回来复用。
+这篇笔记围绕这场演讲，整理出一些对我做系统设计、RAG、Agent 编排都很有启发的要点，方便以后翻回来复用。
 
 
 ## 基本信息 & TL;DR

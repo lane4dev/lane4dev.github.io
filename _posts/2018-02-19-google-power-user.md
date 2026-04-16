@@ -2,7 +2,7 @@
 layout: post
 title: "Google 超级用户的指导手册"
 date: 2018-02-19 22:47:00 +0800
-categories: Notes
+categories: Reading
 tags: ["Search", "Google"]
 comments: true
 ---

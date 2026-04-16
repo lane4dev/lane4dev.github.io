@@ -2,7 +2,7 @@
 layout: post
 title: "NetCDF vs Zarr：风速时间序列服务的现实选择"
 date: 2025-08-16 18:14:00 +0800
-categories: GIS
+categories: Software
 tags: ["xarray", "Python"]
 banner:
   image: /assets/images/2025-08/16-000-cover.png

@@ -2,7 +2,7 @@
 layout: post
 title:  "MongoDB Cheat Sheet"
 date:   2017-01-17 12:45:00 +0800
-categories: Code
+categories: Software
 tags: [Database]
 comments: true
 ---

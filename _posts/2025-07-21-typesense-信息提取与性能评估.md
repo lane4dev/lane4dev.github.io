@@ -2,7 +2,7 @@
 layout: post
 title: "Typesense 信息提取与性能评估"
 date: 2025-07-21 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["Typesense", "RAG"]
 comments: true
 ---

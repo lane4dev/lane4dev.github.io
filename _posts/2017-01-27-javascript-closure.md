@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript Closure"
 date: 2017-01-27 10:08:00 +0800
-categories: Code
+categories: Software
 tags: [JavaScript]
 comments: true
 ---

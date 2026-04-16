@@ -2,7 +2,7 @@
 layout: post
 title:  "通过命令行设置 Raspberry Pi 无线上网"
 date:   2017-02-14 14:37:00 +0800
-categories: Hardware
+categories: IoT
 tags: [Raspberry Pi]
 comments: true
 ---

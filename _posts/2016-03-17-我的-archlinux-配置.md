@@ -2,7 +2,7 @@
 layout: post
 title:  "我的 ArchLinux 配置"
 date:   2016-03-17 12:45:00 +0800
-categories: ArchLinux
+categories: Infra
 banner: 
   image: /assets/images/2016-03/archlinux.png
 comments: true

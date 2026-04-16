@@ -2,8 +2,8 @@
 layout: post
 title: "Clean Architecture 在 FastAPI 中的实践指南"
 date: 2024-01-18 18:14:00 +0800
-categories: Code
-tags: [Python, FastAPI]
+categories: Software
+tags: [Python, FastAPI, 架构]
 comments: true
 ---
 

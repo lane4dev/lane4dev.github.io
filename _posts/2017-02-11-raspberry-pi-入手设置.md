@@ -2,7 +2,7 @@
 layout: post
 title: "Raspberry Pi 入手设置"
 date: 2017-02-11 10:21:00 +0800
-categories: Hardware
+categories: IoT
 tags: [Raspberry Pi, Hardware]
 comments: true
 ---

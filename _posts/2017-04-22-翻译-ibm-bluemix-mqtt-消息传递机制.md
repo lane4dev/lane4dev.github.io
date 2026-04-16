@@ -2,7 +2,7 @@
 layout: post
 title:  "IBM Bluemix MQTT 消息传递机制"
 date:   2017-04-22 14:37:00 +0800
-categories: IOT
+categories: IoT
 tags: [MQTT, Bluemix, Translate]
 comments: true
 ---

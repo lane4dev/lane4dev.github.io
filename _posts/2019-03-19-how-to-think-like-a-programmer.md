@@ -2,7 +2,7 @@
 layout: post
 title: "How to Think Like a Programmer 视频笔记"
 date: 2019-03-19 21:14:00 +0800
-categories: Notes
+categories: Reading
 tags: [YouTube, Methodology]
 comments: true
 ---

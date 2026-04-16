@@ -2,14 +2,14 @@
 layout: post
 title: "《Programming as theory building》 读后感"
 date: 2025-10-24 00:00:00 +0800
-categories: Code
+categories: Reading
 tags: ["Notes", "Methodology"]
 banner:
   image: /assets/images/2025-10/24-000-cover.png
 comments: true
 ---
 
-读完《Programming as Theory Building》，我第一反应是想起特德·姜的小说《软件体的生命周期》。
+读完[《Programming as Theory Building》](https://pages.cs.wisc.edu/~remzi/Naur.pdf)，我第一反应是想起特德·姜的小说《软件体的生命周期》。
 
 那篇小说里有一种很特别的感觉：软件不是一次性被**做出来**的，它更像是在陪伴、训练、修补、误解和重新理解中，一点点长成某种生命。它会变化，会偏移，会留下过去的痕迹，也会越来越依赖那些真正理解它的人。
 

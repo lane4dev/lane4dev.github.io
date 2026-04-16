@@ -2,7 +2,7 @@
 layout: post
 title: "SQLite + simple 插件实现中文全文检索"
 date: 2024-06-11 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["SQLite", "全文检索"]
 comments: true
 ---

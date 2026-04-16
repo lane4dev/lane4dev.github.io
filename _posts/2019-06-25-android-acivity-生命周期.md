@@ -2,7 +2,7 @@
 layout: post
 title: "Android Activity 生命周期详解"
 date: 2019-06-25 10:56:00 +0800
-categories: Code
+categories: Software
 tags: [Android]
 comments: true
 ---

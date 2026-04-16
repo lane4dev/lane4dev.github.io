@@ -2,7 +2,7 @@
 layout: post
 title: "Bash getopt 模板备忘"
 date: 2021-10-22 18:14:00 +0800
-categories: Code
+categories: Software
 tags: ["Bash"]
 comments: true
 ---

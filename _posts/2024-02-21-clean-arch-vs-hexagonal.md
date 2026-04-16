@@ -2,7 +2,7 @@
 layout: post
 title: "Clean Architecture 与 Hexagonal 的差异与实践指南"
 date: 2024-02-21 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["Python", "FastAPI"]
 comments: true
 ---

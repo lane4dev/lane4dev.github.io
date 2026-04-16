@@ -2,7 +2,7 @@
 layout: post
 title: "如何让 Ollama 后台 API 常驻"
 date: 2025-06-23 00:00:00 +0800
-categories: AI
+categories: Infra
 tags: ["Ollama"]
 comments: true
 ---

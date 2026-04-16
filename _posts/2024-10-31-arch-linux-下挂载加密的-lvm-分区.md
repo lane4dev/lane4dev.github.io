@@ -2,8 +2,8 @@
 layout: post
 title: "在 Arch Linux 下挂载加密的 LVM 分区"
 date: 2024-10-31 00:00:00 +0800
-categories: ArchLinux
-tags: ["LVM", "磁盘"]
+categories: Infra
+tags: ["LVM", "磁盘", "Linux"]
 comments: true
 ---
 

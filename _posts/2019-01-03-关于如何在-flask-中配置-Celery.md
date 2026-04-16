@@ -2,7 +2,7 @@
 layout: post
 title: "关于如何在 Flask 中配置 Celery"
 date: 2019-01-03 21:14:00 +0800
-categories: Code
+categories: Software
 tags: [Python, Flask]
 comments: true
 ---

@@ -2,8 +2,8 @@
 layout: post
 title: "在 Nextcloud 中安装和配置 OnlyOffice"
 date: 2024-04-30 00:00:00 +0800
-categories: Code
-tags: ["NextCloud", "OnlyOffice"]
+categories: Infra
+tags: ["Nextcloud", "OnlyOffice"]
 comments: true
 ---
 

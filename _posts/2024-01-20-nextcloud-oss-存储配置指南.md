@@ -2,8 +2,8 @@
 layout: post
 title: "Nextcloud OSS 存储配置指南"
 date: 2024-01-20 00:00:00 +0800
-categories: Code
-tags: ["NextCloud", "OSS"]
+categories: Software
+tags: ["Nextcloud", "OSS"]
 comments: true
 ---
 

@@ -2,7 +2,7 @@
 layout: post
 title: "VSCode 配置 Kotlin 开发环境"
 date: 2020-09-18 18:14:00 +0800
-categories: Code
+categories: Software
 tags: [VSCode, Kotlin]
 comments: true
 ---

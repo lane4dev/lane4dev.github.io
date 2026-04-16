@@ -2,7 +2,7 @@
 layout: post
 title: "How To Design A Good API and Why it Matters 视频笔记"
 date: 2018-02-06 19:03:00 +0800
-categories: Code
+categories: Reading
 tags: ["API", "Notes"]
 comments: true
 ---

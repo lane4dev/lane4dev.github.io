@@ -2,8 +2,8 @@
 layout: post
 title: "Life Designing 视频笔记"
 date: 2024-05-23 18:14:00 +0800
-categories: Notes
-tags: ["日常"]
+categories: Reading
+tags: ["视频笔记"]
 banner:
   image: /assets/images/2024-05/23-000-cover.png
 comments: true

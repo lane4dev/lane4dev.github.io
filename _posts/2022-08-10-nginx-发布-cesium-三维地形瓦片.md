@@ -2,7 +2,7 @@
 layout: post
 title: "在 Nginx 里发布 Cesium 三维地形瓦片"
 date: 2022-08-10 18:14:00 +0800
-categories: Code
+categories: Infra
 tags: ["Nginx", "Cesium"]
 comments: true
 ---

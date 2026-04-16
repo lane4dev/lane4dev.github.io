@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Geoserver 跨域设置"
+title: "GeoServer 跨域设置"
 date: 2018-07-01 09:56:00 +0800
-categories: Code
+categories: Infra
 tags: [Network]
 comments: true
 ---

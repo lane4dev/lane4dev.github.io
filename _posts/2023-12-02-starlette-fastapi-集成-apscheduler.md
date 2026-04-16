@@ -2,7 +2,7 @@
 layout: post
 title: "在 Starlette / FastAPI 集成 APScheduler"
 date: 2023-12-02 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["Python", "APScheduler"]
 comments: true
 ---

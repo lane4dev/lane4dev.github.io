@@ -2,7 +2,7 @@
 layout: post
 title: "再谈 FastAPI 架构落地：从 Dispatch 学来的几件事"
 date: 2024-03-27 00:00:00 +0800
-categories: Code
+categories: Software
 tags: ["Python", "FastAPI"]
 comments: true
 ---

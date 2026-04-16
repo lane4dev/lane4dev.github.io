@@ -2,7 +2,7 @@
 layout: post
 title:  "连接 Raspberry Pi 到 Bluemix IOT 服务"
 date:   2017-03-20 14:37:00 +0800
-categories: IOT
+categories: IoT
 tags: [Raspberry Pi, Bluemix]
 comments: true
 ---

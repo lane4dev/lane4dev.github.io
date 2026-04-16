@@ -2,7 +2,7 @@
 layout: post
 title: "JavaScript callbacks"
 date: 2017-02-04 13:15:00 +0800
-categories: Code
+categories: Software
 tags: [JavaScript]
 comments: true
 ---

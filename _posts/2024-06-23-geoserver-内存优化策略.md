@@ -2,7 +2,7 @@
 layout: post
 title: "GeoServer 内存优化策略"
 date: 2024-06-23 00:00:00 +0800
-categories: GIS
+categories: Infra
 tags: ["GeoServer", "优化"]
 comments: true
 ---

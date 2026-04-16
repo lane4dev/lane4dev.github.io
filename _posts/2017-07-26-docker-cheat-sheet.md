@@ -2,7 +2,7 @@
 layout: post
 title:  " Docker Cheat Sheet"
 date:   2017-07-26 09:00:00 +0800
-categories: Code
+categories: Infra
 tags: [Docker]
 banner:
   image: /assets/images/2017-07/docker.png

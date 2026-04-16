@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "在 Nextcloud 中配置 ElasticSearch 全文检索"
+title: "在 Nextcloud 中配置 Elasticsearch 全文检索"
 date: 2024-05-06 00:00:00 +0800
-categories: Code
-tags: ["NextCloud", "ElasticSearch"]
+categories: Infra
+tags: ["Nextcloud", "Elasticsearch"]
 comments: true
 ---
 
-本文记录如何在 Docker 环境下，为 Nextcloud 配置 ElasticSearch，并通过 Full Text Search 系列应用实现文件内容检索，包括：
+本文记录如何在 Docker 环境下，为 Nextcloud 配置 Elasticsearch，并通过 Full Text Search 系列应用实现文件内容检索，包括：
 
-- 使用 `docker-compose` 启动 ElasticSearch 服务
+- 使用 `docker-compose` 启动 Elasticsearch 服务
 - 安装 `ingest-attachment` 与 `analysis-ik` 插件
 - 在 Nextcloud 中启用全文检索相关应用
 - 使用 `occ` 建立索引
@@ -20,19 +20,19 @@ comments: true
 
 Nextcloud 自带的搜索更偏向**文件名、标签**层面。要想实现**文件内容级别**的全文检索，需要借助：
 
-- **ElasticSearch**：负责存储索引、响应搜索请求
-- **Full Text Search 系列应用**：负责把 Nextcloud 的文件信息推送到 ElasticSearch，并提供 UI 搜索入口
+- **Elasticsearch**：负责存储索引、响应搜索请求
+- **Full Text Search 系列应用**：负责把 Nextcloud 的文件信息推送到 Elasticsearch，并提供 UI 搜索入口
 
 流程可以简单理解为：
 
-Nextcloud 文件 → Full Text Search → ElasticSearch 建索引 → Nextcloud 发起搜索 → ElasticSearch 返回结果
+Nextcloud 文件 → Full Text Search → Elasticsearch 建索引 → Nextcloud 发起搜索 → Elasticsearch 返回结果
 
 下面按步骤展开。
 
 
-## 通过 docker-compose 启动 ElasticSearch
+## 通过 docker-compose 启动 Elasticsearch
 
-在现有的 `docker-compose.yml` 中添加 ElasticSearch 服务，例如：
+在现有的 `docker-compose.yml` 中添加 Elasticsearch 服务，例如：
 
 ```yaml
 elastic_search:
@@ -48,7 +48,7 @@ elastic_search:
 参数说明：
 
 - `discovery.type=single-node`：单节点模式，适合个人或小型部署。
-- `ES_JAVA_OPTS`：限制 ElasticSearch JVM 的内存占用，根据实际机器内存酌情调整。
+- `ES_JAVA_OPTS`：限制 Elasticsearch JVM 的内存占用，根据实际机器内存酌情调整。
 - `elasticsearch` 卷用于持久化数据，避免容器重启后索引丢失。
 
 修改完成后，重新启动相关服务：
@@ -60,7 +60,7 @@ docker compose up -d elastic_search
 确认容器正常运行后再进行下一步。
 
 
-## 安装 ElasticSearch 插件
+## 安装 Elasticsearch 插件
 
 为了支持：
 
@@ -68,15 +68,15 @@ docker compose up -d elastic_search
 
 - **中文分词**
 
-需要为 ElasticSearch 安装以下插件：
+需要为 Elasticsearch 安装以下插件：
 
 1. `ingest-attachment`：用于解析附件内容（通过 Tika）。
 2. `analysis-ik`：提供中文分词能力（IK 分词器）。
 
-在 ElasticSearch 容器中执行：
+在 Elasticsearch 容器中执行：
 
 ```bash
-# 进入 ElasticSearch 容器（示例名自行替换）
+# 进入 Elasticsearch 容器（示例名自行替换）
 docker exec -it elastic_search bash
 
 # 安装附件解析插件
@@ -87,14 +87,14 @@ elasticsearch-plugin install \
   https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.17.6/elasticsearch-analysis-ik-7.17.6.zip
 ```
 
-安装完两个插件后，重启 ElasticSearch 容器：
+安装完两个插件后，重启 Elasticsearch 容器：
 
 ```bash
 exit
 docker restart elastic_search
 ```
 
-提示：插件版本必须与 ElasticSearch 版本对应，升级 ES 前先确认插件是否有对应版本。
+提示：插件版本必须与 Elasticsearch 版本对应，升级 ES 前先确认插件是否有对应版本。
 
 
 ## 在 Nextcloud 中启用 Full Text Search 相关应用
@@ -109,15 +109,15 @@ docker restart elastic_search
    - **Full text search – Elasticsearch Platform**
    - **Full text search – Files**
 
-3. 安装完成后，在 Nextcloud 的设置中，检查 Full Text Search 的配置是否指向你的 ElasticSearch 服务（地址、端口等，根据自己的部署填写）。
+3. 安装完成后，在 Nextcloud 的设置中，检查 Full Text Search 的配置是否指向你的 Elasticsearch 服务（地址、端口等，根据自己的部署填写）。
 
 这一步的目标是：
-让 Nextcloud 知道**全文检索由谁来做**，并建立与 ElasticSearch 的连接。
+让 Nextcloud 知道**全文检索由谁来做**，并建立与 Elasticsearch 的连接。
 
 
 ## 使用 occ 建立全文索引
 
-应用安装好之后，需要让 Nextcloud 把现有文件喂给 ElasticSearch，建立初始索引。
+应用安装好之后，需要让 Nextcloud 把现有文件喂给 Elasticsearch，建立初始索引。
 
 在运行 Nextcloud 的应用容器中执行 `occ` 命令，例如：
 
@@ -206,8 +206,8 @@ docker exec -u www-data next_cloud-app-1 \
 
 ## 参考资料
 
-- Docker + NextCloud + OnlyOffice + ElasticSearch 搭建示例（CSDN）：
+- Docker + Nextcloud + OnlyOffice + Elasticsearch 搭建示例（CSDN）：
   [https://blog.csdn.net/qq_32014795/article/details/121612093](https://blog.csdn.net/qq_32014795/article/details/121612093)
 
-- Nextcloud + ElasticSearch Full Text Search 详细教程：
+- Nextcloud + Elasticsearch Full Text Search 详细教程：
   [https://fariszr.com/en/nextcloud-fulltextsearch-elasticsearch-docker-setup/](https://fariszr.com/en/nextcloud-fulltextsearch-elasticsearch-docker-setup/)
