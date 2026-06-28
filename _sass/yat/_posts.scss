@@ -173,6 +173,18 @@
         color: #666;
       }
     }
+
+    .mermaid--narrow {
+      width: 32rem;
+      max-width: 100%;
+      margin: 1.5rem auto;
+    }
+
+    .mermaid--narrow svg {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+    }
   }
 
   .post-related {
